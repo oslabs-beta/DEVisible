@@ -1,8 +1,33 @@
+.container {
+    width: 100%;
+    height: 90%;
+    display: grid;
+}
+
 .formBox {
     width: 25%;
-    height: 50%;
-    background-color: orange;
+    height: 70%;
     display: grid;
+    grid-template-rows: 2fr 5fr 1fr;
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19);
+}
+
+.logoContainer {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.logo {
+    width: 80%;
+    height: 80%;
+    align-self: center;
+    justify-self: center;
 }
 
 .registerForm {
@@ -10,9 +35,9 @@
     justify-self: center;
     align-self: center;
     flex-direction: column;
-    height: 70%;
+    height: 100%;
     width: 70%;
-    padding: 5%;
+    padding: 3%;
     gap: 20px;
 }
 
@@ -23,19 +48,45 @@
     align-items: center;
     justify-content: center;
 }
+
 #registerBtn {
-    height: 100%;
-    width: 100%;
+    height: 55%;
+    width: 120%;
+    justify-self: center;
 }
 
 .loginRedirect {
     display: flex;
     justify-content: center;
-    font-size: 14px;
+    align-items: center;
+    font-size: 15px;
+    margin-bottom: 8%;
     gap: 5px;
 }
 
+.loginRedirect a {
+    font-weight: 700;
+    cursor: hover;
+    color: #2D3142;
+}
+
+.loginRedirect a:hover {
+    filter: brightness(150%)
+}
+
 .error {
-    height: 5%;
-    width: 100%;
+    display: grid;
+    position: absolute;
+    height: 10%;
+    width: 25%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    align-items: center;
 }

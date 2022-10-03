@@ -14,3 +14,33 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.navbar-icon {
+  /* width: 150px; */
+  height: 100px;
+  margin-top: -20px;
+  margin-bottom: -30px;
+}
+.dashboard-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+.repo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.repo-item:hover {
+  transform: scale(1.1,1.1);
+
+}
+.repo-details {
+width: 75%;
+height: 50%
+}
