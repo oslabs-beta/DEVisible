@@ -3,22 +3,24 @@ import { PrismaClient } from '@prisma/client';
 import path from 'path';
 
 const prisma = new PrismaClient();
-const app: Application = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // TODO require routers
-const apiRouter = require('./routes/api');
+const userApiRouter = require('./routes/userApi');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.resolve(__dirname, '../frontend')));
+app.use(express.static(path.resolve(__dirname, '../frontend/dist/assets')));
 
 // TODO route handlers
-app.use('/api', apiRouter);
+app.use('/userAPI', userApiRouter);
 
 app.get('/', (req, res): void => {
-  res.status(200).sendFile(path.resolve(__dirname, '../frontend/index.html'));
+  res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '../frontend/dist/index.html'));
 });
 
 // TODO get requests for reactrouter routes
@@ -30,12 +32,11 @@ app.use('*', (req: Request, res: Response) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
     log: 'GLOBAL ERROR HANDLER: caught unknown middleware error',
-    status: 400,
+    status: 500,
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  // console.log(errorObj.log); // -> this was the original
-  console.log(errorObj);
+  if (errorObj.log) console.log(errorObj);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
