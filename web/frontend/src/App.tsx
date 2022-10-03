@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
-import './stylesheets/App.css'
-import Login from './components/login'
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import './stylesheets/App.css';
+import Register from './components/register';
+import Login from './components/login';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,7 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<Register />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   )

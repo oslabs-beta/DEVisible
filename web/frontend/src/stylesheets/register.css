@@ -1,0 +1,41 @@
+.formBox {
+    width: 25%;
+    height: 50%;
+    background-color: orange;
+    display: grid;
+}
+
+.registerForm {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    flex-direction: column;
+    height: 70%;
+    width: 70%;
+    padding: 5%;
+    gap: 20px;
+}
+
+.buttonContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+#registerBtn {
+    height: 100%;
+    width: 100%;
+}
+
+.loginRedirect {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    gap: 5px;
+}
+
+.error {
+    height: 5%;
+    width: 100%;
+}
