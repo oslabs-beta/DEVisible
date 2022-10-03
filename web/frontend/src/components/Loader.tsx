@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import OrangeD from "../assets/OrangeD.svg";
 import BlueD from "../assets/BlueD.svg";
 import '../stylesheets/loader.css'
