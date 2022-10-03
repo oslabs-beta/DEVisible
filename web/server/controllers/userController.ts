@@ -1,6 +1,13 @@
 // require model through prisma?
-export const userController = {};
+import express, { Request, Response, NextFunction, Application } from 'express';
+const userController: any = {};
 
-// userController.createUser = (req, res, next) => {};
+userController.createUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log('hi');
+};
 
-// module.exports = userController;
+module.exports = userController;
