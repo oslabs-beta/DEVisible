@@ -1,0 +1,46 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: black;
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+.navbar-icon {
+  /* width: 150px; */
+  height: 100px;
+  margin-top: -20px;
+  margin-bottom: -30px;
+}
+.dashboard-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+.repo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.repo-item:hover {
+  transform: scale(1.1,1.1);
+
+}
+.repo-details {
+width: 75%;
+height: 50%
+}

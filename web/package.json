@@ -9,10 +9,10 @@
     "preview": "vite preview frontend/"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.10.6",
     "@prisma/client": "^4.4.0",
     "dotenv": "^16.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
@@ -28,7 +28,6 @@
     "@vitejs/plugin-react": "^2.1.0",
     "babel-plugin-import": "^1.13.5",
     "concurrently": "^7.4.0",
-    "esbuild-windows-64": "^0.15.10",
     "eslint": "^8.24.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
