@@ -98,6 +98,7 @@ buildProc.stderr.on('data', (data) => {
 
 buildProc.on('close', (code) => {
   console.log(`build completed with code ${code}`);
+  if (code !== 0) throw new Error('Build failed! Aborting data gathering...');
   const buildTime = Date.now() - start;
   console.log(`Build time: ${buildTime}ms`);
   sendData(buildTime);
