@@ -69,13 +69,14 @@ function formatBytes(bytes: number, decimals = 2) {
 
 const sendData = async (buildTime: number) => {
   // getFolderSize(buildPath, (err, size) => console.log(size));
-  await calculateBuildSize();
+  const buildSize = await calculateBuildSize();
 
   async function calculateBuildSize() {
     const getFolderSize = promisify(fastFolderSize);
     try {
       const size = await getFolderSize(buildPath);
-      console.log(formatBytes(size!));
+      console.log('Build size: ' + formatBytes(size!));
+      return size;
     } catch (err) {
       console.error('Error reading build directory: ' + err);
     }
