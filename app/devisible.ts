@@ -28,15 +28,22 @@ const art = `
 interface Arguments {
   apiKey: string;
   buildPath: string;
+  command: string;
   url?: string;
   help?: boolean;
 }
 
-const { apiKey, url, buildPath } = parse<Arguments>(
+const { apiKey, url, buildPath, command } = parse<Arguments>(
   {
-    apiKey: { type: String },
-    url: { type: String, optional: true, defaultValue: 'localhost' },
-    buildPath: String,
+    apiKey: { type: String, alias: 'k' },
+    url: {
+      type: String,
+      alias: 'u',
+      optional: true,
+      defaultValue: 'localhost',
+    },
+    buildPath: { type: String, alias: 'p' },
+    command: { type: String, alias: 'c' },
     help: {
       type: Boolean,
       optional: true,
@@ -76,7 +83,9 @@ const sendData = async (buildTime: number) => {
 };
 
 const start = Date.now();
-const buildProc = spawn('node', ['dist/dummy.js']);
+
+const commandArr = command.split(' ');
+const buildProc = spawn(commandArr[0], commandArr.slice(1));
 
 buildProc.stdout.on('data', (data) => {
   console.log(data);
