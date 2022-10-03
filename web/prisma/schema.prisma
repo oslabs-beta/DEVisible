@@ -35,4 +35,5 @@ model Build {
   createdAt DateTime @default(now())
   buildTime Int
   buildSize Int
+  deps      Json?
 }
