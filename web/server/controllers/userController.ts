@@ -111,6 +111,7 @@ const userController: UserController = {
     }
 
     const verified = jwt.verify(token, JWT_SECRET as string);
+    res.locals.jwt = verified;
     return verified
       ? next()
       : next({ status: 403, message: 'Unauthorized request' });

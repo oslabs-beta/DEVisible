@@ -22,7 +22,7 @@ router.post(
 
 //* verifying logged in <= for frontend use
 router.get('/login', userController.verifyJwt, (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json(res.locals.jwt);
 });
 
 export default router;
