@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
+import '../stylesheets/dashboard.css'
 import { Grid, Paper } from "@mui/material";
 import RepoItem from "./RepoItem";
 import Loader from "./Loader";

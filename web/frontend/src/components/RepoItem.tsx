@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { styled } from "@mui/material/styles";
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import RepoItemDetails from "./RepoItemDetails";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -10,10 +10,14 @@ const Item = styled(Paper)(({ theme }) => ({
   margin: "50px",
   height: "250px",
   width: "250px",
+  borderRadius: "20px",
   color: theme.palette.primary.contrastText,
 }));
 const RepoItem = () => {
   const [openRepoModal, setOpenRepoModal] = useState(false);
+  // const handleClickRepo = () => {
+  //   setOpenRepoModal(!open);
+  // }
   const handleOpenRepoModal = () => {
     console.log('click', openRepoModal)
     setOpenRepoModal(true);
@@ -25,8 +29,11 @@ const RepoItem = () => {
   return (
     <>
       <Grid>
-        <Item className="repo-item" onClick={handleOpenRepoModal}>
-          Repo
+        {/* <Item className={openRepoModal ? "repo-item-expanded" : "repo-item-condensed"} onClick={handleClickRepo}> */}
+        <Item className="repo-item-condensed" onClick={handleOpenRepoModal}>
+          <Typography>Build Size: 30 Mb</Typography>
+          <div className='circle-percent'></div>
+          <Typography>Percent Change: 10 %</Typography>
         </Item>
       <RepoItemDetails open={openRepoModal} handleClose={handleCloseRepoModal}/>
       </Grid>

@@ -6,19 +6,26 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Switch
 } from "@mui/material";
-import LineChart from './charts/LineChart'
 
-interface RepoItemDetailsProps {
+const RepoDialog = styled(Dialog)(({ theme }) => ({
+  // backgroundColor: theme.palette.primary.main,
+  // ...theme.typography.body2,
+  // padding: theme.spacing(1),
+  // margin: "50px",
+  // height: "250px",
+  // width: "250px",
+  // color: theme.palette.primary.contrastText,
+}));
+
+interface RepoItemExpandedProps {
   open: boolean;
   handleClose: () => void;
 }
-const RepoItemDetails = ({ open, handleClose }: RepoItemDetailsProps) => {
+const RepoItemExpanded = ({ open, handleClose }: RepoItemExpandedProps) => {
   return (
     <>
-      <Dialog
-        className="chart-modal"
+      <RepoDialog
         open={open}
         // className="repo-details"
         // TransitionComponent={Transition}
@@ -26,16 +33,13 @@ const RepoItemDetails = ({ open, handleClose }: RepoItemDetailsProps) => {
         onClose={handleClose}
       >
         <DialogTitle>{"Insert Name of Repo"}</DialogTitle>
-        <Switch/>
-        <DialogContent>
-        <LineChart/>
-        </DialogContent>
+        <DialogContent>Repo Information Here</DialogContent>
         <DialogActions>
           <Button onClick={()=>handleClose()}>Close</Button>
         </DialogActions>
-      </Dialog>
+      </RepoDialog>
     </>
   );
 };
 
-export default RepoItemDetails;
+export default RepoItemExpanded;
