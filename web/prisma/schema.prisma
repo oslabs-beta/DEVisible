@@ -13,8 +13,9 @@ datasource db {
 model User {
   id           Int     @id @default(autoincrement())
   username     String  @unique
+  email        String  @unique
   passwordHash String
-  APIToken     String
+  APIToken     String  @unique
   depPrefs     String?
   repos        Repo[]
 }
