@@ -6,10 +6,10 @@ const router = express.Router();
 
 //* signup
 router.post('/signup', (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json(res.locals.user);
 });
 
 //* login
-router.post('/signup', (req, res) => {
-  res.sendStatus(200);
+router.post('/login', (req, res) => {
+  res.status(200).json(res.locals.user);
 });
