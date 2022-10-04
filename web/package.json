@@ -9,13 +9,15 @@
     "preview": "vite preview frontend/"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.10.6",
     "@prisma/client": "^4.4.0",
     "cookieparser": "^0.1.0",
     "dotenv": "^16.0.3",
     "esbuild-darwin-arm64": "^0.15.10",
     "jsonwebtoken": "^8.5.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "axios": "^0.27.2"
   },
   "devDependencies": {
     "@emotion/react": "^11.10.4",

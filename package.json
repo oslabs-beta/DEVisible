@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ts-command-line-args": "^2.3.1"
+  }
+}

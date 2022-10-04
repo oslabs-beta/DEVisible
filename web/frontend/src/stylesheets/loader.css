@@ -1,0 +1,30 @@
+.loaderImage {
+  width: 75px;
+  height: 75px;
+}
+
+.spinner {
+  animation-name: rock, spinSlow, spinFast;
+  animation-duration: 1s;
+  animation-iteration-count: infinite 
+}
+
+@keyframes rock {
+  0% {
+      transform: rotate(0deg);
+  }
+  25% {
+      transform: rotate(-45deg);
+  }
+  50% {
+      transform: rotate(45deg);
+  }
+}
+@keyframes spinSlow {
+  50% {
+      transform: rotate(45deg);
+  }
+  100% {
+      transform: rotate(720deg);
+  }
+}

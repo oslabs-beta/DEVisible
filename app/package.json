@@ -10,7 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/git-parse": "^2.1.2",
     "@types/node": "^18.7.23",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "fast-folder-size": "^1.7.1",
+    "gar": "^1.0.4",
+    "git-parse": "^3.0.0",
+    "node-fetch": "^3.2.10"
   }
 }
