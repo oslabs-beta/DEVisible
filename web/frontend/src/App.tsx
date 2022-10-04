@@ -6,16 +6,25 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import { Box } from "@mui/system";
 import Register from './components/Register';
+import Account from './components/Account';
+import Recovery from './components/Recovery';
+import { useState } from "react";
+import React from "react";
 
-function App() {
+function App(): JSX.Element {
+  // state to track whether user has been authenticated or not -> will be prop drilled to child components
+  const [auth, setAuth] = useState<boolean>(false);
+
   return (
     <Box height={"100vh"} bgcolor={"primary.light"}>
-      <Navbar />
       <BrowserRouter>
+      <Navbar auth={auth} setAuth={setAuth}/>
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path="/home" element={<Dashboard />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/recovery" element={<Recovery />} />
         </Routes>
       </BrowserRouter>
     </Box>
