@@ -48,7 +48,7 @@ height: 50%
 .line-chart {
   width: 100vw
 }
-.chart-modal {
+.chart-title {
   display: flex;
   justify-content: center;
   align-items: center;

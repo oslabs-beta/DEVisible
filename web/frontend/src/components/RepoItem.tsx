@@ -11,6 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
   height: "250px",
   width: "250px",
   borderRadius: "20px",
+    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 15px 0 rgba(0,0,0.19)',
   color: theme.palette.primary.contrastText,
 }));
 const RepoItem = () => {
