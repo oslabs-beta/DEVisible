@@ -25,4 +25,14 @@ router.get('/login', userController.verifyJwt, (req, res) => {
   res.status(200).json(res.locals.jwt);
 });
 
+//* get API Token
+router.get(
+  '/getToken',
+  userController.verifyJwt,
+  userController.getToken,
+  (req, res) => {
+    res.status(200).json(res.locals.API);
+  }
+);
+
 export default router;
