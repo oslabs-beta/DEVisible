@@ -91,6 +91,20 @@ const sendData = async (buildTime: number) => {
   const buildSize = await calculateBuildSize();
   const { name, dependencies } = await parsePackageJson();
   const { hash } = await parseGitRepo();
+  console.log(
+    JSON.stringify(
+      {
+        apiKey,
+        buildTime,
+        buildSize,
+        dependencies,
+        name,
+        lastCommitHash: hash,
+      },
+      null,
+      2
+    )
+  );
 
   const res = await fetch(`${url}/app`, {
     method: 'POST',
