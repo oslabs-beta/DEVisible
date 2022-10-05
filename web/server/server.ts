@@ -20,11 +20,11 @@ app.use(express.static(path.resolve('./frontend/dist/assets')));
 // TODO route handlers
 app.use('/userAPI', userApiRouter);
 
+// TODO get requests for reactrouter routes
+
 app.get('/', (req, res): void => {
   res.status(200).sendFile(path.resolve('./frontend/dist/index.html'));
 });
-
-// TODO get requests for reactrouter routes
 
 app.use('*', (req, res) => {
   return res.status(404).send('The page you are looking for does not exist.');

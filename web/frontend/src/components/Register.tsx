@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
@@ -13,6 +13,7 @@ function Register(): JSX.Element {
   const [email, setEmail] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // conditional rendering that will render a div containing an error message if an error is detected in state. Otherwise, nothing will render
   const errorNotification = !error ? null : (
@@ -25,6 +26,29 @@ function Register(): JSX.Element {
     </Box>
   );
 
+  function signMeUP(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (password !== confirmedPassword) {
+      setError('Error: Passwords do not match. Please try again.');
+    } else {
+      axios
+        .post('/userAPI/signup', {
+          username,
+          email,
+          plainPassword: password,
+        })
+        .then((res) => {
+          // eslint-disable-next-line promise/always-return
+          if (res.status === 200) {
+            navigate('/home');
+          }
+        })
+        .catch((err) => {
+          setError(`status: ${err.response.status} , ${err.response.data}`);
+        });
+    }
+  }
+
   return (
     <>
       {errorNotification}
@@ -35,22 +59,8 @@ function Register(): JSX.Element {
           </div>
           <form
             className="registerForm"
-            onSubmit={(e: React.SyntheticEvent) => {
-              e.preventDefault();
-              if (password !== confirmedPassword) {
-                setError('Error: Passwords do not match. Please try again.');
-              } else {
-                axios
-                  .post('/register', {
-                    username,
-                    email,
-                    password,
-                  })
-                  .then((res) => console.log(res))
-                  .catch((err) => {
-                    setError(err);
-                  });
-              }
+            onSubmit={(e) => {
+              signMeUP(e);
             }}
           >
             <TextField
