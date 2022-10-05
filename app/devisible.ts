@@ -78,8 +78,6 @@ let { apiKey, url, buildPath, command, gitRoot, packageFile } =
     }
   );
 function formatBytes(bytes: number, decimals = 2) {
-  if (!+bytes) return '0 Bytes';
-
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -97,13 +95,14 @@ const sendData = async (buildTime: number) => {
   const res = await fetch(`${url}/app`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
-    body: {
+    body: JSON.stringify({
+      apiKey,
       buildTime,
       buildSize,
       dependencies,
       name,
       lastCommitHash: hash,
-    },
+    }),
   });
   if (res.status === 200 || 201) {
     console.log('Build details have been uploaded to server');
