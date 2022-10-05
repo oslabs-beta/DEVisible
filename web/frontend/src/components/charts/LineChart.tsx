@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +10,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import theme from '../../theme'
+import { BuildInfo } from 'frontend/src/types';
 
 ChartJS.register(
   CategoryScale,
@@ -22,43 +22,69 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
-};
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [1, 2, 3, 4, 5, 2, 6],
-      borderColor: theme.palette.secondary.main,
-      backgroundColor: theme.palette.secondary.main,
+const FormatData = (buildSizeArray: number[], createdAtArray: string[] ) => {
+  const labels: number[] = []; //x-axis
+  const timeStamp: string[] = []; //tooltips
+  const dataPoints: number[] = []; //y-axis
+  createdAtArray.forEach((date, index) => {
+    labels.push(index);
+    timeStamp.push(date)})
+  buildSizeArray.forEach(build => dataPoints.push(build/1000))
+   const chartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: dataPoints,
+        borderColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.secondary.main,
+      },
+    ],
+  };
+  const chartOptions = {
+    scales: {
+      x: {
+        grid: {
+          color: theme.palette.primary.light
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Build Size (mB)"
+        },
+        grid: {
+          color: theme.palette.primary.light
+        }
+      }
     },
-    // {
-    //   label: 'Dataset 2',
-    //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-    //   borderColor: 'rgb(53, 162, 235)',
-    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    // },
-  ],
-};
+    plugins: {
+      tooltip: {
+        //TODO on hover over data point, show date (needs TS support)
+        // callbacks: {
+        //   label: 'hey there'
+        // }
+      },
+      legend: {
+        display: false
+      }
+    }
+  }
+  
+  return {chartData, chartOptions};
+}
 
-const LineChart = () => {
+interface LineChartProps {
+  buildsInfo: BuildInfo[]
+}
+const LineChart = ({buildsInfo}: LineChartProps) => {
+  const buildSizeArray = buildsInfo.map((build: BuildInfo) => build.buildSize)
+  const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt)
+  const {chartData, chartOptions} = FormatData(buildSizeArray, createdAtArray);
   return (
     <div>
-      <Line className='line-chart' data={data} />
+      <Line className='line-chart' data={chartData} options={chartOptions}/>
     </div>
   );
 };
