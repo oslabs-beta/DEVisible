@@ -1,0 +1,54 @@
+.dashboard-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  scroll-behavior: auto;
+}
+.repo-item-container:hover {
+  transform: scale(1.1,1.1);
+
+}
+.repo-item-condensed {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100%;
+}
+.repo-item-title {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+/* only needed if change modal to repoItemExpanded */
+/* .repo-item-expanded {
+   width: 90vw !important;
+   height: 80vh !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;   
+  top: 49%; 
+  left: 46.5%;
+  transform: translate(-50%, -50%); 
+} */
+.repo-details {
+width: 75%;
+height: 50%
+}
+
+.line-chart {
+  width: 100vw
+}
+.chart-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

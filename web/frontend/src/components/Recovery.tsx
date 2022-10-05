@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Recovery = (props) => {
+function Recovery(): JSX.Element {
   return <div>Password Recovery Page</div>;
-};
+}
 
 export default Recovery;

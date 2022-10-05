@@ -49,7 +49,7 @@ function Login() {
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //styles the label
+                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
                 '& .MuiOutlinedInput-root': {
                   '& > fieldset': { borderColor: 'orange' },
                 },
@@ -70,7 +70,7 @@ function Login() {
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //styles the label
+                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
                 '& .MuiOutlinedInput-root': {
                   '& > fieldset': { borderColor: 'orange' },
                 },
@@ -104,7 +104,7 @@ function Login() {
           </form>
           <div className="linkContainer">
             <div className="signupRedirect">
-              <p>Don't have an account yet?</p>
+              <p>Don&apos;t have an account yet?</p>
               <Link to="/" style={{ color: `${theme.palette.secondary.main}` }}>
                 Sign Up
               </Link>
@@ -123,6 +123,6 @@ function Login() {
       </div>
     </>
   );
-};
+}
 
 export default Login;
