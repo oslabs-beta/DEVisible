@@ -19,7 +19,7 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "script",
-    "project": "./web/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "promise", "import", "prettier"],
   "rules": {
