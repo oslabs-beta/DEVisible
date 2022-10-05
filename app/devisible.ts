@@ -1,12 +1,11 @@
-import fs from 'fs';
-import { promisify } from 'util';
-import fetch from 'node-fetch';
 import { spawn } from 'child_process';
-import { parse } from 'ts-command-line-args';
-import yaml from 'js-yaml';
-import { gitToJs } from 'git-parse';
 import fastFolderSize from 'fast-folder-size';
+import fs from 'fs';
+import { gitToJs } from 'git-parse';
+import fetch from 'node-fetch';
 import path from 'path';
+import { parse } from 'ts-command-line-args';
+import { promisify } from 'util';
 
 const art = `
 ██████████████████▓▓▒▒░░░░░░░░░░
@@ -91,11 +90,25 @@ function formatBytes(bytes: number, decimals = 2) {
 }
 
 const sendData = async (buildTime: number) => {
-  // getFolderSize(buildPath, (err, size) => console.log(size));
   const buildSize = await calculateBuildSize();
-  const dependencies = await parsePackageJson();
-  console.log(dependencies);
-  // const gitInfo = await parseGitRepo();
+  const { name, dependencies } = await parsePackageJson();
+  const { hash } = await parseGitRepo();
+
+  const res = await fetch(`${url}/app`, {
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    body: {
+      buildTime,
+      buildSize,
+      dependencies,
+      name,
+      lastCommitHash: hash,
+    },
+  });
+  if (res.status === 200 || 201) {
+    console.log('Build details have been uploaded to server');
+    process.exit(0);
+  }
 };
 
 async function calculateBuildSize() {
@@ -109,23 +122,29 @@ async function calculateBuildSize() {
   }
 }
 
-async function parsePackageJson(): Promise<Dependency[]> {
+async function parsePackageJson(): Promise<{
+  name: string;
+  dependencies: Dependency[];
+}> {
   let file;
   if (!packageFile) packageFile = path.resolve(process.cwd(), './package.json');
   try {
     file = await fs.promises.readFile(packageFile, { encoding: 'utf-8' });
     const packageJson = JSON.parse(file);
-    return Object.entries<string>(packageJson.dependencies)
-      .map(([name, version]) => {
-        return { name, version, isDevDependency: false };
-      })
-      .concat(
-        Object.entries<string>(packageJson.devDependencies).map(
-          ([name, version]) => {
-            return { name, version, isDevDependency: true };
-          }
-        )
-      );
+    return {
+      name: packageJson.name,
+      dependencies: Object.entries<string>(packageJson.dependencies)
+        .map(([name, version]) => {
+          return { name, version, isDevDependency: false };
+        })
+        .concat(
+          Object.entries<string>(packageJson.devDependencies).map(
+            ([name, version]) => {
+              return { name, version, isDevDependency: true };
+            }
+          )
+        ),
+    };
   } catch {
     throw new Error(
       `Error parsing package.json. 
