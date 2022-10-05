@@ -20,7 +20,7 @@ interface RepoItemProps {
   builds: BuildInfo[];
 }
 const percentChange = (current: number, previous: number) => {
-  return (((100 * (current - previous)) / Math.abs(previous)).toFixed(2)) + '%';
+  return `${((100 * (current - previous)) / Math.abs(previous)).toFixed(2)} %`;
 };
 
 function RepoItem({ repoName, builds }: RepoItemProps): JSX.Element {

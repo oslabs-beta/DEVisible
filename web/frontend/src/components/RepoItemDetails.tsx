@@ -36,7 +36,7 @@ function RepoItemDetails({
   return (
     <div>
       <Dialog
-        fullScreen={true}
+        fullScreen
         open={open}
         onClose={handleClose}
         PaperProps={{
