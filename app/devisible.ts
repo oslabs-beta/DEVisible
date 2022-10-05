@@ -32,40 +32,52 @@ interface Arguments {
   buildPath: string;
   command: string;
   gitRoot?: string;
-  lockfile?: string | undefined;
+  packageFile?: string | undefined;
   url?: string;
   help?: boolean;
 }
 
-const { apiKey, url, buildPath, command, gitRoot, lockfile } = parse<Arguments>(
-  {
-    apiKey: { type: String, alias: 'k' },
-    url: {
-      type: String,
-      alias: 'u',
-      optional: true,
-      defaultValue: 'localhost',
+interface Dependency {
+  name: string;
+  version: string;
+  isDevDependency: boolean;
+}
+
+let { apiKey, url, buildPath, command, gitRoot, packageFile } =
+  parse<Arguments>(
+    {
+      apiKey: { type: String, alias: 'k' },
+      url: {
+        type: String,
+        alias: 'u',
+        optional: true,
+        defaultValue: 'localhost',
+      },
+      buildPath: { type: String, alias: 'b' },
+      command: { type: String, alias: 'c' },
+      gitRoot: {
+        type: String,
+        alias: 'g',
+        optional: true,
+        defaultValue: process.cwd(),
+      },
+      packageFile: {
+        type: String,
+        alias: 'p',
+        optional: true,
+        defaultValue: '',
+      },
+      help: {
+        type: Boolean,
+        optional: true,
+        alias: 'h',
+        description: 'Prints this usage guide',
+      },
     },
-    buildPath: { type: String, alias: 'p' },
-    command: { type: String, alias: 'c' },
-    gitRoot: {
-      type: String,
-      alias: 'g',
-      optional: true,
-      defaultValue: process.cwd(),
-    },
-    lockfile: { type: String, alias: 'l', optional: true, defaultValue: '' },
-    help: {
-      type: Boolean,
-      optional: true,
-      alias: 'h',
-      description: 'Prints this usage guide',
-    },
-  },
-  {
-    helpArg: 'help',
-  }
-);
+    {
+      helpArg: 'help',
+    }
+  );
 function formatBytes(bytes: number, decimals = 2) {
   if (!+bytes) return '0 Bytes';
 
@@ -81,7 +93,8 @@ function formatBytes(bytes: number, decimals = 2) {
 const sendData = async (buildTime: number) => {
   // getFolderSize(buildPath, (err, size) => console.log(size));
   const buildSize = await calculateBuildSize();
-  await parseLockfile();
+  const dependencies = await parsePackageJson();
+  console.log(dependencies);
   // const gitInfo = await parseGitRepo();
 };
 
@@ -96,7 +109,30 @@ async function calculateBuildSize() {
   }
 }
 
-async function parsePackageJson() {}
+async function parsePackageJson(): Promise<Dependency[]> {
+  let file;
+  if (!packageFile) packageFile = path.resolve(process.cwd(), './package.json');
+  try {
+    file = await fs.promises.readFile(packageFile, { encoding: 'utf-8' });
+    const packageJson = JSON.parse(file);
+    return Object.entries<string>(packageJson.dependencies)
+      .map(([name, version]) => {
+        return { name, version, isDevDependency: false };
+      })
+      .concat(
+        Object.entries<string>(packageJson.devDependencies).map(
+          ([name, version]) => {
+            return { name, version, isDevDependency: true };
+          }
+        )
+      );
+  } catch {
+    throw new Error(
+      `Error parsing package.json. 
+      If this package is not being called from the project root, please specify it as an argument`
+    );
+  }
+}
 
 // currently only parsing the true package.json
 // if we want to try to parse the various types of lockfile, the skeleton is here
