@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Divider, Grid, Paper, Typography } from '@mui/material';
 import RepoItemDetails from './RepoItemDetails';
@@ -20,10 +20,10 @@ interface RepoItemProps {
   builds: BuildInfo[];
 }
 const percentChange = (current: number, previous: number) => {
-  return ((100 * (current - previous)) / Math.abs(previous)).toFixed(2) + '%';
+  return (((100 * (current - previous)) / Math.abs(previous)).toFixed(2)) + '%';
 };
 
-const RepoItem = ({ repoName, builds }: RepoItemProps) => {
+function RepoItem({ repoName, builds }: RepoItemProps): JSX.Element {
   const [openRepoModal, setOpenRepoModal] = useState(false);
   const mostRecentBuildSize = builds[builds.length - 1].buildSize;
   const buildPercentChange = builds[builds.length - 2]
@@ -39,7 +39,7 @@ const RepoItem = ({ repoName, builds }: RepoItemProps) => {
     setOpenRepoModal(false);
   };
   return (
-    <>
+    <div>
       <Grid>
         <Item className="repo-item-container" onClick={handleOpenRepoModal}>
           <Typography
@@ -66,14 +66,15 @@ const RepoItem = ({ repoName, builds }: RepoItemProps) => {
           </div>
         </Item>
         <RepoItemDetails
+          key={repoName + Math.random().toString()}
           repoName={repoName}
           open={openRepoModal}
           handleClose={handleCloseRepoModal}
           buildsInfo={builds}
         />
       </Grid>
-    </>
+    </div>
   );
-};
+}
 
 export default RepoItem;

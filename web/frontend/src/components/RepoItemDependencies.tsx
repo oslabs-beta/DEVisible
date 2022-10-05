@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   TableContainer,
   Table,
@@ -9,21 +10,25 @@ import {
 interface RepoItemDependenciesProps {
   dependencies: string;
 }
-const RepoItemDependencies = ({ dependencies }: RepoItemDependenciesProps) => {
+function RepoItemDependencies({
+  dependencies,
+}: RepoItemDependenciesProps): JSX.Element {
   const parsedDependencies = JSON.parse(dependencies);
   return (
-    <TableContainer>
-      <Table>
-        <TableBody>
-          {Object.keys(parsedDependencies).map((depRow) => (
-            <TableRow>
-              <TableCell>{depRow}</TableCell>
-              <TableCell>{parsedDependencies[depRow]}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <TableContainer>
+        <Table>
+          <TableBody>
+            {Object.keys(parsedDependencies).map((depRow) => (
+              <TableRow>
+                <TableCell>{depRow}</TableCell>
+                <TableCell>{parsedDependencies[depRow]}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
-};
+}
 export default RepoItemDependencies;

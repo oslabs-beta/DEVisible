@@ -1,37 +1,38 @@
-import express, { Request, Response, NextFunction, Application } from 'express';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import express, { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
+import cookieParser from 'cookie-parser';
+import userApiRouter from './routes/userApi';
 
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // TODO require routers
-const userApiRouter = require('./routes/userApi');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.use(express.static(path.resolve(__dirname, '../frontend/dist/assets')));
+app.use(express.static(path.resolve('./frontend/dist/assets')));
 
 // TODO route handlers
 app.use('/userAPI', userApiRouter);
 
 app.get('/', (req, res): void => {
-  res
-    .status(200)
-    .sendFile(path.resolve(__dirname, '../frontend/dist/index.html'));
+  res.status(200).sendFile(path.resolve('./frontend/dist/index.html'));
 });
 
 // TODO get requests for reactrouter routes
 
-app.use('*', (req: Request, res: Response) => {
+app.use('*', (req, res) => {
   return res.status(404).send('The page you are looking for does not exist.');
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
-    log: 'GLOBAL ERROR HANDLER: caught unknown middleware error',
+    log: `GLOBAL ERROR HANDLER: caught unknown middleware error${err.toString()}`,
     status: 500,
     message: { err: 'An error occurred' },
   };

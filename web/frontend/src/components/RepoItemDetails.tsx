@@ -22,19 +22,19 @@ interface RepoItemDetailsProps {
   handleClose: () => void;
   buildsInfo: BuildInfo[];
 }
-const RepoItemDetails = ({
+function RepoItemDetails({
   repoName,
   open,
   handleClose,
   buildsInfo,
-}: RepoItemDetailsProps) => {
+}: RepoItemDetailsProps): JSX.Element {
   const [dependencyView, setDependencyView] = useState(false);
   const handleSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDependencyView(event.target.checked);
   };
-  const dependencies = buildsInfo[buildsInfo.length - 1].deps; //dependencies of most recent build
+  const dependencies = buildsInfo[buildsInfo.length - 1].deps; // dependencies of most recent build
   return (
-    <>
+    <div>
       <Dialog
         fullScreen={true}
         open={open}
@@ -77,8 +77,8 @@ const RepoItemDetails = ({
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
-};
+}
 
 export default RepoItemDetails;
