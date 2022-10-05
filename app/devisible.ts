@@ -50,7 +50,7 @@ let { apiKey, url, buildPath, command, gitRoot, packageFile } =
         type: String,
         alias: 'u',
         optional: true,
-        defaultValue: 'localhost',
+        defaultValue: 'http://localhost:3000',
       },
       buildPath: { type: String, alias: 'b' },
       command: { type: String, alias: 'c' },
