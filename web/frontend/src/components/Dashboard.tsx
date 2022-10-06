@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid } from '@mui/material';
+import { Navigate } from 'react-router-dom';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import mockData from './mocks/mocks';
+import { User } from '../types';
 
-function Dashboard(): JSX.Element {
+interface Props {
+  user: User | null;
+}
+
+function Dashboard({ user }: Props): JSX.Element {
   const [mockLoading, setMockLoading] = useState(true); //  used for loader testing
   const numOfRepoCards = mockData.repos.length;
   const repoCards = [];
@@ -22,6 +28,7 @@ function Dashboard(): JSX.Element {
     setMockLoading(false);
   };
   setTimeout(handleStopMockLoading, 2000);
+  if (!user) return <Navigate to="/login" />;
   return (
     <div className="dashboard-container">
       {mockLoading ? (

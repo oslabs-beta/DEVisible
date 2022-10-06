@@ -36,7 +36,7 @@ function App(): JSX.Element {
             path="/login"
             element={<Login user={user} setUser={setUser} />}
           />
-          <Route path="/home" element={<Dashboard />} />
+          <Route path="/home" element={<Dashboard user={user} />} />
           <Route path="/account" element={<Account />} />
           <Route path="/recovery" element={<Recovery />} />
         </Routes>
