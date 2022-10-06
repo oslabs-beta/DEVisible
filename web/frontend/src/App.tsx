@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
@@ -12,6 +12,19 @@ import { User } from './types';
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch('/userAPI/login')
+      .then((res) => res.json())
+      .then((responseObj) => {
+        if (responseObj.data) {
+          setUser(responseObj.data);
+        } else {
+          setUser(null);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <Box height="100vh" bgcolor="primary.light">
