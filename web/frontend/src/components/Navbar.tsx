@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { AppBar, Box, Toolbar, Button, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -103,9 +105,15 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
           <Box sx={{ display: 'grid', marginBottom: '10px' }}>
             <img
               className="navbar-icon"
-              style={{ marginLeft: '25px' }}
+              style={{
+                marginLeft: '25px',
+                cursor: user ? 'pointer' : 'default',
+              }}
               src={TransparentOrange}
               alt="DEVisible"
+              onClick={() => {
+                if (user) navigate('/home');
+              }}
             />
           </Box>
           {topRight}
