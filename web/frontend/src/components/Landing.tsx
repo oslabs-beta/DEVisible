@@ -9,11 +9,11 @@ import {
   HowToUse,
   AboutTheTeam,
   Footer,
-} from './landingSubPages/exporter';
+} from './landingSubPages/Exporter';
 
 function Landing() {
   return (
-    <Box id="landingContainer" bgcolor="secondary.light">
+    <Box id="landingContainer" bgcolor="white">
       <GetStarted />
       <Installation />
       <HowToUse />
@@ -22,27 +22,27 @@ function Landing() {
       <div id="sidebar">
         <ul id="sidebarActive">
           <li className="sidebarItem">
-            <Link to="getStarted" spy smooth offset={50} duration={500}>
+            <Link to="getStarted" spy smooth offset={-100} duration={500}>
               Get Started
             </Link>
           </li>
           <li className="sidebarItem">
-            <Link to="installation" spy smooth offset={50} duration={500}>
+            <Link to="installation" spy smooth offset={0} duration={500}>
               Installation
             </Link>
           </li>
           <li className="sidebarItem">
-            <Link to="howToUse" spy smooth offset={50} duration={500}>
+            <Link to="howToUse" spy smooth offset={0} duration={500}>
               How To Use
             </Link>
           </li>
           <li className="sidebarItem">
-            <Link to="aboutTheTeam" spy smooth offset={50} duration={500}>
-              About The Team
+            <Link to="aboutTheTeam" spy smooth offset={0} duration={500}>
+              Meet The Team
             </Link>
           </li>
           <li className="sidebarItem">
-            <Link to="contactUs" spy smooth offset={50} duration={500}>
+            <Link to="contactUs" spy smooth offset={0} duration={500}>
               Contact Us
             </Link>
           </li>

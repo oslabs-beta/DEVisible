@@ -14,7 +14,7 @@ function App(): JSX.Element {
   const [auth, setAuth] = useState<boolean>(false);
 
   return (
-    <Box height="100vh" bgcolor="primary.light">
+    <Box height="100vh" bgcolor="primary.light" width="100vw">
       <BrowserRouter>
         <Navbar auth={auth} setAuth={setAuth} />
         <Routes>

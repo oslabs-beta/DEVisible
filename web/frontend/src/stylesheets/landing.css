@@ -3,7 +3,7 @@
 }
 
 #landingContainer {
-  height: 100%;
+  height: 100% !important;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -11,8 +11,8 @@
 
 #sidebar {
   position: fixed;
-  right: 15%;
-  top: 10%;
+  right: 10%;
+  top: 15%;
 }
 
 .sidebarItem:not(:last-child) {
