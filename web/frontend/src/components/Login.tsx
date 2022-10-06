@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
-import axios from 'axios';
 import '../stylesheets/login.css';
 import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
@@ -44,15 +43,34 @@ function Login({ user, setUser }: Props) {
             className="loginForm"
             onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
-              axios
-                .post('userAPI/login', {
+              // axios
+              //   .post('userAPI/login', {
+              //     username,
+              //     password,
+              //   })
+              //   .then((res) => {
+              //     if (res.status === 200) {
+              //       return res.json();
+              //     }
+              //     throw new Error(res.data);
+              //   })
+              //   .catch((err) => {
+              //     setError(err);
+              //   });
+              fetch('userAPI/login', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({
                   username,
                   password,
+                }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data.user) setUser(data.user);
+                  else setError(data.message);
                 })
-                .then((res) => console.log(res))
-                .catch((err) => {
-                  setError(err);
-                });
+                .catch((err) => console.error(err));
             }}
           >
             <TextField
