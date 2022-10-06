@@ -3,13 +3,14 @@ import { AppBar, Box, Toolbar, Button, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import TransparentOrange from '../assets/Transparent_Orange.svg';
+import { User } from '../types';
 
 interface NavProps {
-  auth: boolean;
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-function Navbar({ auth, setAuth }: NavProps): JSX.Element {
+function Navbar({ user, setUser }: NavProps): JSX.Element {
   //  destructure props that are being passed from App component
   //  local state to track the state of the menu icon when clicked
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -28,14 +29,24 @@ function Navbar({ auth, setAuth }: NavProps): JSX.Element {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     //  change state of Auth held in App component to be false
-    setAuth(true);
-    //  need to do something with JWT here to deauthenticate user?
+    fetch('/login', {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        if (res.status === 204) {
+          setUser(null);
+          navigate('/');
+          return;
+        }
+        throw new Error('Unexpected response from server');
+      })
+      .catch((err) => console.error(err));
   };
 
   //  conditionally render a login link if user is not authenticated, otherwise render the menu button that can be used to traverse the app
-  const topRight = auth ? (
+  const topRight = user ? (
     <Button onClick={() => navigate('/login')} color="inherit">
       Login
     </Button>

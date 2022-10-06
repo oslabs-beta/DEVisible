@@ -25,6 +25,11 @@ router.get('/login', userController.verifyJwt, (req, res) => {
   res.status(200).json(res.locals.jwt);
 });
 
+router.delete('/login', (req, res) => {
+  res.clearCookie('access_token');
+  res.sendStatus(204);
+});
+
 //* get API Token
 router.get(
   '/getToken',
