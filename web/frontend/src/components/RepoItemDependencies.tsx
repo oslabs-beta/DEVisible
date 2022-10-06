@@ -10,10 +10,20 @@ import {
 interface RepoItemDependenciesProps {
   dependencies: string;
 }
+const jsonVerify = (dependencies: string) => {
+  if (!dependencies) return { 'No Dependencies': '' };
+  try {
+    console.log('here');
+    return JSON.parse(dependencies);
+  } catch {
+    console.log('fail');
+    return { 'No Dependencies': '' };
+  }
+};
 function RepoItemDependencies({
   dependencies,
 }: RepoItemDependenciesProps): JSX.Element {
-  const parsedDependencies = JSON.parse(dependencies);
+  const parsedDependencies = jsonVerify(dependencies);
   return (
     <div>
       <TableContainer>

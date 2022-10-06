@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/userAPI': 'http://localhost:3000',
+      '/webAPI': 'http://localhost:3000',
     },
   },
 });

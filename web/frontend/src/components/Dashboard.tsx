@@ -1,34 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid } from '@mui/material';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
-import mockData from './mocks/mocks';
+import { getUserInfoApi } from './api/user';
+import { GetUserInfo } from '../types';
 
 function Dashboard(): JSX.Element {
-  const [mockLoading, setMockLoading] = useState(true); //  used for loader testing
-  const numOfRepoCards = mockData.repos.length;
-  const repoCards = [];
-  for (let i = 0; i < numOfRepoCards; i += 1) {
-    repoCards.push(
-      <RepoItem
-        repoName={mockData.repos[i].name}
-        builds={mockData.repos[i].builds}
-        key={i}
-      />
-    );
-  }
-  const handleStopMockLoading = () => {
-    setMockLoading(false);
-  };
-  setTimeout(handleStopMockLoading, 2000);
+  const [data, setData] = useState<GetUserInfo[]>();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      const response = await getUserInfoApi(10);
+      setData(response);
+      setTimeout(() => setLoading(false), 1000);
+    })();
+  }, []);
   return (
     <div className="dashboard-container">
-      {mockLoading ? (
+      {loading ? (
         <Loader color="orange" />
       ) : (
         <Grid display="flex" justifyContent="center" container spacing={2}>
-          {repoCards}
+          {data?.map((repo: GetUserInfo) => (
+            <RepoItem repoName={repo.name} builds={repo.builds} key={repo.id} />
+          ))}
         </Grid>
       )}
     </div>

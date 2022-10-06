@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-scroll';
-// import theme from '../theme';
 import { Box } from '@mui/material';
 import '../stylesheets/landing.css';
 import {
