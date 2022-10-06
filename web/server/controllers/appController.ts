@@ -39,6 +39,8 @@ const appController: AppController = {
       // eslint-disable-next-line no-restricted-syntax
       for (const repo of userRepos) {
         if (repo.name === repoName) {
+          // create a cookie that will be passed through route redirect and used to get the repoId without having to re-query the database
+          res.cookie('repo', repo, { httpOnly: true });
           return res.redirect(307, '/app/update');
         }
       }
@@ -56,14 +58,8 @@ const appController: AppController = {
   addRepo: async (req, res, next) => {
     try {
       // destructure data from req.body
-      const {
-        buildSize,
-        repoName,
-        buildTime,
-        commitDate,
-        commitHash,
-        dependencies,
-      } = req.body;
+      const { buildSize, repoName, buildTime, commitHash, dependencies } =
+        req.body;
       // create a new repo that corresponds to user with the API token that was passed into post route to '/app'
       // res.locals.uid contains user ID that was obtained from previous DB query in previous middleware function
       const userId = res.locals.uid;
@@ -76,7 +72,6 @@ const appController: AppController = {
             create: [
               {
                 // hard coded, need to wipe database to be able to count properly and avoid conflicts
-                id: 7,
                 createdAt: new Date(),
                 buildTime: Number(buildTime),
                 buildSize: Number(buildSize),
@@ -96,16 +91,22 @@ const appController: AppController = {
     }
   },
   updateRepo: async (req, res, next) => {
+    const { repo } = req.cookies;
+    const repoId = repo.id;
     try {
       // destructure data from req.body
-      const {
-        buildSize,
-        repoName,
-        apiToken,
-        commitDate,
-        commitHash,
-        dependencies,
-      } = req.body;
+      const { buildSize, buildTime, commitHash, dependencies } = req.body;
+      // create a new build that corresponds to repoId
+      const addBuildToRepo = await prisma.build.create({
+        data: {
+          repoId,
+          createdAt: new Date(),
+          buildSize: Number(buildSize),
+          buildTime: Number(buildTime),
+          deps: dependencies,
+        },
+      });
+      res.locals.build = addBuildToRepo;
       return next();
     } catch (error) {
       return next({
