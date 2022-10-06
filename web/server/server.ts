@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userApiRouter from './routes/userApi';
+import appRouter from './routes/appApi';
 
 const prisma = new PrismaClient();
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static(path.resolve('./frontend/dist/assets')));
 
 // TODO route handlers
 app.use('/userAPI', userApiRouter);
+app.use('/app', appRouter);
 
 // TODO get requests for reactrouter routes
 
