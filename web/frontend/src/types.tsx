@@ -6,3 +6,11 @@ export type BuildInfo = {
   buildSize: number;
   deps: string;
 };
+
+export type GetUserInfo = {
+  id: number;
+  name: string;
+  depPrefs: string;
+  builds: BuildInfo[];
+  error?: any;
+};

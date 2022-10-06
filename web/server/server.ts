@@ -4,13 +4,14 @@ import { PrismaClient } from '@prisma/client';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userApiRouter from './routes/userApi';
+import webApiRouter from './routes/webApi';
 
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // TODO require routers
-
+console.log('hello!');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -19,6 +20,7 @@ app.use(express.static(path.resolve('./frontend/dist/assets')));
 
 // TODO route handlers
 app.use('/userAPI', userApiRouter);
+app.use('/webAPI', webApiRouter);
 
 app.get('/', (req, res): void => {
   res.status(200).sendFile(path.resolve('./frontend/dist/index.html'));

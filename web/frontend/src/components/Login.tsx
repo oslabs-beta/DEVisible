@@ -49,12 +49,14 @@ function Login() {
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
+                '& .MuiInputLabel-root': {
+                  color: theme.palette.secondary.main,
+                }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
                   '& > fieldset': { color: 'white' },
@@ -70,15 +72,17 @@ function Login() {
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
+                '& .MuiInputLabel-root': {
+                  color: theme.palette.secondary.main,
+                }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
-                  '& > fieldset': { color: 'orange' },
+                  '& > fieldset': { color: theme.palette.secondary.main },
                 },
               }}
               color="secondary"
