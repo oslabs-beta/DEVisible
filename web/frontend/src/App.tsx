@@ -31,7 +31,10 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} />
         <Routes>
-          <Route path="/" element={<Register user={user} />} />
+          <Route
+            path="/"
+            element={<Register user={user} setUser={setUser} />}
+          />
           <Route
             path="/login"
             element={<Login user={user} setUser={setUser} />}

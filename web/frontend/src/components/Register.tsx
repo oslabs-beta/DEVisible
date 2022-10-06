@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
-import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
@@ -9,9 +8,10 @@ import { User } from '../types';
 
 interface Props {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-function Register({ user }: Props): JSX.Element {
+function Register({ user, setUser }: Props): JSX.Element {
   // state to hold information from all register fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -47,16 +47,22 @@ function Register({ user }: Props): JSX.Element {
               if (password !== confirmedPassword) {
                 setError('Error: Passwords do not match. Please try again.');
               } else {
-                axios
-                  .post('/register', {
+                fetch('userAPI/signup', {
+                  method: 'POST',
+                  headers: { 'Content-type': 'application/json' },
+                  body: JSON.stringify({
                     username,
-                    email,
                     password,
+                    email,
+                  }),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    // enable when backend register route also logs in
+                    if (data.username) null; //setUser(data.username);
+                    else setError(data.message);
                   })
-                  .then((res) => console.log(res))
-                  .catch((err) => {
-                    setError(err);
-                  });
+                  .catch((err) => console.error(err));
               }
             }}
           >

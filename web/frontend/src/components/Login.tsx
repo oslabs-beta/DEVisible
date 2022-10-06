@@ -43,20 +43,6 @@ function Login({ user, setUser }: Props) {
             className="loginForm"
             onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
-              // axios
-              //   .post('userAPI/login', {
-              //     username,
-              //     password,
-              //   })
-              //   .then((res) => {
-              //     if (res.status === 200) {
-              //       return res.json();
-              //     }
-              //     throw new Error(res.data);
-              //   })
-              //   .catch((err) => {
-              //     setError(err);
-              //   });
               fetch('userAPI/login', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
