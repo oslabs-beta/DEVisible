@@ -9,8 +9,6 @@ const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// TODO require routers
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -19,8 +17,6 @@ app.use(express.static(path.resolve('./frontend/dist/assets')));
 
 // TODO route handlers
 app.use('/userAPI', userApiRouter);
-
-// TODO get requests for reactrouter routes
 
 app.get('/', (req, res): void => {
   res.status(200).sendFile(path.resolve('./frontend/dist/index.html'));
