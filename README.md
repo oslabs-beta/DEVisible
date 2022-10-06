@@ -29,3 +29,30 @@ DEVisible is a tool for monitoring metadata related to your Github repositories.
 1. Install the `devisible` package from the NPM Registry:  
 
 `npm install devisible`
+
+2. DEVisible assumes it is being called from the git root and project root, but allows escape hatches if either of those conditions are not the case. In those cases, ensure that the NPM package is pointing to the correct location(s)  
+
+##### If Using Package in CLI
+
+3. Run command to manually collect repo metadata (note: this will not necessarily reflect the data at the time of pushing to Github)
+
+`node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"`
+
+##### If Using Package in CI/CD Pipeline
+
+3. Insert a new command into config.yaml file at the desired location
+
+```jobs:  
+  build:  
+    steps:  
+      - checkout  
+      - run:  
+          name: Lint  
+          command: |  
+            eslint run
+      - run:
+          name: DEVisible
+          command: |
+            node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"```
+
+4. Navigate to www.devisible.com and log in to view your updated repo information
