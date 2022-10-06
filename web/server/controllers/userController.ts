@@ -52,15 +52,15 @@ const decryptAPIToken = (encryptedToken: string): string => {
 const userController: UserController = {
   createUser: async (req, res, next) => {
     try {
-      const { username, plainPassword, email } = req.body;
+      const { username, password, email } = req.body;
 
-      if (!username || !plainPassword || !email) {
+      if (!username || !password || !email) {
         return next({
           log: null,
           message: 'Enter a valid username, email, and/or password',
         });
       }
-      const passwordHash = await bcrypt.hash(plainPassword, 10);
+      const passwordHash = await bcrypt.hash(password, 10);
 
       const APIToken = encryptAPIToken();
 
@@ -85,9 +85,9 @@ const userController: UserController = {
   },
   verifyUser: async (req, res, next) => {
     try {
-      const { username, plainPassword } = req.body;
+      const { username, password } = req.body;
 
-      if (!username || !plainPassword) {
+      if (!username || !password) {
         return next({
           log: null,
           message: 'Please enter a username and/or password',
@@ -101,7 +101,7 @@ const userController: UserController = {
       });
 
       const validPassword = await bcrypt.compare(
-        plainPassword,
+        password,
         loggedInUser.passwordHash
       );
       if (validPassword) {

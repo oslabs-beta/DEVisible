@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/login.css';
 import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
+import { User } from '../types';
 
-function Login() {
+interface Props {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+function Login({ user, setUser }: Props) {
   // state to hold information from login fields
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -23,6 +29,9 @@ function Login() {
     </Box>
   );
 
+  // don't show the login page to users who are already logged in
+  if (user) return <Navigate to="/home" />;
+
   return (
     <>
       {errorNotification}
@@ -36,8 +45,8 @@ function Login() {
             onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
               axios
-                .post('/login', {
-                  email,
+                .post('userAPI/login', {
+                  username,
                   password,
                 })
                 .then((res) => console.log(res))
@@ -61,10 +70,10 @@ function Login() {
                 },
               }}
               color="secondary"
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              label="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
             <TextField

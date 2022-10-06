@@ -19,7 +19,10 @@ function App(): JSX.Element {
         <Navbar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login user={user} setUser={setUser} />}
+          />
           <Route path="/home" element={<Dashboard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/recovery" element={<Recovery />} />
