@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
+import { User } from '../types';
 
-function Register(): JSX.Element {
+interface Props {
+  user: User | null;
+}
+
+function Register({ user }: Props): JSX.Element {
   // state to hold information from all register fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +29,8 @@ function Register(): JSX.Element {
       {error}
     </Box>
   );
+
+  if (user) return <Navigate to="/home" />;
 
   return (
     <>
