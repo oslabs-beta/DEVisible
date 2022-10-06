@@ -6,7 +6,6 @@ export const getUserInfoApi = async (
 ): Promise<GetUserInfo[]> => {
   try {
     const response = await axios.get(`webAPI/user/${userId}`);
-    console.log('here', response.data);
     return response.data;
   } catch (error: any) {
     return error;

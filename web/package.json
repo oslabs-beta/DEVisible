@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "concurrently \"vite frontend/\" \"tsc -w\" \"node dist/server/server.js\"",
+    "dev": "concurrently \"vite frontend/\" \"tsc -w\" \"nodemon dist/server/server.js\"",
     "build": "tsc && vite build frontend/",
     "preview": "vite preview frontend/"
   },

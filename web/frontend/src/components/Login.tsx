@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/login.css';
 import theme from '../theme';
@@ -11,6 +11,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // conditional rendering that will render a div containing an error message if an error is detected in state. Otherwise, nothing will render
   const errorNotification = !error ? null : (
@@ -23,6 +24,25 @@ function Login() {
     </Box>
   );
 
+  function logMeIn(e: React.SyntheticEvent) {
+    e.preventDefault();
+    axios
+      .post('/userAPI/login', {
+        email,
+        plainPassword: password,
+      })
+      .then((res) => {
+        // eslint-disable-next-line promise/always-return
+        if (res.status === 200) {
+          navigate('/home');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(`status: ${err.response.status} , ${err.response.data}`);
+      });
+  }
+
   return (
     <>
       {errorNotification}
@@ -33,17 +53,8 @@ function Login() {
           </div>
           <form
             className="loginForm"
-            onSubmit={(e: React.SyntheticEvent) => {
-              e.preventDefault();
-              axios
-                .post('/login', {
-                  email,
-                  password,
-                })
-                .then((res) => console.log(res))
-                .catch((err) => {
-                  setError(err);
-                });
+            onSubmit={(e) => {
+              logMeIn(e);
             }}
           >
             <TextField

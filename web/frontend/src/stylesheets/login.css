@@ -60,11 +60,11 @@
 }
 
 .linkContainer {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .signupRedirect {
@@ -100,10 +100,10 @@
 }
 
 .recoveryRedirect a {
-    font-weight: 700;
-    cursor: hover;
-    color: #2d3142;
-  }
+  font-weight: 700;
+  cursor: hover;
+  color: #2d3142;
+}
 
 .recoveryRedirect a:hover {
   filter: brightness(150%);
@@ -112,7 +112,7 @@
 .error {
   display: grid;
   position: absolute;
-  height: 10%;
+  height: fit-content !important;
   width: 25%;
   left: 0;
   right: 0;

@@ -9,14 +9,12 @@ import { GetUserInfo } from '../types';
 function Dashboard(): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
-  const getUserInfo = async () => {
-    const response = await getUserInfoApi(10);
-    setData(response);
-    setTimeout(() => setLoading(false), 1000);
-    console.log(data);
-  };
   useEffect(() => {
-    getUserInfo();
+    (async () => {
+      const response = await getUserInfoApi(10);
+      setData(response);
+      setTimeout(() => setLoading(false), 1000);
+    })();
   }, []);
   return (
     <div className="dashboard-container">
