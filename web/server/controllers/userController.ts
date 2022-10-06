@@ -78,25 +78,25 @@ const userController: UserController = {
     } catch (error) {
       return next({
         log: `Error caught in userController.createUser ${error}`,
-        status: 400,
-        message: `Error has occured in userController.createUser. ERROR: ${error}`,
+        status: 409,
+        message: 'User already exists!',
       });
     }
   },
   verifyUser: async (req, res, next) => {
     try {
-      const { username, plainPassword } = req.body;
+      const { email, plainPassword } = req.body;
 
-      if (!username || !plainPassword) {
+      if (!email || !plainPassword) {
         return next({
           log: null,
-          message: 'Please enter a username and/or password',
+          message: 'Please enter your email and/or password',
         });
       }
 
       const loggedInUser = await prisma.user.findFirstOrThrow({
         where: {
-          username,
+          email,
         },
       });
 
@@ -110,7 +110,7 @@ const userController: UserController = {
         return next({
           log: 'null',
           status: 401,
-          message: 'Invalid username and or password',
+          message: 'Invalid email and or password',
         });
       }
 
@@ -119,7 +119,7 @@ const userController: UserController = {
       return next({
         log: `Error caught in userController.verifyUser ${error}`,
         status: 400,
-        message: `Error has occured in userController.verifyUser. ERROR: invalid username and/or password ${error}`,
+        message: `Error has occured in userController.verifyUser. ERROR: invalid email address and/or password ${error}`,
       });
     }
   },
