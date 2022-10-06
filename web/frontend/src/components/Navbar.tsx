@@ -31,7 +31,7 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
 
   const handleLogout = async () => {
     //  change state of Auth held in App component to be false
-    fetch('/login', {
+    fetch('/userAPI/login', {
       method: 'DELETE',
     })
       .then((res) => {
@@ -46,7 +46,7 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
   };
 
   //  conditionally render a login link if user is not authenticated, otherwise render the menu button that can be used to traverse the app
-  const topRight = user ? (
+  const topRight = !user ? (
     <Button onClick={() => navigate('/login')} color="inherit">
       Login
     </Button>
