@@ -53,6 +53,7 @@ DEVisible is a tool for monitoring metadata related to your Github repositories.
       - run:
           name: DEVisible
           command: |
-            node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"```
+            node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"
+ ```
 
 4. Navigate to www.devisible.com and log in to view your updated repo information
