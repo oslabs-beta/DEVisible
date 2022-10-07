@@ -32,7 +32,7 @@ function RepoItemDetails({
   const handleSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDependencyView(event.target.checked);
   };
-  const dependencies = buildsInfo[buildsInfo.length - 1].deps; // dependencies of most recent build
+  const dependencies = buildsInfo[buildsInfo.length - 1].deps; // list of dependencies from most recent build
   return (
     <div>
       <Dialog
@@ -59,7 +59,10 @@ function RepoItemDetails({
           {!dependencyView ? (
             <LineChart buildsInfo={buildsInfo} />
           ) : (
-            <RepoItemDependencies dependencies={dependencies} />
+            <RepoItemDependencies
+              key={buildsInfo[0].id}
+              dependencies={dependencies}
+            />
           )}
         </DialogContent>
 

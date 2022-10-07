@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
@@ -18,6 +19,7 @@ function Register({ user, setUser }: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // conditional rendering that will render a div containing an error message if an error is detected in state. Otherwise, nothing will render
   const errorNotification = !error ? null : (
@@ -30,7 +32,28 @@ function Register({ user, setUser }: Props): JSX.Element {
     </Box>
   );
 
-  if (user) return <Navigate to="/home" />;
+  function signMeUP(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (password !== confirmedPassword) {
+      setError('Error: Passwords do not match. Please try again.');
+    } else {
+      axios
+        .post('/userAPI/signup', {
+          username,
+          email,
+          plainPassword: password,
+        })
+        .then((res) => {
+          // eslint-disable-next-line promise/always-return
+          if (res.status === 200) {
+            navigate('/home');
+          }
+        })
+        .catch((err) => {
+          setError(`status: ${err.response.status} , ${err.response.data}`);
+        });
+    }
+  }
 
   return (
     <>
@@ -42,28 +65,8 @@ function Register({ user, setUser }: Props): JSX.Element {
           </div>
           <form
             className="registerForm"
-            onSubmit={(e: React.SyntheticEvent) => {
-              e.preventDefault();
-              if (password !== confirmedPassword) {
-                setError('Error: Passwords do not match. Please try again.');
-              } else {
-                fetch('userAPI/signup', {
-                  method: 'POST',
-                  headers: { 'Content-type': 'application/json' },
-                  body: JSON.stringify({
-                    username,
-                    password,
-                    email,
-                  }),
-                })
-                  .then((res) => res.json())
-                  .then((data) => {
-                    // enable when backend register route also logs in
-                    if (data.username) null; //setUser(data.username);
-                    else setError(data.message);
-                  })
-                  .catch((err) => console.error(err));
-              }
+            onSubmit={(e) => {
+              signMeUP(e);
             }}
           >
             <TextField

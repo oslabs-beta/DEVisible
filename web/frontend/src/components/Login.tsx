@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import '../stylesheets/login.css';
 import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
@@ -13,9 +14,10 @@ interface Props {
 
 function Login({ user, setUser }: Props) {
   // state to hold information from login fields
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // conditional rendering that will render a div containing an error message if an error is detected in state. Otherwise, nothing will render
   const errorNotification = !error ? null : (
@@ -30,6 +32,24 @@ function Login({ user, setUser }: Props) {
 
   // don't show the login page to users who are already logged in
   if (user) return <Navigate to="/home" />;
+  function logMeIn(e: React.SyntheticEvent) {
+    e.preventDefault();
+    axios
+      .post('/userAPI/login', {
+        email,
+        plainPassword: password,
+      })
+      .then((res) => {
+        // eslint-disable-next-line promise/always-return
+        if (res.status === 200) {
+          navigate('/home');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(`status: ${err.response.status} , ${err.response.data}`);
+      });
+  }
 
   return (
     <>
@@ -41,57 +61,47 @@ function Login({ user, setUser }: Props) {
           </div>
           <form
             className="loginForm"
-            onSubmit={(e: React.SyntheticEvent) => {
-              e.preventDefault();
-              fetch('userAPI/login', {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify({
-                  username,
-                  password,
-                }),
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                  if (data.user) setUser(data.user);
-                  else setError(data.message);
-                })
-                .catch((err) => console.error(err));
+            onSubmit={(e) => {
+              logMeIn(e);
             }}
           >
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
+                '& .MuiInputLabel-root': {
+                  color: theme.palette.secondary.main,
+                }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
                   '& > fieldset': { color: 'white' },
                 },
               }}
               color="secondary"
-              label="Username"
+              label="Email address"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <TextField
               sx={{
                 input: { color: 'white' },
-                '& .MuiInputLabel-root': { color: 'orange' }, //  styles the label
+                '& .MuiInputLabel-root': {
+                  color: theme.palette.secondary.main,
+                }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: 'orange' },
+                  '& > fieldset': { borderColor: theme.palette.secondary.main },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
-                  '& > fieldset': { color: 'orange' },
+                  '& > fieldset': { color: theme.palette.secondary.main },
                 },
               }}
               color="secondary"

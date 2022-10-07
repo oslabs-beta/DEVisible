@@ -10,3 +10,11 @@ export interface BuildInfo {
 export interface User {
   username: string;
 }
+
+export type GetUserInfo = {
+  id: number;
+  name: string;
+  depPrefs: string;
+  builds: BuildInfo[];
+  error?: any;
+};
