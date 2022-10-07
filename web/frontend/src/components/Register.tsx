@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
+import { User } from '../types';
 
-function Register(): JSX.Element {
+interface Props {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+function Register({ user, setUser }: Props): JSX.Element {
   // state to hold information from all register fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -40,6 +46,7 @@ function Register(): JSX.Element {
         .then((res) => {
           // eslint-disable-next-line promise/always-return
           if (res.status === 200) {
+            setUser(res.data.username);
             navigate('/home');
           }
         })
@@ -48,6 +55,7 @@ function Register(): JSX.Element {
         });
     }
   }
+  if (user) return <Navigate to="/home" />;
 
   return (
     <>

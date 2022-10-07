@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
@@ -7,21 +7,40 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
+import { User } from './types';
 import Landing from './components/Landing';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
-  const [auth, setAuth] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch('/userAPI/login')
+      .then((res) => res.json())
+      .then((responseObj) => {
+        if (responseObj.data) {
+          setUser(responseObj.data);
+        } else {
+          setUser(null);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <Box height="100vh" bgcolor="primary.light" width="100vw">
       <BrowserRouter>
-        <Navbar auth={auth} setAuth={setAuth} />
+        <Navbar user={user} setUser={setUser} />
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={<Register user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/login"
+            element={<Login user={user} setUser={setUser} />}
+          />
+          <Route path="/home" element={<Dashboard user={user} />} />
           <Route path="/account" element={<Account />} />
           <Route path="/recovery" element={<Recovery />} />
         </Routes>

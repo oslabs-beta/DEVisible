@@ -14,13 +14,18 @@ router.post(
   userController.verifyUser,
   userController.assignJwt,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ user: res.locals.user });
   }
 );
 
 //* verifying logged in <= for frontend use
 router.get('/login', userController.verifyJwt, (req, res) => {
   res.status(200).json(res.locals.jwt);
+});
+
+router.delete('/login', (req, res) => {
+  res.clearCookie('access_token');
+  res.sendStatus(204);
 });
 
 //* get API Token

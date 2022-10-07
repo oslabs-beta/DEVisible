@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid } from '@mui/material';
+import { Navigate } from 'react-router-dom';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
-import { GetUserInfo } from '../types';
+import { GetUserInfo, User } from '../types';
 
-function Dashboard(): JSX.Element {
+interface Props {
+  user: User | null;
+}
+
+function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -16,6 +21,7 @@ function Dashboard(): JSX.Element {
       setTimeout(() => setLoading(false), 1000);
     })();
   }, []);
+  if (!user) return <Navigate to="/login" />;
   return (
     <div className="dashboard-container">
       {loading ? (
