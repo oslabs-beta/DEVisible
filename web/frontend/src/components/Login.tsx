@@ -40,8 +40,8 @@ function Login({ user, setUser }: Props) {
         plainPassword: password,
       })
       .then((res) => {
-        // eslint-disable-next-line promise/always-return
         if (res.status === 200) {
+          setUser(res.data.user);
           navigate('/home');
         }
       })

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/register.css';
 import theme from '../theme';
@@ -46,6 +46,7 @@ function Register({ user, setUser }: Props): JSX.Element {
         .then((res) => {
           // eslint-disable-next-line promise/always-return
           if (res.status === 200) {
+            setUser(res.data.username);
             navigate('/home');
           }
         })
@@ -54,6 +55,7 @@ function Register({ user, setUser }: Props): JSX.Element {
         });
     }
   }
+  if (user) return <Navigate to="/home" />;
 
   return (
     <>
