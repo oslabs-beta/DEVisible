@@ -1,0 +1,50 @@
+.getStarted {
+  height: 100vh;
+  width: 100vw;
+}
+
+.getStartedContainer {
+  height: 50vh;
+  width: 100vw;
+}
+
+.title1 {
+  margin-left: 44.5%;
+  position: relative;
+  top: 15%;
+  font-size: 3em;
+}
+.title2 {
+  position: relative;
+  top: 15%;
+  font-size: 3em;
+}
+
+#devisible {
+  margin-left: 38%;
+  position: relative;
+  top: 20%;
+  font-size: 1.5em;
+  color: white;
+}
+
+#quickGlance {
+  height: 50vh;
+  width: 100vw;
+}
+#explanation {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%/1, max(280px, 100%/4)), 1fr)
+  );
+  margin: auto;
+  height: 100%;
+  width: 80%;
+}
+
+.explanationTopics {
+  color: white;
+  list-style: none;
+  height: 100%;
+}

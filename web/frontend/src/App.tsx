@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
 import { User } from './types';
+import Landing from './components/Landing';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
@@ -27,7 +28,7 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Box height="100vh" bgcolor="primary.light">
+    <Box height="100vh" bgcolor="primary.light" width="100vw">
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} />
         <Routes>

@@ -3,8 +3,6 @@ import userController from '../controllers/userController';
 
 const router = express.Router();
 
-// TODO import controllers
-
 //* signup route works
 router.post('/signup', userController.createUser, (req, res) => {
   res.status(200).json(res.locals.user);
