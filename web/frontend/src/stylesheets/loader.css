@@ -6,9 +6,17 @@
 .spinner {
   animation-name: rock, spinSlow, spinFast;
   animation-duration: 1s;
-  animation-iteration-count: infinite 
+  animation-iteration-count: infinite;
+  /* height: 100%; */
+  /* /* justify-content: center; */
+  /* align-self: center;  */
 }
-
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 @keyframes rock {
   0% {
       transform: rotate(0deg);

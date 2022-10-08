@@ -1,17 +1,15 @@
 .dashboard-container {
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: .5%;
+  margin-bottom: 3%;
   margin-left: 2%;
   margin-right: 2%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 70vh;
-  scroll-behavior: auto;
+  
 }
 .repo-item-container:hover {
   transform: scale(1.1,1.1);
-
 }
 .repo-item-condensed {
   display: flex;
@@ -21,8 +19,15 @@
   min-height: 100%;
 }
 .repo-item-title {
-  margin-top: 3px;
+  /* margin-top: 30px;
+  margin-bottom: 3px; */
+}
+.repo-tiles-grid {
+  margin-top: 2%;
   margin-bottom: 3px;
+  border: solid 1px gray;
+  border-radius: 10px
+  /* scroll-behavior: auto; */
 }
 /* only needed if change modal to repoItemExpanded */
 /* .repo-item-expanded {
@@ -51,4 +56,16 @@ height: 50%
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-bar-container{
+  margin-top: 0.5%;
+  width: 35%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+.search-bar{
+  width: 100%;
 }

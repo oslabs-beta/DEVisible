@@ -7,7 +7,6 @@ import userApiRouter from './routes/userApi';
 import webApiRouter from './routes/webApi';
 import appRouter from './routes/appApi';
 
-
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +22,6 @@ app.use(express.static(path.resolve('./frontend/dist/assets')));
 app.use('/userAPI', userApiRouter);
 app.use('/webAPI', webApiRouter);
 app.use('/app', appRouter);
-
 
 // TODO get requests for reactrouter routes
 

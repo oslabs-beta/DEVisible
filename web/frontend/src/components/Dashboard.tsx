@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo } from '../types';
+import mockData from './mocks/mocks';
+import SearchBar from './SearchBar';
 
 function Dashboard(): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
@@ -16,18 +18,41 @@ function Dashboard(): JSX.Element {
       setTimeout(() => setLoading(false), 1000);
     })();
   }, []);
+  // FOR TESTING DISREGARD ERROR
+  const reposTiles = [];
+  for (let i = 0; i < 100; i += 1) {
+    reposTiles.push(
+      <RepoItem
+        repoName={mockData.repos[0].name}
+        builds={mockData.repos[0].builds}
+        key={mockData.repos[0].id}
+      />
+    );
+  }
+  //  END OF TESTING
   return (
-    <div className="dashboard-container">
+    <Box overflow="auto" className="dashboard-container" flex={1}>
+      <SearchBar />
       {loading ? (
-        <Loader color="orange" />
+        <Box className="loader-container">
+          <Loader color="orange" />
+        </Box>
       ) : (
-        <Grid display="flex" justifyContent="center" container spacing={2}>
-          {data?.map((repo: GetUserInfo) => (
-            <RepoItem repoName={repo.name} builds={repo.builds} key={repo.id} />
-          ))}
-        </Grid>
+        <Box overflow="auto" className="repo-tiles-grid">
+          <Grid justifyContent="center" container>
+            {data?.map((repo: GetUserInfo) => (
+              <RepoItem
+                repoName={repo.name}
+                builds={repo.builds}
+                key={repo.id}
+              />
+            ))}
+            {/* FOR TESTING */}
+            {reposTiles}
+          </Grid>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

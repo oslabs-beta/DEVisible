@@ -14,8 +14,30 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* border: 1px solid #EF8354; */
+  background: #2D3142; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #242734; 
+}
+
 .navbar-icon {
-  /* width: 150px; */
   height: 100px;
   margin-top: -20px;
   margin-bottom: -30px;

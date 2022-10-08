@@ -7,13 +7,19 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
+import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
   const [auth, setAuth] = useState<boolean>(false);
 
   return (
-    <Box height="100vh" bgcolor="primary.light">
+    <Box
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      bgcolor="primary.light"
+    >
       <BrowserRouter>
         <Navbar auth={auth} setAuth={setAuth} />
         <Routes>
@@ -22,6 +28,7 @@ function App(): JSX.Element {
           <Route path="/home" element={<Dashboard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/recovery" element={<Recovery />} />
+          <Route path="/deps" element={<MasterDependencies />} />
         </Routes>
       </BrowserRouter>
     </Box>
