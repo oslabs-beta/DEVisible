@@ -11,8 +11,10 @@
 
 #sidebar {
   position: fixed;
-  right: 10%;
+  right: 1%;
   top: 15%;
+  color: rgba(241, 235, 247, 0.85);
+  font-size: 1.2em;
 }
 
 .sidebarItem:not(:last-child) {
