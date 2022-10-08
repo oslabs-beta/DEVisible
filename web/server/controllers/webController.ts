@@ -9,7 +9,7 @@ interface WebController {
 
 const webController: WebController = {
   getUserInfo: async (req, res, next) => {
-    const userId: number = (req.params.userId, 10);
+    const userId: number = parseInt(req.params.userId, 10);
     try {
       const userRepos = await prisma.repo.findMany({
         where: {
