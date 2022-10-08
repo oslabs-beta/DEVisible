@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import express, { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '@prisma/client';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userApiRouter from './routes/userApi';
 import webApiRouter from './routes/webApi';
 import appRouter from './routes/appApi';
 
-const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -30,7 +27,7 @@ app.use('*', (req, res) => {
   return res.status(404).send('The page you are looking for does not exist.');
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
   const defaultErr = {
     log: `GLOBAL ERROR HANDLER: caught unknown middleware error${err.toString()}`,
     status: 500,

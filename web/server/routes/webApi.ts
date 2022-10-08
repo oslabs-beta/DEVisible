@@ -19,7 +19,7 @@ router.delete(
     const numOfBuildsDeleted = transaction[0].count;
     const repoName = transaction[1].name;
     res
-      .status(202)
+      .status(204)
       .json(
         `Repo ${repoName} was successfully deleted along with ${numOfBuildsDeleted} associated build entries`
       );

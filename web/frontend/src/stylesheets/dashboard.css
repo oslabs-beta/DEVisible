@@ -9,7 +9,7 @@
   
 }
 .repo-item-container:hover {
-  transform: scale(1.1,1.1);
+  transform: scale(1.05,1.05);
 }
 .repo-item-condensed {
   display: flex;
@@ -25,7 +25,7 @@
 .repo-tiles-grid {
   margin-top: 2%;
   margin-bottom: 3px;
-  border: solid 1px gray;
+  /* border: solid 1px gray; */
   border-radius: 10px
   /* scroll-behavior: auto; */
 }

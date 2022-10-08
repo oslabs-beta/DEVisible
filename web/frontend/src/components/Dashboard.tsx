@@ -17,7 +17,7 @@ function Dashboard({ user }: Props): JSX.Element {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const response = await getUserInfoApi(10);
+      const response = await getUserInfoApi(25);
       setData(response);
       setTimeout(() => setLoading(false), 1000);
     })();
@@ -50,6 +50,8 @@ function Dashboard({ user }: Props): JSX.Element {
                 repoName={repo.name}
                 builds={repo.builds}
                 key={repo.id}
+                data={data}
+                setData={setData}
               />
             ))}
             {/* FOR TESTING */}

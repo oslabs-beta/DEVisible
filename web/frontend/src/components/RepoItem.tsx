@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Divider, Grid, Paper, Typography } from '@mui/material';
 import RepoItemDetails from './RepoItemDetails';
-import { BuildInfo } from '../types';
+import { BuildInfo, GetUserInfo } from '../types';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -18,12 +18,19 @@ const Item = styled(Paper)(({ theme }) => ({
 interface RepoItemProps {
   repoName: string;
   builds: BuildInfo[];
+  data: GetUserInfo[];
+  setData: React.Dispatch<React.SetStateAction<GetUserInfo[] | undefined>>;
 }
 const percentChange = (current: number, previous: number) => {
   return `${((100 * (current - previous)) / Math.abs(previous)).toFixed(2)} %`;
 };
 
-function RepoItem({ repoName, builds }: RepoItemProps): JSX.Element {
+function RepoItem({
+  repoName,
+  builds,
+  data,
+  setData,
+}: RepoItemProps): JSX.Element {
   const [openRepoModal, setOpenRepoModal] = useState(false);
   const mostRecentBuildSize = builds[builds.length - 1].buildSize;
   const buildPercentChange = builds[builds.length - 2]
@@ -71,6 +78,8 @@ function RepoItem({ repoName, builds }: RepoItemProps): JSX.Element {
           open={openRepoModal}
           handleClose={handleCloseRepoModal}
           buildsInfo={builds}
+          data={data}
+          setData={setData}
         />
       </Grid>
     </div>
