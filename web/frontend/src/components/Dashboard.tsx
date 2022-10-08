@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
+import { Navigate } from 'react-router-dom';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
-import { GetUserInfo } from '../types';
-import mockData from './mocks/mocks';
+import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
 
-function Dashboard(): JSX.Element {
+interface Props {
+  user: User | null;
+}
+
+function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -19,17 +23,18 @@ function Dashboard(): JSX.Element {
     })();
   }, []);
   // FOR TESTING DISREGARD ERROR
-  const reposTiles = [];
-  for (let i = 0; i < 100; i += 1) {
-    reposTiles.push(
-      <RepoItem
-        repoName={mockData.repos[0].name}
-        builds={mockData.repos[0].builds}
-        key={mockData.repos[0].id}
-      />
-    );
-  }
+  // const reposTiles = [];
+  // for (let i = 0; i < 100; i += 1) {
+  //   reposTiles.push(
+  //     <RepoItem
+  //       repoName={mockData.repos[0].name}
+  //       builds={mockData.repos[0].builds}
+  //       key={mockData.repos[0].id}
+  //     />
+  //   );
+  // }
   //  END OF TESTING
+  if (!user) return <Navigate to="/login" />;
   return (
     <Box overflow="auto" className="dashboard-container" flex={1}>
       <SearchBar />
@@ -48,7 +53,7 @@ function Dashboard(): JSX.Element {
               />
             ))}
             {/* FOR TESTING */}
-            {reposTiles}
+            {/* {reposTiles} */}
           </Grid>
         </Box>
       )}

@@ -19,7 +19,7 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "script",
-    "project": "./web/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "promise", "import", "prettier"],
   "rules": {
@@ -29,6 +29,7 @@
     "no-console": 0,
     "prefer-object-spread": 0,
     "arrow-body-style": 0,
-    "import/no-import-module-exports": 0
+    "import/no-import-module-exports": 0,
+    "promise/always-return" : 0
   }
 }

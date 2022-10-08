@@ -19,7 +19,7 @@ interface UserController {
   getToken: (req: Request, res: Response, next: NextFunction) => void;
 }
 
-// TODO think about how we give our api token
+//* encrypting and decrypting our API Token
 const initVector = crypto.randomBytes(16);
 const securityKey = crypto.randomBytes(32);
 
@@ -43,6 +43,7 @@ const decryptAPIToken = (encryptedToken: string): string => {
     securityKey,
     initVector
   );
+  //* setting padding to false prevents weird bug with deciphering
   decipher.setAutoPadding(false);
   let decryptedToken = decipher.update(encryptedToken, 'hex', 'utf-8');
   decryptedToken += decipher.final('utf-8');
@@ -158,6 +159,7 @@ const userController: UserController = {
           username: data,
         },
       });
+      //* get encrypted token and decrypt it to return to user
       const { APIToken } = loggedInUser;
       const decryptedToken = decryptAPIToken(APIToken);
       res.locals.API = decryptedToken;

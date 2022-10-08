@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/login.css';
 import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
+import { User } from '../types';
 
-function Login() {
+interface Props {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+function Login({ user, setUser }: Props) {
   // state to hold information from login fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +30,8 @@ function Login() {
     </Box>
   );
 
+  // don't show the login page to users who are already logged in
+  if (user) return <Navigate to="/home" />;
   function logMeIn(e: React.SyntheticEvent) {
     e.preventDefault();
     axios
@@ -32,8 +40,8 @@ function Login() {
         plainPassword: password,
       })
       .then((res) => {
-        // eslint-disable-next-line promise/always-return
         if (res.status === 200) {
+          setUser(res.data.user);
           navigate('/home');
         }
       })
@@ -74,8 +82,8 @@ function Login() {
                 },
               }}
               color="secondary"
-              label="Email"
-              type="email"
+              label="Email address"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -120,7 +128,10 @@ function Login() {
           <div className="linkContainer">
             <div className="signupRedirect">
               <p>Don&apos;t have an account yet?</p>
-              <Link to="/" style={{ color: `${theme.palette.secondary.main}` }}>
+              <Link
+                to="/signup"
+                style={{ color: `${theme.palette.secondary.main}` }}
+              >
                 Sign Up
               </Link>
             </div>
