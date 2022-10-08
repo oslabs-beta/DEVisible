@@ -91,6 +91,14 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
         >
           Dashboard
         </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate('/deps');
+            handleClose();
+          }}
+        >
+          Dependencies List
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Log Out</MenuItem>
       </Menu>
     </>
