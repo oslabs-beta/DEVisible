@@ -1,14 +1,9 @@
 import React from 'react';
 import '../../stylesheets/installation.css';
-// import { styled } from '@mui/system';
-// import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import theme from '../../theme';
 
 function Installation() {
-  // const StyledGridItem = styled(Grid)({
-  //   gap: '1fr',
-  // });
   return (
     <div
       className="installation"

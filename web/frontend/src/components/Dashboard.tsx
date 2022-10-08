@@ -16,7 +16,7 @@ function Dashboard({ user }: Props): JSX.Element {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const response = await getUserInfoApi(10);
+      const response = await getUserInfoApi(25);
       setData(response);
       setTimeout(() => setLoading(false), 1000);
     })();
