@@ -7,8 +7,12 @@ import crypto from 'crypto';
 
 // environmental variables
 dotenv.config();
-const { JWT_SECRET } = process.env;
-const { ALGORITHM } = process.env;
+const {
+  JWT_SECRET,
+  ALGORITHM,
+  API_TOKEN_ENCRYPTION_KEY,
+  API_TOKEN_INITIALIZATION_VECTOR,
+} = process.env;
 
 const prisma = new PrismaClient();
 interface UserController {
@@ -20,8 +24,12 @@ interface UserController {
 }
 
 //* encrypting and decrypting our API Token
-const initVector = crypto.randomBytes(16);
-const securityKey = crypto.randomBytes(32);
+if (!API_TOKEN_ENCRYPTION_KEY)
+  throw new Error('Missing Api Token encryption key in .env');
+if (!API_TOKEN_INITIALIZATION_VECTOR)
+  throw new Error('Missing Api Token initialization vector in .env');
+const initVector = API_TOKEN_INITIALIZATION_VECTOR;
+const securityKey = API_TOKEN_ENCRYPTION_KEY;
 
 const encryptAPIToken = (): string => {
   const unencryptedToken = crypto.randomUUID();
@@ -161,7 +169,8 @@ const userController: UserController = {
       });
       //* get encrypted token and decrypt it to return to user
       const { APIToken } = loggedInUser;
-      const decryptedToken = decryptAPIToken(APIToken);
+      const decryptedToken = decryptAPIToken(APIToken).trim();
+      console.log(decryptedToken);
       res.locals.API = decryptedToken;
 
       return next();
