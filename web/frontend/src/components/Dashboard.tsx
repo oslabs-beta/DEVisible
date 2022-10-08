@@ -29,7 +29,13 @@ function Dashboard({ user }: Props): JSX.Element {
       ) : (
         <Grid display="flex" justifyContent="center" container spacing={2}>
           {data?.map((repo: GetUserInfo) => (
-            <RepoItem repoName={repo.name} builds={repo.builds} key={repo.id} />
+            <RepoItem
+              repoName={repo.name}
+              builds={repo.builds}
+              key={repo.id}
+              setData={setData}
+              data={data}
+            />
           ))}
         </Grid>
       )}
