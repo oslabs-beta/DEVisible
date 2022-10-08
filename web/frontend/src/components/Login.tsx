@@ -128,7 +128,10 @@ function Login({ user, setUser }: Props) {
           <div className="linkContainer">
             <div className="signupRedirect">
               <p>Don&apos;t have an account yet?</p>
-              <Link to="/" style={{ color: `${theme.palette.secondary.main}` }}>
+              <Link
+                to="/signup"
+                style={{ color: `${theme.palette.secondary.main}` }}
+              >
                 Sign Up
               </Link>
             </div>
