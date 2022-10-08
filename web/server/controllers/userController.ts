@@ -136,9 +136,9 @@ const userController: UserController = {
     const token = jwt.sign(
       {
         data: res.locals.user,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
       },
-      JWT_SECRET as string
+      JWT_SECRET as string,
+      { expiresIn: '7d' }
     );
     res.cookie('access_token', token, { httpOnly: true });
     return next();
