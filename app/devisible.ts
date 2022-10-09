@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn } from 'cross-spawn';
 import fastFolderSize from 'fast-folder-size';
 import fs from 'fs';
 import { gitToJs } from 'git-parse';
