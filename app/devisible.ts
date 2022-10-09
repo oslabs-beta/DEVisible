@@ -119,7 +119,8 @@ const sendData = async (buildTime: number) => {
     }),
   });
   if (res.status === 200 || 201) {
-    console.log('Build details have been uploaded to server');
+    const data = await res.json();
+    console.log(data);
     process.exit(0);
   }
 };
