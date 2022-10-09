@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import { Navigate } from 'react-router-dom';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
+import SearchBar from './SearchBar';
 
 interface Props {
   user: User | null;
@@ -16,24 +17,49 @@ function Dashboard({ user }: Props): JSX.Element {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const response = await getUserInfoApi(10);
+      const response = await getUserInfoApi(25);
       setData(response);
       setTimeout(() => setLoading(false), 1000);
     })();
   }, []);
+  // FOR TESTING DISREGARD ERROR
+  // const reposTiles = [];
+  // for (let i = 0; i < 100; i += 1) {
+  //   reposTiles.push(
+  //     <RepoItem
+  //       repoName={mockData.repos[0].name}
+  //       builds={mockData.repos[0].builds}
+  //       key={mockData.repos[0].id}
+  //     />
+  //   );
+  // }
+  //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
   return (
-    <div className="dashboard-container">
+    <Box overflow="auto" className="dashboard-container" flex={1}>
+      <SearchBar />
       {loading ? (
-        <Loader color="orange" />
+        <Box className="loader-container">
+          <Loader color="orange" />
+        </Box>
       ) : (
-        <Grid display="flex" justifyContent="center" container spacing={2}>
-          {data?.map((repo: GetUserInfo) => (
-            <RepoItem repoName={repo.name} builds={repo.builds} key={repo.id} />
-          ))}
-        </Grid>
+        <Box overflow="auto" className="repo-tiles-grid">
+          <Grid justifyContent="center" container>
+            {data?.map((repo: GetUserInfo) => (
+              <RepoItem
+                repoName={repo.name}
+                builds={repo.builds}
+                key={repo.id}
+                data={data}
+                setData={setData}
+              />
+            ))}
+            {/* FOR TESTING */}
+            {/* {reposTiles} */}
+          </Grid>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

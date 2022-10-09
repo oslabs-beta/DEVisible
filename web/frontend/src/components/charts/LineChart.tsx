@@ -31,7 +31,7 @@ const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
     labels.push(index);
     timeStamp.push(date);
   });
-  buildSizeArray.forEach((build) => dataPoints.push(build / 1000));
+  buildSizeArray.forEach((build) => dataPoints.push(build));
   const chartData = {
     labels,
     datasets: [
@@ -53,7 +53,7 @@ const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
       y: {
         title: {
           display: true,
-          text: 'Build Size (mB)',
+          text: 'Build Size (kB)',
         },
         grid: {
           color: theme.palette.primary.light,
