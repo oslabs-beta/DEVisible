@@ -7,6 +7,7 @@ import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+// import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
   user: User | null;

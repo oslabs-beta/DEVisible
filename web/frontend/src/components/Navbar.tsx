@@ -30,7 +30,6 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleLogout = async () => {
     //  change state of Auth held in App component to be false
     fetch('/userAPI/login', {

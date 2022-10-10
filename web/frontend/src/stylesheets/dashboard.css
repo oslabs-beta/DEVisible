@@ -8,9 +8,25 @@
   align-items: center;
   
 }
+.repo-item-container {
+  animation-name: growOnLoad;
+  animation-duration: .3s;
+  animation-iteration-count: 1;
+}
+
+@keyframes growOnLoad {
+  0% {
+    transform: scale(0.1,0.1);
+  }
+  100% {
+    transform: scale(1.0,1.0);
+  }
+}
+
 .repo-item-container:hover {
   transform: scale(1.05,1.05);
 }
+
 .repo-item-condensed {
   display: flex;
   flex-direction: column;
