@@ -5,8 +5,7 @@ const prisma = new PrismaClient();
 
 interface AppController {
   checkRepo: (req: Request, res: Response, next: NextFunction) => void;
-  addRepo: (req: Request, res: Response, next: NextFunction) => void;
-  updateRepo: (req: Request, res: Response, next: NextFunction) => void;
+  addOrUpdateRepo: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const appController: AppController = {
@@ -15,7 +14,7 @@ const appController: AppController = {
       // destructure data from req.body
       const { repoName, apiToken } = req.body;
       // search for the repo to see if it already exists in the database
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await prisma.user.findFirst({
         where: {
           APIToken: apiToken,
         },
@@ -39,9 +38,8 @@ const appController: AppController = {
       // eslint-disable-next-line no-restricted-syntax
       for (const repo of userRepos) {
         if (repo.name === repoName) {
-          // create a cookie that will be passed through route redirect and used to get the repoId without having to re-query the database
-          res.cookie('repo', repo, { httpOnly: true });
-          return res.redirect(307, '/app/update');
+          // create a flag on res.locals that will inform next middleware function whether to update an existing repo vs. add a new repo
+          res.locals.repoToUpdate = repo.id;
         }
       }
       // if request was not redirected, that means this is a new repo that needs to be added -> invoke add middleware function which is next in the route
@@ -55,7 +53,7 @@ const appController: AppController = {
       });
     }
   },
-  addRepo: async (req, res, next) => {
+  addOrUpdateRepo: async (req, res, next) => {
     try {
       // destructure data from req.body
       const { buildSize, repoName, buildTime, commitHash, dependencies } =
@@ -63,16 +61,33 @@ const appController: AppController = {
       // create a new repo that corresponds to user with the API token that was passed into post route to '/app'
       // res.locals.uid contains user ID that was obtained from previous DB query in previous middleware function
       const userId = res.locals.uid;
+      // if res.locals.repoToUpdate is truthy, that means we need to update a repo instead of add a new one
+      if (res.locals.repoToUpdate) {
+        const repoId = res.locals.repoToUpdate;
+        const addBuildToRepo = await prisma.build.create({
+          data: {
+            repoId,
+            createdAt: new Date(),
+            buildSize: Number(buildSize),
+            buildTime: Number(buildTime),
+            deps: dependencies,
+          },
+        });
+        res.locals.message = `Repo ${repoName} was updated with a new build (hash: ${commitHash})`;
+        res.locals.dbRes = addBuildToRepo;
+        return next();
+      }
+      // otherwise, if res.locals.repoToUpdate is not truthy, create a new repo with the info from the post request
       const createRepoResult = await prisma.repo.create({
         data: {
           userId,
           name: repoName,
-          depPrefs: dependencies,
           builds: {
             create: [
               {
                 // hard coded, need to wipe database to be able to count properly and avoid conflicts
                 createdAt: new Date(),
+                deps: JSON.stringify(dependencies),
                 buildTime: Number(buildTime),
                 buildSize: Number(buildSize),
               },
@@ -80,39 +95,14 @@ const appController: AppController = {
           },
         },
       });
-      res.locals.repoData = createRepoResult;
+      res.locals.message = `New repo ${repoName} was created in database`;
+      res.locals.dbRes = createRepoResult;
       return next();
     } catch (error) {
       return next({
         log: `Error caught in appController.addRepo ${error}`,
         status: 400,
         message: `Error has occured in appController.addRepo. ERROR: ${error}`,
-      });
-    }
-  },
-  updateRepo: async (req, res, next) => {
-    const { repo } = req.cookies;
-    const repoId = repo.id;
-    try {
-      // destructure data from req.body
-      const { buildSize, buildTime, commitHash, dependencies } = req.body;
-      // create a new build that corresponds to repoId
-      const addBuildToRepo = await prisma.build.create({
-        data: {
-          repoId,
-          createdAt: new Date(),
-          buildSize: Number(buildSize),
-          buildTime: Number(buildTime),
-          deps: dependencies,
-        },
-      });
-      res.locals.build = addBuildToRepo;
-      return next();
-    } catch (error) {
-      return next({
-        log: `Error caught in appController.handleBuild ${error}`,
-        status: 400,
-        message: `Error has occured in appController.handleBuild. ERROR: ${error}`,
       });
     }
   },

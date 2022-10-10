@@ -75,6 +75,7 @@ const userController: UserController = {
       );
       if (validPassword) {
         res.locals.user = loggedInUser?.username;
+        res.locals.userId = loggedInUser?.id;
       } else {
         return next({
           log: 'null',
@@ -95,7 +96,8 @@ const userController: UserController = {
   assignJwt: (req, res, next) => {
     const token = jwt.sign(
       {
-        data: res.locals.user,
+        username: res.locals.user,
+        id: res.locals.userId,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }
