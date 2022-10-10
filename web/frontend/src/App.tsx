@@ -20,7 +20,12 @@ function App(): JSX.Element {
       .then((res) => res.json())
       .then((responseObj) => {
         if (responseObj) {
-          setUser(responseObj);
+          console.log(responseObj, 'user from app');
+          if (responseObj.username.username) {
+            setUser(responseObj.username);
+          } else {
+            setUser(responseObj);
+          }
         } else {
           setUser(null);
         }

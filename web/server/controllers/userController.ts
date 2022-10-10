@@ -74,8 +74,9 @@ const userController: UserController = {
         loggedInUser.passwordHash
       );
       if (validPassword) {
-        res.locals.user = loggedInUser?.username;
-        res.locals.userId = loggedInUser?.id;
+        res.locals.user = loggedInUser.username;
+        res.locals.userId = loggedInUser.id;
+        res.locals.depPrefs = loggedInUser.depPrefs;
       } else {
         return next({
           log: 'null',
@@ -98,6 +99,7 @@ const userController: UserController = {
       {
         username: res.locals.user,
         id: res.locals.userId,
+        depPrefs: res.locals.depPrefs,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }

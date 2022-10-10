@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../stylesheets/installation.css';
+import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
 import theme from '../../theme';
 
@@ -20,7 +21,7 @@ function Installation() {
             }}
           >
             <li className="instruction">
-              <span>Step1: </span>
+              <span>Step 1: </span>
               <Link
                 to="/signup"
                 style={{ color: `${theme.palette.secondary.main}` }}
@@ -29,8 +30,27 @@ function Installation() {
               </Link>
               <span> to Receive an API Key</span>
             </li>
-            <li className="instruction">Step2:</li>
-            <li className="instruction">step3</li>
+            <li className="instruction">
+              <span>Step 2: Navigate to your </span>
+              <Link
+                to="/account"
+                style={{ color: `${theme.palette.secondary.main}` }}
+              >
+                Account Page
+              </Link>
+              <span> to view your API Key</span>
+            </li>
+            <li className="instruction">
+              <span>Step 3: run </span>
+              <Box
+                className="codeBlock"
+                bgcolor={theme.palette.primary.light}
+                color="black"
+                display="inline"
+              >
+                npm install devisible
+              </Box>
+            </li>
             <li className="instruction">step4</li>
             <li className="instruction">step5</li>
             <li className="instruction">step6</li>
