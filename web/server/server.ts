@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userApiRouter from './routes/userApi';
@@ -27,7 +27,8 @@ app.use('*', (req, res) => {
   return res.status(404).send('The page you are looking for does not exist.');
 });
 
-app.use((err: Error, req: Request, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   const defaultErr = {
     log: `GLOBAL ERROR HANDLER: caught unknown middleware error${err.toString()}`,
     status: 500,

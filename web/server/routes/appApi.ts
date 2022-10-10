@@ -7,6 +7,7 @@ router.use(cookieParser());
 
 // create post route that will receive build size, repo name, api token, commit date, commit hash, and dependency info from NPM package
 router.post('/', appController.checkRepo, appController.addRepo, (req, res) => {
+  console.log('in the route');
   const { buildSize, buildTime } = req.body;
   // destructure out data from res.locals.repoData and req.body to send back to Client as confirmation that repo was added with repo name, etc.
   const { name } = res.locals.repoData;

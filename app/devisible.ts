@@ -98,7 +98,7 @@ const sendData = async (buildTime: number) => {
         buildTime,
         buildSize,
         dependencies,
-        name,
+        repoName: name,
         lastCommitHash: hash,
       },
       null,
@@ -114,11 +114,13 @@ const sendData = async (buildTime: number) => {
       buildTime,
       buildSize,
       dependencies,
-      name,
-      lastCommitHash: hash,
+      repoName: name,
+      commitHash: hash,
     }),
   });
-  if (res.status === 200 || 201) {
+
+  console.log(res);
+  if (res.status === 200 || res.status === 201) {
     const data = await res.json();
     console.log(data);
     process.exit(0);
