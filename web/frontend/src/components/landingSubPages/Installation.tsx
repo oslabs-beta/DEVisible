@@ -20,14 +20,16 @@ function Installation() {
             }}
           >
             <li className="instruction">
+              <span>Step1: </span>
               <Link
                 to="/signup"
                 style={{ color: `${theme.palette.secondary.main}` }}
               >
-                Make an Account
+                Make An Account
               </Link>
+              <span> to Receive an API Key</span>
             </li>
-            <li className="instruction">step2</li>
+            <li className="instruction">Step2:</li>
             <li className="instruction">step3</li>
             <li className="instruction">step4</li>
             <li className="instruction">step5</li>

@@ -4,9 +4,14 @@ import userController from '../controllers/userController';
 const router = express.Router();
 
 //* signup route works
-router.post('/signup', userController.createUser, (req, res) => {
-  res.status(200).json(res.locals.user);
-});
+router.post(
+  '/signup',
+  userController.createUser,
+  userController.assignJwt,
+  (req, res) => {
+    res.status(200).json(res.locals.user);
+  }
+);
 
 //* login route works
 router.post(
