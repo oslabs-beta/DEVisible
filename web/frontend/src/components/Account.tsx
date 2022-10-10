@@ -8,6 +8,7 @@ interface AccountProps {
 
 function Account({ user }: AccountProps): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const getToken = () => {
     fetch('/userAPI/getToken')
@@ -32,7 +33,17 @@ function Account({ user }: AccountProps): JSX.Element {
           <strong>API Token: </strong>
           {token}
           <div style={{ display: 'flex', flexFlow: 'column wrap' }}>
-            <Button>Copy to Clipboard</Button>
+            <Button
+              disabled={copied}
+              onClick={() => {
+                // eslint-disable-next-line promise/catch-or-return
+                navigator.clipboard
+                  .writeText(token)
+                  .then(() => setCopied(true));
+              }}
+            >
+              {copied ? <>Copied!</> : <>Copy to Clipboard</>}
+            </Button>
             <Button>Reset Token</Button>
           </div>
         </div>
