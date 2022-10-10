@@ -15,7 +15,7 @@ const appController: AppController = {
       // destructure data from req.body
       const { repoName, apiToken } = req.body;
       // search for the repo to see if it already exists in the database
-      const userInfo = await prisma.user.findUnique({
+      const userInfo = await prisma.user.findFirst({
         where: {
           APIToken: apiToken,
         },
@@ -56,6 +56,7 @@ const appController: AppController = {
     }
   },
   addRepo: async (req, res, next) => {
+    console.log(req.body);
     try {
       // destructure data from req.body
       const { buildSize, repoName, buildTime, commitHash, dependencies } =
@@ -67,7 +68,7 @@ const appController: AppController = {
         data: {
           userId,
           name: repoName,
-          depPrefs: dependencies,
+          depPrefs: JSON.stringify(dependencies),
           builds: {
             create: [
               {
