@@ -6,25 +6,15 @@ const router = express.Router();
 router.use(cookieParser());
 
 // create post route that will receive build size, repo name, api token, commit date, commit hash, and dependency info from NPM package
-router.post('/', appController.checkRepo, appController.addRepo, (req, res) => {
-  console.log('in the route');
-  const { buildSize, buildTime } = req.body;
-  // destructure out data from res.locals.repoData and req.body to send back to Client as confirmation that repo was added with repo name, etc.
-  const { name } = res.locals.repoData;
-  res
-    .status(201)
-    .json(
-      `New repo ${name} was created with build size: ${buildSize}kb and build time: ${buildTime}ms`
-    );
-});
-
-router.post('/update', appController.updateRepo, (req, res) => {
-  const { buildSize, repoName, buildTime, commitHash } = req.body;
-  res
-    .status(201)
-    .json(
-      `Repo ${repoName} was updated with a new build (hash: ${commitHash}) with size ${buildSize}kb and time ${buildTime}ms`
-    );
-});
+router.post(
+  '/',
+  appController.checkRepo,
+  appController.addOrUpdateRepo,
+  (req, res) => {
+    // destructure out data from res.locals.repoData and req.body to send back to Client as confirmation that repo was added with repo name, etc.
+    const { data } = res.locals.message;
+    res.status(201).json(`${data}`);
+  }
+);
 
 export default router;
