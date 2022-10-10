@@ -10,21 +10,20 @@
 }
 
 .title1 {
-  margin-left: 44.5%;
   position: relative;
   top: 15%;
-  font-size: 3em;
+  margin-left: 24%;
+  font-size: 2em;
 }
 .title2 {
+  font-size: 2em;
+  margin-left: 28.8%;
   position: relative;
-  top: 15%;
-  font-size: 3em;
+  bottom: 6%;
 }
 
 #devisible {
   margin-left: 33%;
-  position: relative;
-  top: 20%;
   font-size: 1.5em;
   color: white;
 }
