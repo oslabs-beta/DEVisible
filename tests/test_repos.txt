@@ -1,0 +1,2 @@
+https://github.com/msarkisian/flashcards.git
+https://github.com/babel-on/penpals.git
