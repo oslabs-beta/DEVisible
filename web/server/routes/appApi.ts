@@ -13,7 +13,7 @@ router.post('/', appController.checkRepo, appController.addRepo, (req, res) => {
   res
     .status(201)
     .json(
-      `New repo ${name} was created with build size: ${buildSize}mb and build time: ${buildTime}s`
+      `New repo ${name} was created with build size: ${buildSize}kb and build time: ${buildTime}ms`
     );
 });
 
@@ -22,7 +22,7 @@ router.post('/update', appController.updateRepo, (req, res) => {
   res
     .status(201)
     .json(
-      `Repo ${repoName} was updated with a new build (hash: ${commitHash}) with size ${buildSize}mb and time ${buildTime}s`
+      `Repo ${repoName} was updated with a new build (hash: ${commitHash}) with size ${buildSize}kb and time ${buildTime}ms`
     );
 });
 
