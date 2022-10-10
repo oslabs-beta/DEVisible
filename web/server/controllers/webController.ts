@@ -43,7 +43,6 @@ const webController: WebController = {
   },
   deleteRepo: async (req, res, next) => {
     const repoId: number = parseInt(req.params.repoId, 10);
-    console.log(repoId);
     try {
       // delete all builds associated with repo that is passed in on req.params from the front end
       const deleteBuilds = prisma.build.deleteMany({

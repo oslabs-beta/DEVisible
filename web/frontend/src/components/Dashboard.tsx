@@ -32,9 +32,10 @@ function Dashboard({ user }: Props): JSX.Element {
     if (deleteResponse.status === 204 && data !== undefined) {
       const repoIndex = data.findIndex((repo) => repo.id === repoId);
       // store data state in a new label to be able to change it
-      const newData = data;
+      const newData = [...data];
+      newData.splice(repoIndex, 1);
       // remove repo at the predetermined repoIndex that was found where repoId matched target repoId
-      setData(newData.splice(repoIndex, 1));
+      setData(newData);
     }
   };
   // FOR TESTING DISREGARD ERROR

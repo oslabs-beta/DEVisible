@@ -56,7 +56,6 @@ const appController: AppController = {
     }
   },
   addRepo: async (req, res, next) => {
-    console.log(req.body);
     try {
       // destructure data from req.body
       const { buildSize, repoName, buildTime, commitHash, dependencies } =
