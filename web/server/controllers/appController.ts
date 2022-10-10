@@ -54,7 +54,6 @@ const appController: AppController = {
     }
   },
   addOrUpdateRepo: async (req, res, next) => {
-    console.log(req.body);
     try {
       // destructure data from req.body
       const { buildSize, repoName, buildTime, commitHash, dependencies } =
@@ -74,7 +73,7 @@ const appController: AppController = {
             deps: dependencies,
           },
         });
-        res.locals.message = `Repo ${repoName} was updated with a new build (hash: ${commitHash}) with size ${buildSize}kb and time ${buildTime}ms`;
+        res.locals.message = `Repo ${repoName} was updated with a new build (hash: ${commitHash})`;
         res.locals.dbRes = addBuildToRepo;
         return next();
       }
@@ -96,7 +95,7 @@ const appController: AppController = {
           },
         },
       });
-      res.locals.message = `New repo ${repoName} was created with build size: ${buildSize}kb and build time: ${buildTime}ms`;
+      res.locals.message = `New repo ${repoName} was created in database`;
       res.locals.dbRes = createRepoResult;
       return next();
     } catch (error) {

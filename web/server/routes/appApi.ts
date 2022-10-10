@@ -12,8 +12,7 @@ router.post(
   appController.addOrUpdateRepo,
   (req, res) => {
     // destructure out data from res.locals.repoData and req.body to send back to Client as confirmation that repo was added with repo name, etc.
-    const { data } = res.locals.message;
-    res.status(201).json(`${data}`);
+    res.status(201).json(res.locals.message);
   }
 );
 
