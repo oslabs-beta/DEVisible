@@ -18,8 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 interface RepoItemProps {
   repoName: string;
   builds: BuildInfo[];
-  data: GetUserInfo[];
-  setData: React.Dispatch<React.SetStateAction<GetUserInfo[] | undefined>>;
+  deleteRepo: (repoId: number) => void;
 }
 const percentChange = (current: number, previous: number) => {
   return `${((100 * (current - previous)) / Math.abs(previous)).toFixed(2)} %`;
@@ -28,8 +27,7 @@ const percentChange = (current: number, previous: number) => {
 function RepoItem({
   repoName,
   builds,
-  data,
-  setData,
+  deleteRepo,
 }: RepoItemProps): JSX.Element {
   const [openRepoModal, setOpenRepoModal] = useState(false);
   const mostRecentBuildSize = builds[builds.length - 1].buildSize;
@@ -78,8 +76,7 @@ function RepoItem({
           open={openRepoModal}
           handleClose={handleCloseRepoModal}
           buildsInfo={builds}
-          data={data}
-          setData={setData}
+          deleteRepo={deleteRepo}
         />
       </Grid>
     </div>
