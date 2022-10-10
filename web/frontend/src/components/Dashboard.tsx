@@ -17,12 +17,13 @@ function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    if (!user) return;
     (async () => {
-      const response = await getUserInfoApi(25);
+      const response = await getUserInfoApi(user.id);
       setData(response);
       setTimeout(() => setLoading(false), 1000);
     })();
-  }, []);
+  }, [user]);
   // FOR TESTING DISREGARD ERROR
   // const reposTiles = [];
   // for (let i = 0; i < 100; i += 1) {

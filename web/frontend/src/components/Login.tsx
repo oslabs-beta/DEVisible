@@ -41,7 +41,7 @@ function Login({ user, setUser }: Props) {
       })
       .then((res) => {
         if (res.status === 200) {
-          setUser(res.data.user);
+          setUser(res.data);
           navigate('/home');
         }
       })

@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn } from 'cross-spawn';
 import fastFolderSize from 'fast-folder-size';
 import fs from 'fs';
 import { gitToJs } from 'git-parse';
@@ -98,7 +98,7 @@ const sendData = async (buildTime: number) => {
         buildTime,
         buildSize,
         dependencies,
-        name,
+        repoName: name,
         lastCommitHash: hash,
       },
       null,
@@ -114,12 +114,15 @@ const sendData = async (buildTime: number) => {
       buildTime,
       buildSize,
       dependencies,
-      name,
-      lastCommitHash: hash,
+      repoName: name,
+      commitHash: hash,
     }),
   });
-  if (res.status === 200 || 201) {
-    console.log('Build details have been uploaded to server');
+
+  console.log(res);
+  if (res.status === 200 || res.status === 201) {
+    const data = await res.json();
+    console.log(data);
     process.exit(0);
   }
 };

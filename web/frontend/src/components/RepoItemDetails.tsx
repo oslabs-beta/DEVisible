@@ -56,7 +56,13 @@ function RepoItemDetails({
     }
     // make axios delete request to server
     const deleteResponse = await axios.delete(`/webAPI/repo/${repoId}`);
-    console.log(deleteResponse);
+    if (deleteResponse.status === 204) {
+      const repoIndex = data.findIndex((repo) => repo.id === repoId);
+      // store data state in a new label to be able to change it
+      const newData = data;
+      // remove repo at the predetermined repoIndex that was found where repoId matched target repoId
+      setData(newData.splice(repoIndex, 1));
+    }
   };
 
   return (
