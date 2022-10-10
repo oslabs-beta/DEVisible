@@ -13,10 +13,8 @@ interface RepoItemDependenciesProps {
 const jsonVerify = (dependencies: string) => {
   if (!dependencies) return { 'No Dependencies': '' };
   try {
-    console.log('here');
-    return JSON.parse(dependencies);
+    return JSON.parse(JSON.stringify(dependencies));
   } catch {
-    console.log('fail');
     return { 'No Dependencies': '' };
   }
 };
