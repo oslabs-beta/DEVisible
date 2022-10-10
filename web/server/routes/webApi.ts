@@ -5,9 +5,14 @@ import webController from '../controllers/webController';
 const router = express.Router();
 
 //* get user repo and build information
-router.get('/user/:userId', webController.getUserInfo, (req, res) => {
-  res.status(200).json(res.locals.userRepoInfo);
-});
+router.get(
+  '/user/:userId',
+  userController.verifyJwt,
+  webController.getUserInfo,
+  (req, res) => {
+    res.status(200).json(res.locals.userRepoInfo);
+  }
+);
 
 // create route that will handle delete requests for specific repo
 router.delete(

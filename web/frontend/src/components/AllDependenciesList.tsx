@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  TableContainer,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@mui/material';
+import { TableContainer, Table, TableBody, TableCell } from '@mui/material';
 import jsonVerify from './utils/jsonVerify';
 
 interface AllDependenciesListProps {

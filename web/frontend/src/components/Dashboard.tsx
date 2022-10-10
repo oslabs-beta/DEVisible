@@ -19,9 +19,10 @@ function Dashboard({ user }: Props): JSX.Element {
   useEffect(() => {
     if (!user) return;
     (async () => {
+      console.log('userId', user.id);
       const response = await getUserInfoApi(user.id);
       setData(response);
-      setTimeout(() => setLoading(false), 1000);
+      setLoading(false);
     })();
   }, [user]);
   // FOR TESTING DISREGARD ERROR
