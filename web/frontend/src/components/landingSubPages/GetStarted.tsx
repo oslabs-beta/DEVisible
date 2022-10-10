@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
+import { Link } from 'react-scroll';
 import theme from '../../theme';
 import '../../stylesheets/getstarted.css';
 
@@ -21,31 +22,40 @@ function GetStarted() {
         <span className="title2" style={{ color: 'white' }}>
           isible
         </span>
-        <div id="devisible">Input some cool phrase to draw audience in</div>
+        <div id="devisible">
+          Make tracking your microservice architecture a micro-hassle
+        </div>
         <Button
           style={{
             backgroundColor: `${theme.palette.secondary.dark}`,
-            color: `${theme.palette.primary.light}`,
+            color: 'white',
             top: '35%',
-            marginLeft: '44.7%',
+            marginLeft: '44.5%',
             width: '10%',
             height: '10%',
             fontSize: '1.3em',
           }}
         >
-          Get Started
+          <Link to="installation" spy smooth offset={0} duration={500}>
+            Get Started
+          </Link>
         </Button>
       </div>
       <div
         id="quickGlance"
         style={{ backgroundColor: `${theme.palette.secondary.dark}` }}
       >
-        <ul id="explanation">
-          <li className="explanationTopics">Thing 1</li>
-          <li className="explanationTopics">Thing 2</li>
-          <li className="explanationTopics">Thing 3</li>
-          <li className="explanationTopics">Thing 4</li>
-        </ul>
+        <section>
+          <p className="sectionTitle">Built by Developers, for Developers</p>
+          <p className="sectionText">
+            As micro-frontend architectures rise to prominence so do the
+            problems with tracking such complex systems. <br /> Introducing
+            DEVisible, a monitoring tool that works alongside your testing,
+            build, and deployment process to produce powerful visualizations
+            <br /> on crucial metadata for your DevOps teams to make profitable
+            time-saving decisions.
+          </p>
+        </section>
       </div>
     </div>
   );
