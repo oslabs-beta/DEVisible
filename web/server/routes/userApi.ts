@@ -14,7 +14,7 @@ router.post(
   userController.verifyUser,
   userController.assignJwt,
   (req, res) => {
-    res.status(200).json({ user: res.locals.user });
+    res.status(200).json({ username: res.locals.user, id: res.locals.userId });
   }
 );
 
