@@ -1,0 +1,20 @@
+.installation {
+  width: 100vw;
+  height: 100vh;
+}
+.installContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  width: 80%;
+}
+
+.instructions {
+  width: 80vw;
+  height: 100vh;
+}
