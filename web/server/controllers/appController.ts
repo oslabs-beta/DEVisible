@@ -68,12 +68,12 @@ const appController: AppController = {
         data: {
           userId,
           name: repoName,
-          depPrefs: JSON.stringify(dependencies),
           builds: {
             create: [
               {
                 // hard coded, need to wipe database to be able to count properly and avoid conflicts
                 createdAt: new Date(),
+                deps: JSON.stringify(dependencies),
                 buildTime: Number(buildTime),
                 buildSize: Number(buildSize),
               },
