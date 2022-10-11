@@ -7,8 +7,10 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
-import { User } from './types';
 import Landing from './components/Landing';
+import Footer from './components/Footer';
+import { User } from './types';
+
 // import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
@@ -20,7 +22,6 @@ function App(): JSX.Element {
       .then((res) => res.json())
       .then((responseObj) => {
         if (responseObj) {
-          console.log(responseObj, 'user from app');
           if (responseObj.username.username) {
             setUser(responseObj.username);
           } else {
@@ -58,6 +59,7 @@ function App(): JSX.Element {
           <Route path="/recovery" element={<Recovery />} />
           {/* <Route path="/deps" element={<MasterDependencies />} /> */}
         </Routes>
+        <Footer />
       </BrowserRouter>
     </Box>
   );
