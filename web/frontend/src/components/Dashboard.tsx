@@ -11,17 +11,22 @@ import SearchBar from './SearchBar';
 
 interface Props {
   user: User | null;
+  handleSetDependenciesList: (arg: string) => void;
 }
 
-function Dashboard({ user }: Props): JSX.Element {
+function Dashboard({ user, handleSetDependenciesList }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!user) return;
     (async () => {
-      console.log('userId', user.id);
       const response = await getUserInfoApi(user.id);
       setData(response);
+      // handleSetDependenciesList(
+      //   response.map(
+      //     (repo: string[] | string) => repo.builds[repo.builds.length - 1].deps
+      //   )
+      // );
       setLoading(false);
     })();
   }, [user]);
@@ -38,6 +43,7 @@ function Dashboard({ user }: Props): JSX.Element {
   // }
   //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
+  console.log('user', user);
   return (
     <Box overflow="auto" className="dashboard-container" flex={1}>
       <SearchBar />

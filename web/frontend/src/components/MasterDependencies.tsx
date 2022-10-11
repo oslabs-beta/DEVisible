@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import '../stylesheets/dependency-list.css';
-import mockData from './mocks/mocks';
 import AllDependenciesList from './AllDependenciesList';
+import MasterDependenciesList from './MasterDependenciesList';
+import { User } from '../types';
+import { getUserDeps } from './api/user';
 
 interface MasterDependenciesProps {
-  depsPrefs: string;
-  deps: string;
+  user: User | null;
+  dependencies: string[] | null;
 }
-function MasterDependencies({
-  depsPrefs,
-  deps,
-}: // depsPrefs,
-// deps,
-MasterDependenciesProps) {
-  const dummyBuild = mockData.repos[0].builds;
+function MasterDependencies({ user, dependencies }: MasterDependenciesProps) {
+  useEffect(() => {
+    (async () => {
+      const response = await getUserDeps();
+      console.log('resHere', response);
+    })();
+  }, []);
   return (
     <Box bgcolor="primary.light" className="dependencies-page-container">
       <Paper className="dependencies-list-parent-container" elevation={3}>
@@ -26,6 +28,9 @@ MasterDependenciesProps) {
             Tracked Dependencies
           </Typography>
           <Divider />
+          <Box className="list-of-tracked-dependencies">
+            <MasterDependenciesList user={user} />
+          </Box>
         </Box>
         <Box className="dependencies-child-container">
           <Typography className="dependencies-container-header">
@@ -33,9 +38,7 @@ MasterDependenciesProps) {
           </Typography>
           <Divider />
           <Box className="list-of-all-dependencies">
-            {/* <AllDependenciesList
-              dependencies={dummyBuild[0].deps as unknown as string}
-            /> */}
+            <AllDependenciesList dependencies={dependencies} />
           </Box>
         </Box>
       </Paper>

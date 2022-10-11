@@ -6,11 +6,19 @@ const router = express.Router();
 
 //* get user repo and build information
 router.get(
-  '/user/:userId',
+  '/user',
   userController.verifyJwt,
   webController.getUserInfo,
   (req, res) => {
     res.status(200).json(res.locals.userRepoInfo);
+  }
+);
+router.get(
+  '/userDeps',
+  userController.verifyJwt,
+  webController.getUserDeps,
+  (req, res) => {
+    res.status(200).json([res.locals.depPrefs, res.locals.allDeps]);
   }
 );
 

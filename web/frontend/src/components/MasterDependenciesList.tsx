@@ -8,27 +8,21 @@ import {
 } from '@mui/material';
 import jsonVerify from './utils/jsonVerify';
 
-interface AllDependenciesListProps {
-  dependencies: string[] | null;
+interface MasterDependenciesProps {
+  user: User | null;
 }
-const nestDependencies = (dependencies: object) => {
-  const nestedDependencies = dependencies;
-  return nestedDependencies;
-};
-function AllDependenciesList({ dependencies }: AllDependenciesListProps) {
+function MasterDependencies({ user }: MasterDependenciesProps) {
   let parsedDependencies = null;
-  if (dependencies) {
-    parsedDependencies = dependencies?.map((buildDeps: string) =>
-      jsonVerify(buildDeps)
-    );
-    parsedDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
+  if (user) {
+    parsedDependencies = JSON.parse(user.depPrefs);
+    parsedDependencies = JSON.parse(parsedDependencies);
   }
   return (
     <div>
       <TableContainer>
         <Table>
           <TableBody>
-            {dependencies ? (
+            {Array.isArray(parsedDependencies) ? (
               parsedDependencies?.map((depRow) => (
                 <TableRow>
                   <TableCell>{depRow.name}</TableCell>
@@ -37,7 +31,7 @@ function AllDependenciesList({ dependencies }: AllDependenciesListProps) {
               ))
             ) : (
               <TableRow>
-                <TableCell>No Dependencies</TableCell>
+                <TableCell>No Tracked Dependencies</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -46,4 +40,4 @@ function AllDependenciesList({ dependencies }: AllDependenciesListProps) {
     </div>
   );
 }
-export default AllDependenciesList;
+export default MasterDependencies;

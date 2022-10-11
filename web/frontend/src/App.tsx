@@ -9,23 +9,25 @@ import Account from './components/Account';
 import Recovery from './components/Recovery';
 import { User } from './types';
 import Landing from './components/Landing';
-// import MasterDependencies from './components/MasterDependencies';
+import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
   const [user, setUser] = useState<User | null>(null);
 
+  const [dependenciesList, setDependenciesList] = useState<
+    string[] | string | null
+  >(null);
+  const handleSetDependenciesList = (dependencies: string[] | string) => {
+    setDependenciesList(dependencies);
+  };
   useEffect(() => {
     fetch('/userAPI/login')
       .then((res) => res.json())
       .then((responseObj) => {
         if (responseObj) {
-          console.log(responseObj, 'user from app');
-          if (responseObj.username.username) {
-            setUser(responseObj.username);
-          } else {
-            setUser(responseObj);
-          }
+          console.log('obj', responseObj);
+          setUser(responseObj);
         } else {
           setUser(null);
         }
@@ -53,10 +55,23 @@ function App(): JSX.Element {
             path="/login"
             element={<Login user={user} setUser={setUser} />}
           />
-          <Route path="/home" element={<Dashboard user={user} />} />
+          <Route
+            path="/home"
+            element={
+              <Dashboard
+                user={user}
+                handleSetDependenciesList={handleSetDependenciesList}
+              />
+            }
+          />
           <Route path="/account" element={<Account />} />
           <Route path="/recovery" element={<Recovery />} />
-          {/* <Route path="/deps" element={<MasterDependencies />} /> */}
+          <Route
+            path="/deps"
+            element={
+              <MasterDependencies dependencies={dependenciesList} user={user} />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Box>

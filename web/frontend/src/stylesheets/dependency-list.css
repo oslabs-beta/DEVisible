@@ -40,6 +40,34 @@
   .list-of-all-dependencies {
     margin-top: 1%;
     width: 100%;
-    height: 93%;
+    height: 90%;
     overflow: auto;
   }
+  .list-of-tracked-dependencies {
+    margin-top: 1%;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+  }
+  /* width */
+.list-of-tracked-dependencies::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+.list-of-tracked-dependencies::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.list-of-tracked-dependencies::-webkit-scrollbar-thumb {
+  /* border: 1px solid #EF8354; */
+  background: #EF8354; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.list-of-tracked-dependencies::-webkit-scrollbar-thumb:hover {
+  background: #e95818; 
+}
