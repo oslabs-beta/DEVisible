@@ -14,7 +14,7 @@ function GetStarted() {
           backgroundColor: `${theme.palette.primary.dark}`,
         }}
       >
-        <span>
+        <div className="textContainer">
           <MovingText
             type="fadeInFromLeft"
             duration="1000ms"
@@ -47,7 +47,7 @@ function GetStarted() {
               isible
             </span>
           </MovingText>
-        </span>
+        </div>
         <div id="devisible">
           Make tracking your microservice architecture a micro-hassle
         </div>

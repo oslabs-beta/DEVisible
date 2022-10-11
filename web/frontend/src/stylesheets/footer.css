@@ -1,8 +1,22 @@
 .footer {
   width: 100%;
-  height: 10%;
-  height: max-content;
-  display: grid;
-  grid-template-columns: 30% 39% 30%;
-  grid-template-rows: max-content;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contactUs {
+  flex: 33%;
+  list-style: none;
+  padding-top: 5px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  border-radius: 10px;
+  padding: 5px;
+  background-color: black;
 }

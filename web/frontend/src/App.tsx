@@ -8,7 +8,6 @@ import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
 import Landing from './components/Landing';
-import Footer from './components/Footer';
 import { User } from './types';
 
 // import MasterDependencies from './components/MasterDependencies';
@@ -59,7 +58,6 @@ function App(): JSX.Element {
           <Route path="/recovery" element={<Recovery />} />
           {/* <Route path="/deps" element={<MasterDependencies />} /> */}
         </Routes>
-        <Footer />
       </BrowserRouter>
     </Box>
   );

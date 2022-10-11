@@ -7,6 +7,7 @@ import {
   Installation,
   HowToUse,
   AboutTheTeam,
+  Footer,
 } from './landingSubPages/Exporter';
 
 function Landing() {
@@ -16,6 +17,7 @@ function Landing() {
       <Installation />
       <HowToUse />
       <AboutTheTeam />
+      <Footer />
       <div id="sidebar">
         <ul id="sidebarActive">
           <li className="sidebarItem">

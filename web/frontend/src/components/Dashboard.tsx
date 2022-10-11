@@ -4,6 +4,7 @@ import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
@@ -53,29 +54,32 @@ function Dashboard({ user }: Props): JSX.Element {
   //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
   return (
-    <Box overflow="auto" className="dashboard-container" flex={1}>
-      <SearchBar />
-      {loading ? (
-        <Box className="loader-container">
-          <Loader color="orange" />
-        </Box>
-      ) : (
-        <Box overflow="auto" className="repo-tiles-grid">
-          <Grid justifyContent="center" container>
-            {data?.map((repo: GetUserInfo) => (
-              <RepoItem
-                repoName={repo.name}
-                builds={repo.builds}
-                key={repo.id}
-                deleteRepo={deleteRepo}
-              />
-            ))}
-            {/* FOR TESTING */}
-            {/* {reposTiles} */}
-          </Grid>
-        </Box>
-      )}
-    </Box>
+    <>
+      <Box overflow="auto" className="dashboard-container" flex={1}>
+        <SearchBar />
+        {loading ? (
+          <Box className="loader-container">
+            <Loader color="orange" />
+          </Box>
+        ) : (
+          <Box overflow="auto" className="repo-tiles-grid">
+            <Grid justifyContent="center" container>
+              {data?.map((repo: GetUserInfo) => (
+                <RepoItem
+                  repoName={repo.name}
+                  builds={repo.builds}
+                  key={repo.id}
+                  deleteRepo={deleteRepo}
+                />
+              ))}
+              {/* FOR TESTING */}
+              {/* {reposTiles} */}
+            </Grid>
+          </Box>
+        )}
+      </Box>
+      <Footer />
+    </>
   );
 }
 

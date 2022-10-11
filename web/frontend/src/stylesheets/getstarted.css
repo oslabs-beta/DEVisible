@@ -10,16 +10,10 @@
 }
 
 .title1 {
-  position: relative;
-  top: 15%;
-  margin-left: 24%;
   font-size: 2em;
 }
 .title2 {
   font-size: 2em;
-  margin-left: 28.8%;
-  position: relative;
-  bottom: 3.5%;
 }
 
 #devisible {
@@ -48,4 +42,10 @@ section {
   text-shadow: none;
   text-align: center;
   font-size: 1.5em;
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
 }
