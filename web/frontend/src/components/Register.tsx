@@ -46,7 +46,7 @@ function Register({ user, setUser }: Props): JSX.Element {
         .then((res) => {
           // eslint-disable-next-line promise/always-return
           if (res.status === 200) {
-            setUser(res.data.username);
+            setUser(res.data);
             navigate('/home');
           }
         })

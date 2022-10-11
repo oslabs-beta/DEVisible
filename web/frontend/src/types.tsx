@@ -9,6 +9,7 @@ export interface BuildInfo {
 
 export interface User {
   username: string;
+  id: number;
 }
 
 export type GetUserInfo = {
