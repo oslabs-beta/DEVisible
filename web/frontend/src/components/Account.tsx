@@ -1,5 +1,7 @@
 import { Box, Button, Divider, Fab } from '@mui/material';
+import { bgcolor } from '@mui/system';
 import React, { useState } from 'react';
+import theme from '../theme';
 import { User } from '../types';
 
 interface AccountProps {
@@ -20,7 +22,7 @@ function Account({ user }: AccountProps): JSX.Element {
   if (!user) return <div>Loading...</div>;
   return (
     <Box
-      style={{
+      sx={{
         display: 'flex',
         flexFlow: 'column wrap',
         alignItems: 'center',
@@ -34,6 +36,8 @@ function Account({ user }: AccountProps): JSX.Element {
           {token}
           <div style={{ display: 'flex', flexFlow: 'column wrap' }}>
             <Button
+              variant="contained"
+              color="secondary"
               disabled={copied}
               onClick={() => {
                 // eslint-disable-next-line promise/catch-or-return
@@ -44,7 +48,13 @@ function Account({ user }: AccountProps): JSX.Element {
             >
               {copied ? <>Copied!</> : <>Copy to Clipboard</>}
             </Button>
-            <Button>Reset Token</Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ marginTop: '4px' }}
+            >
+              Reset Token
+            </Button>
           </div>
         </div>
       ) : (

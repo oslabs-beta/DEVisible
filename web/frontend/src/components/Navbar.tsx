@@ -111,12 +111,12 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box>
             {user && (
-              <span
+              <strong
                 style={{ cursor: 'pointer' }}
                 onClick={() => navigate('/account')}
               >
                 {user.username}
-              </span>
+              </strong>
             )}
           </Box>
           <Box sx={{ display: 'grid', marginBottom: '10px' }}>
