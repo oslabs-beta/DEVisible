@@ -38,7 +38,7 @@ function GetStarted() {
             duration="1500ms"
             delay="0s"
             direction="normal"
-            timing="ease-in"
+            timing="ease"
             iteration="1"
             fillMode="none"
             className="title2"
