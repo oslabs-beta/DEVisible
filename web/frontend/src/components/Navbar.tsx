@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
@@ -43,8 +44,16 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
     <Box>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          {/* Empty box for styling purposes, can be replaced with any element */}
-          <Box>&nbsp;</Box>
+          <Box>
+            {user && (
+              <strong
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/account')}
+              >
+                {user.username}
+              </strong>
+            )}
+          </Box>
           <Box sx={{ display: 'grid', marginBottom: '10px' }}>
             <img
               className="navbar-icon"

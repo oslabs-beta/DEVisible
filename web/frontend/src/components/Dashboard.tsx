@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
@@ -52,6 +52,17 @@ function Dashboard({ user }: Props): JSX.Element {
   // }
   //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
+  if (!loading && data!.length === 0)
+    return (
+      <div>
+        <h2>No repos have been added yet!</h2>
+        <p>
+          To add a repo, grab your API key from{' '}
+          <Link to="/account">the User Page</Link> and invoke the DEVisible
+          application using it.
+        </p>
+      </div>
+    );
   return (
     <Box overflow="auto" className="dashboard-container" flex={1}>
       <SearchBar />
