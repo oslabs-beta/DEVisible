@@ -1,10 +1,27 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import '../../stylesheets/installation.css';
 import { Box } from '@mui/system';
+import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import * as Scroll from 'react-scroll';
+import Grid from '@mui/system/Unstable_Grid';
+import styled from '@mui/system/styled';
 import theme from '../../theme';
+import cicd from '../../assets/cicd.png';
 
 function Installation() {
+  const Scroller = Scroll.Link;
+
+  const GridItem = styled('div')(() => ({
+    border: '1px solid',
+    borderColor: 'black',
+    borderRadius: '4px',
+    height: '100%',
+    width: '100%',
+    padding: '5%',
+    boxShadow: '5px 5px 5px black',
+  }));
   return (
     <div
       className="installation"
@@ -14,13 +31,17 @@ function Installation() {
     >
       <div className="installContainer">
         <div className="title">Installation</div>
-        <div className="instructions">
-          <ul
-            style={{
-              color: `${theme.palette.secondary.main}`,
-            }}
-          >
-            <li className="instruction">
+        <Grid
+          style={{
+            color: `${theme.palette.secondary.main}`,
+          }}
+          container
+          spacing={{ xs: 2, md: 4 }}
+          columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+          marginLeft="15%"
+        >
+          <Grid xs={2} sm={3}>
+            <GridItem className="instruction">
               <span>Step 1: </span>
               <Link
                 to="/signup"
@@ -29,8 +50,11 @@ function Installation() {
                 Make An Account
               </Link>
               <span> to Receive an API Key</span>
-            </li>
-            <li className="instruction">
+            </GridItem>
+          </Grid>
+
+          <Grid xs={2} sm={3}>
+            <GridItem className="instruction">
               <span>Step 2: Navigate to your </span>
               <Link
                 to="/account"
@@ -39,8 +63,11 @@ function Installation() {
                 Account Page
               </Link>
               <span> to view your API Key</span>
-            </li>
-            <li className="instruction">
+            </GridItem>
+          </Grid>
+
+          <Grid xs={2} sm={3}>
+            <GridItem className="instruction">
               <span>Step 3: run </span>
               <Box
                 className="codeBlock"
@@ -50,12 +77,47 @@ function Installation() {
               >
                 npm install devisible
               </Box>
-            </li>
-            <li className="instruction">step4</li>
-            <li className="instruction">step5</li>
-            <li className="instruction">step6</li>
-          </ul>
-        </div>
+              <span> inside the root directory of your project/s</span>
+            </GridItem>
+          </Grid>
+
+          <Grid xs={2} sm={4}>
+            <GridItem className="instruction">
+              Step 4: Run from CLI:
+              <Box
+                className="codeBlock2"
+                bgcolor={theme.palette.primary.light}
+                color="black"
+              >
+                <code>
+                  node devisible.js --apiKey api_key_goes_here --buildPath
+                  dist/--command "npm run build"
+                </code>
+              </Box>
+            </GridItem>
+          </Grid>
+
+          <Grid xs={2} sm={5}>
+            <GridItem className="instruction">
+              Step 5: Run from GitHub Actions:
+              <Box
+                className="codeBlock"
+                color="black"
+                style={{ width: '100%' }}
+              >
+                <img src={cicd} alt="CICD installation instructions" />
+              </Box>
+            </GridItem>
+          </Grid>
+          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: theme.palette.primary.main }}
+            >
+              Next Steps
+            </Button>
+          </Scroller>
+        </Grid>
       </div>
     </div>
   );
