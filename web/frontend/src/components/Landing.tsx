@@ -6,7 +6,6 @@ import {
   GetStarted,
   Installation,
   HowToUse,
-  AboutTheTeam,
   Footer,
 } from './landingSubPages/Exporter';
 
@@ -16,7 +15,6 @@ function Landing() {
       <GetStarted />
       <Installation />
       <HowToUse />
-      <AboutTheTeam />
       <Footer />
       <div id="sidebar">
         <ul id="sidebarActive">
@@ -33,11 +31,6 @@ function Landing() {
           <li className="sidebarItem">
             <Link to="howToUse" spy smooth offset={0} duration={500}>
               How To Use
-            </Link>
-          </li>
-          <li className="sidebarItem">
-            <Link to="aboutTheTeam" spy smooth offset={0} duration={500}>
-              Meet The Team
             </Link>
           </li>
           <li className="sidebarItem">

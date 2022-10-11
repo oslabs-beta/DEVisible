@@ -9,6 +9,7 @@ import Account from './components/Account';
 import Recovery from './components/Recovery';
 import { User } from './types';
 import Landing from './components/Landing';
+import AboutTheTeam from './components/AboutTheTeam';
 // import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
@@ -51,6 +52,7 @@ function App(): JSX.Element {
           <Route path="/home" element={<Dashboard user={user} />} />
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/recovery" element={<Recovery />} />
+          <Route path="/about" element={<AboutTheTeam />} />
           {/* <Route path="/deps" element={<MasterDependencies />} /> */}
         </Routes>
       </BrowserRouter>

@@ -33,17 +33,23 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
 
   //  conditionally render a login link if user is not authenticated, otherwise render the menu button that can be used to traverse the app
   const topRight = !user ? (
-    <Button onClick={() => navigate('/login')} color="inherit">
+    <Button
+      onClick={() => navigate('/login')}
+      color="inherit"
+      sx={{ justifySelf: 'end' }}
+    >
       Login
     </Button>
   ) : (
-    <DropMenu handleLogout={handleLogout} />
+    <Box sx={{ justifySelf: 'end' }}>
+      <DropMenu handleLogout={handleLogout} />
+    </Box>
   );
 
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Toolbar sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
           <Box>
             {user && (
               <strong
@@ -54,11 +60,20 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
               </strong>
             )}
           </Box>
-          <Box sx={{ display: 'grid', marginBottom: '10px' }}>
+          <Box
+            sx={{
+              display: 'grid',
+              justifySelf: 'center',
+              alignItems: 'center',
+              height: '100%',
+              width: '100%',
+              marginBottom: '10px',
+            }}
+          >
             <img
               className="navbar-icon"
               style={{
-                marginLeft: '25px',
+                justifySelf: 'center',
                 cursor: user ? 'pointer' : 'default',
               }}
               src={TransparentOrange}

@@ -7,7 +7,7 @@ function Footer() {
     <div
       className="footer"
       style={{
-        backgroundColor: `${theme.palette.secondary.dark}`,
+        backgroundColor: `${theme.palette.primary.main}`,
       }}
     >
       <div className="contactUs">

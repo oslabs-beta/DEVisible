@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import LineChart from './charts/LineChart';
-import { BuildInfo, GetUserInfo } from '../types';
+import { BuildInfo } from '../types';
 import RepoItemDependencies from './RepoItemDependencies';
 
 interface RepoItemDetailsProps {
