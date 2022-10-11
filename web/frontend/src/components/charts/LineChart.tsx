@@ -24,12 +24,13 @@ ChartJS.register(
 );
 
 const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
-  const labels: number[] = []; // x-axis
+  const labels: string[] = []; // x-axis
   const timeStamp: string[] = []; //  tooltips
   const dataPoints: number[] = []; // y-axis
   createdAtArray.forEach((date, index) => {
-    labels.push(index);
-    timeStamp.push(date);
+    const buildTimeStamp = new Date(date).toLocaleString();
+    labels.push(`Build ${index}`);
+    timeStamp.push(buildTimeStamp);
   });
   buildSizeArray.forEach((build) => dataPoints.push(build));
   const chartData = {
@@ -38,8 +39,11 @@ const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
       {
         label: 'Dataset 1',
         data: dataPoints,
-        borderColor: theme.palette.secondary.main,
+        borderColor: theme.palette.primary.main,
+        pointBorderColor: theme.palette.secondary.main,
         backgroundColor: theme.palette.secondary.main,
+        pointRadius: 5,
+        pointHoverRadius: 7,
       },
     ],
   };
@@ -63,16 +67,19 @@ const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
     plugins: {
       tooltip: {
         //  TODO on hover over data point, show date (needs TS support)
-        // callbacks: {
-        //   label: 'hey there'
-        // }
-      },
-      legend: {
-        display: false,
+        callbacks: {
+          label(context: { dataIndex: number }): string {
+            const labelDataIndex = context.dataIndex;
+            const createdAt = timeStamp[labelDataIndex];
+            return `Created at ${createdAt}`;
+          },
+        },
       },
     },
+    legend: {
+      display: false,
+    },
   };
-
   return { chartData, chartOptions };
 };
 
