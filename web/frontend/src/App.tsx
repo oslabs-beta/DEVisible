@@ -9,7 +9,7 @@ import Account from './components/Account';
 import Recovery from './components/Recovery';
 import { User } from './types';
 import Landing from './components/Landing';
-import MasterDependencies from './components/MasterDependencies';
+// import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
@@ -51,7 +51,7 @@ function App(): JSX.Element {
           <Route path="/home" element={<Dashboard user={user} />} />
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/recovery" element={<Recovery />} />
-          <Route path="/deps" element={<MasterDependencies />} />
+          {/* <Route path="/deps" element={<MasterDependencies />} /> */}
         </Routes>
       </BrowserRouter>
     </Box>

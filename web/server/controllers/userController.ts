@@ -7,12 +7,7 @@ import crypto from 'crypto';
 
 // environmental variables
 dotenv.config();
-const {
-  JWT_SECRET,
-  ALGORITHM,
-  API_TOKEN_ENCRYPTION_KEY,
-  API_TOKEN_INITIALIZATION_VECTOR,
-} = process.env;
+const { JWT_SECRET } = process.env;
 
 const prisma = new PrismaClient();
 interface UserController {
@@ -22,41 +17,6 @@ interface UserController {
   verifyJwt: (req: Request, res: Response, next: NextFunction) => void;
   getToken: (req: Request, res: Response, next: NextFunction) => void;
 }
-
-//* encrypting and decrypting our API Token
-if (!API_TOKEN_ENCRYPTION_KEY)
-  throw new Error('Missing Api Token encryption key in .env');
-if (!API_TOKEN_INITIALIZATION_VECTOR)
-  throw new Error('Missing Api Token initialization vector in .env');
-const initVector = API_TOKEN_INITIALIZATION_VECTOR;
-const securityKey = API_TOKEN_ENCRYPTION_KEY;
-
-const encryptAPIToken = (): string => {
-  const unencryptedToken = crypto.randomUUID();
-
-  const cipher = crypto.createCipheriv(
-    ALGORITHM as string,
-    securityKey,
-    initVector
-  );
-
-  let encryptedToken = cipher.update(unencryptedToken, 'utf-8', 'hex');
-  encryptedToken += cipher.final('hex');
-  return encryptedToken;
-};
-
-const decryptAPIToken = (encryptedToken: string): string => {
-  const decipher = crypto.createDecipheriv(
-    ALGORITHM as string,
-    securityKey,
-    initVector
-  );
-  //* setting padding to false prevents weird bug with deciphering
-  decipher.setAutoPadding(false);
-  let decryptedToken = decipher.update(encryptedToken, 'hex', 'utf-8');
-  decryptedToken += decipher.final('utf-8');
-  return decryptedToken;
-};
 
 const userController: UserController = {
   createUser: async (req, res, next) => {
@@ -71,7 +31,7 @@ const userController: UserController = {
       }
       const passwordHash = await bcrypt.hash(plainPassword, 10);
 
-      const APIToken = encryptAPIToken();
+      const APIToken = crypto.randomUUID();
 
       const newUser = await prisma.user.create({
         data: {
@@ -114,8 +74,9 @@ const userController: UserController = {
         loggedInUser.passwordHash
       );
       if (validPassword) {
-        res.locals.user = loggedInUser?.username;
-        res.locals.userId = loggedInUser?.id;
+        res.locals.user = loggedInUser.username;
+        res.locals.userId = loggedInUser.id;
+        res.locals.depPrefs = loggedInUser.depPrefs;
       } else {
         return next({
           log: 'null',
@@ -138,6 +99,7 @@ const userController: UserController = {
       {
         username: res.locals.user,
         id: res.locals.userId,
+        depPrefs: res.locals.depPrefs,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }
@@ -169,11 +131,8 @@ const userController: UserController = {
           username: data,
         },
       });
-      //* get encrypted token and decrypt it to return to user
       const { APIToken } = loggedInUser;
-      const decryptedToken = decryptAPIToken(APIToken).trim();
-      console.log(decryptedToken);
-      res.locals.API = decryptedToken;
+      res.locals.API = APIToken;
 
       return next();
     } catch (error) {

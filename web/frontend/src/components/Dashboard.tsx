@@ -1,7 +1,9 @@
+/* eslint-disable no-restricted-syntax */
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
@@ -23,6 +25,20 @@ function Dashboard({ user }: Props): JSX.Element {
       setTimeout(() => setLoading(false), 1000);
     })();
   }, [user]);
+
+  // function for handling click of delete button within individual repo components
+  const deleteRepo = async (repoId: number): Promise<void> => {
+    // make axios delete request to server
+    const deleteResponse = await axios.delete(`/webAPI/repo/${repoId}`);
+    if (deleteResponse.status === 204 && data !== undefined) {
+      const repoIndex = data.findIndex((repo) => repo.id === repoId);
+      // store data state in a new label to be able to change it
+      const newData = [...data];
+      newData.splice(repoIndex, 1);
+      // remove repo at the predetermined repoIndex that was found where repoId matched target repoId
+      setData(newData);
+    }
+  };
   // FOR TESTING DISREGARD ERROR
   // const reposTiles = [];
   // for (let i = 0; i < 100; i += 1) {
@@ -62,8 +78,7 @@ function Dashboard({ user }: Props): JSX.Element {
                 repoName={repo.name}
                 builds={repo.builds}
                 key={repo.id}
-                data={data}
-                setData={setData}
+                deleteRepo={deleteRepo}
               />
             ))}
             {/* FOR TESTING */}
