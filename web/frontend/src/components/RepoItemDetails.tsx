@@ -12,7 +12,6 @@ import {
   IconButton,
 } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
-import axios from 'axios';
 import LineChart from './charts/LineChart';
 import { BuildInfo, GetUserInfo } from '../types';
 import RepoItemDependencies from './RepoItemDependencies';
@@ -22,8 +21,7 @@ interface RepoItemDetailsProps {
   open: boolean;
   handleClose: () => void;
   buildsInfo: BuildInfo[];
-  data: GetUserInfo[];
-  setData: React.Dispatch<React.SetStateAction<GetUserInfo[] | undefined>>;
+  deleteRepo: (repoId: number) => void;
 }
 
 function RepoItemDetails({
@@ -31,38 +29,33 @@ function RepoItemDetails({
   open,
   handleClose,
   buildsInfo,
-  data,
-  setData,
+  deleteRepo,
 }: RepoItemDetailsProps): JSX.Element {
   const [dependencyView, setDependencyView] = useState(false);
   const handleSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDependencyView(event.target.checked);
   };
   const dependencies = buildsInfo[buildsInfo.length - 1].deps; // list of dependencies from most recent build
+  // find the current repo's ID by accessing the first build in the builds array (every repo will by definition have at least one build)
+  const { repoId } = buildsInfo[0];
+  // tracks the state of whether the delete repo confirmation dialog is open
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  const deleteRepo = async (): Promise<void> => {
-    // find the current repo by name in the data prop drilled down from the dashboard component
-    // eslint-disable-next-line no-restricted-syntax
-    let repoId = Infinity;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const repo of data) {
-      // each repo is an object in the data array
-      if (repo.name === repoName) {
-        // this is the repo we want to delete from the database
-        // access id property from this repo and send it as a param on delete request to server
-        repoId = repo.id;
-        break;
-      }
-    }
-    // make axios delete request to server
-    const deleteResponse = await axios.delete(`/webAPI/repo/${repoId}`);
-    if (deleteResponse.status === 204) {
-      const repoIndex = data.findIndex((repo) => repo.id === repoId);
-      // store data state in a new label to be able to change it
-      const newData = data;
-      // remove repo at the predetermined repoIndex that was found where repoId matched target repoId
-      setData(newData.splice(repoIndex, 1));
-    }
+  const handleDialogOpen = () => {
+    // swap diaglog open status to the opposite of whatever it currently is -> toggles back and forth between open and closed
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  // helper function that is invoked by confirmation of delete repo alert dialog
+  // closes the dialog and invokes the deleteRepo function, passing in the current Repo ID
+  const closeAndDeleteRepo = () => {
+    handleDialogClose();
+    handleClose();
+    deleteRepo(repoId);
   };
 
   return (
@@ -101,12 +94,28 @@ function RepoItemDetails({
         <DialogActions sx={{ justifyContent: 'space-between' }}>
           {/* TODO implement delete repo functionality */}
           <IconButton
-            onClick={deleteRepo}
+            onClick={handleDialogOpen}
             sx={{ ml: '3px', mb: '0px' }}
             color="primary"
           >
             <DeleteIcon fontSize="large" />
           </IconButton>
+          <Dialog
+            open={dialogOpen}
+            onClose={handleDialogClose}
+            aria-labelledby="Delete alert"
+            aria-describedby="Prompt users to confirm whether they would like to delete repo"
+          >
+            <DialogTitle id="Delete Rpo Alert">
+              Are you sure you would like to delete this repo?
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={closeAndDeleteRepo} autoFocus>
+                Yes
+              </Button>
+              <Button onClick={handleDialogClose}>No</Button>
+            </DialogActions>
+          </Dialog>
           <Button
             sx={{ mr: '3px', mb: '0px', color: 'white' }}
             variant="contained"
