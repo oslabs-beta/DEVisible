@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 interface WebController {
   getUserInfo: (req: Request, res: Response, next: NextFunction) => void;
   getUserDeps: (req: Request, res: Response, next: NextFunction) => void;
+  postUserDepPrefs: (req: Request, res: Response, next: NextFunction) => void;
   deleteRepo: (req: Request, res: Response, next: NextFunction) => void;
 }
 
@@ -75,6 +76,31 @@ const webController: WebController = {
         log: `Error caught in webController.getUserDeps ${error}`,
         status: 400,
         message: `Error has occured in webController.getUserDeps ERROR: ${error}`,
+      });
+    }
+  },
+  postUserDepPrefs: async (req, res, next) => {
+    const { depPrefs } = req.body;
+    const userId: number = res.locals.jwt.id;
+    try {
+      const updatedDepPrefs = await prisma.user.upsert({
+        where: {
+          id: userId,
+        },
+        update: {
+          depPrefs,
+        },
+        create: {
+          depPrefs,
+        },
+      });
+      res.locals.updatedDepPrefs = updatedDepPrefs;
+      return next();
+    } catch (error) {
+      return next({
+        log: `Error caught in webController.postUserDepPrefs ${error}`,
+        status: 400,
+        message: `Error has occured in webController.postUserDepPrefs ERROR: ${error}`,
       });
     }
   },

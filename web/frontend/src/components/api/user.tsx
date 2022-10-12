@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { AllDependenciesBuilds, GetUserInfo } from 'frontend/src/types';
+import {
+  AllDependenciesBuilds,
+  GetUserInfo,
+  TrackedDependencies,
+} from 'frontend/src/types';
 
 export const getUserInfoApi = async (): Promise<GetUserInfo[]> => {
   try {
@@ -14,6 +18,18 @@ export const getUserDeps = async (): Promise<
 > => {
   try {
     const response = await axios.get(`webAPI/userDeps`);
+    return response.data;
+  } catch (error: any) {
+    return error;
+  }
+};
+export const postUserDepPrefs = async (
+  depPrefs: TrackedDependencies[]
+): Promise<any> => {
+  try {
+    const response = await axios.post(`webAPI/userDeps`, {
+      depPrefs,
+    });
     return response.data;
   } catch (error: any) {
     return error;

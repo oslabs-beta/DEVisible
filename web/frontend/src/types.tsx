@@ -26,6 +26,6 @@ export type AllDependenciesBuilds = {
 };
 
 export type TrackedDependencies = {
-  name: string;
-  version: string;
+  name?: string;
+  version?: string;
 };
