@@ -6,31 +6,32 @@ import {
   TableRow,
   TableCell,
 } from '@mui/material';
+import jsonVerify from './utils/jsonVerify';
 
 interface RepoItemDependenciesProps {
   dependencies: string;
 }
-const jsonVerify = (dependencies: string) => {
-  if (!dependencies) return { 'No Dependencies': '' };
-  try {
-    return JSON.parse(JSON.stringify(dependencies));
-  } catch {
-    return { 'No Dependencies': '' };
-  }
-};
+interface ParsedDependencies {
+  name: string;
+  version: string;
+  isDevDependency: boolean;
+}
 function RepoItemDependencies({
   dependencies,
 }: RepoItemDependenciesProps): JSX.Element {
-  const parsedDependencies = jsonVerify(dependencies);
+  //  jsonVerify returns null if argument is empty of invalid JSON
+  const parsedDependencies = jsonVerify(dependencies)
+    ? jsonVerify(dependencies)
+    : [{ name: 'No Dependencies' }];
   return (
     <div>
       <TableContainer>
         <Table>
           <TableBody>
-            {Object.keys(parsedDependencies).map((depRow) => (
+            {parsedDependencies.map((depRow: ParsedDependencies) => (
               <TableRow>
-                <TableCell>{depRow}</TableCell>
-                <TableCell>{parsedDependencies[depRow]}</TableCell>
+                <TableCell>{depRow.name}</TableCell>
+                <TableCell>{depRow.version}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -4,12 +4,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 interface WebController {
   getUserInfo: (req: Request, res: Response, next: NextFunction) => void;
+  getUserDeps: (req: Request, res: Response, next: NextFunction) => void;
   deleteRepo: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const webController: WebController = {
   getUserInfo: async (req, res, next) => {
-    const userId: number = parseInt(req.params.userId, 10);
+    const userId: number = res.locals.jwt.id;
     try {
       const userRepos = await prisma.repo.findMany({
         where: {
@@ -38,6 +39,42 @@ const webController: WebController = {
         log: `Error caught in webController.getUserInfo ${error}`,
         status: 400,
         message: `Error has occured in webController.getUserInfo ERROR: ${error}`,
+      });
+    }
+  },
+  getUserDeps: async (req, res, next) => {
+    const userId: number = res.locals.jwt.id;
+    try {
+      const userDepPrefs = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        select: {
+          depPrefs: true,
+        },
+      });
+      const userAllDeps = await prisma.repo.findMany({
+        where: {
+          userId,
+        },
+        select: {
+          name: true,
+          builds: {
+            select: {
+              repoId: true,
+              deps: true,
+            },
+          },
+        },
+      });
+      res.locals.depPrefs = userDepPrefs;
+      res.locals.allDeps = userAllDeps;
+      return next();
+    } catch (error) {
+      return next({
+        log: `Error caught in webController.getUserDeps ${error}`,
+        status: 400,
+        message: `Error has occured in webController.getUserDeps ERROR: ${error}`,
       });
     }
   },

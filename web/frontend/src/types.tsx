@@ -19,3 +19,12 @@ export type GetUserInfo = {
   builds: BuildInfo[];
   error?: any;
 };
+
+export type AllDependenciesBuilds = {
+  name: string;
+  builds: Pick<BuildInfo, 'repoId' | 'deps'>[];
+};
+
+export type DepPrefsResponse = {
+  depPrefs: string;
+};

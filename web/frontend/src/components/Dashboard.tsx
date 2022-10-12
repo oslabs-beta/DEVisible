@@ -4,11 +4,13 @@ import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+// import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
   user: User | null;
@@ -20,9 +22,9 @@ function Dashboard({ user }: Props): JSX.Element {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const response = await getUserInfoApi(user.id);
+      const response = await getUserInfoApi();
       setData(response);
-      setTimeout(() => setLoading(false), 1000);
+      setLoading(false);
     })();
   }, [user]);
 
@@ -52,7 +54,7 @@ function Dashboard({ user }: Props): JSX.Element {
   // }
   //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
-  if (!loading && data!.length === 0)
+  if (!loading && data?.length === 0)
     return (
       <div>
         <h2>No repos have been added yet!</h2>
@@ -64,29 +66,32 @@ function Dashboard({ user }: Props): JSX.Element {
       </div>
     );
   return (
-    <Box overflow="auto" className="dashboard-container" flex={1}>
-      <SearchBar />
-      {loading ? (
-        <Box className="loader-container">
-          <Loader color="orange" />
-        </Box>
-      ) : (
-        <Box overflow="auto" className="repo-tiles-grid">
-          <Grid justifyContent="center" container>
-            {data?.map((repo: GetUserInfo) => (
-              <RepoItem
-                repoName={repo.name}
-                builds={repo.builds}
-                key={repo.id}
-                deleteRepo={deleteRepo}
-              />
-            ))}
-            {/* FOR TESTING */}
-            {/* {reposTiles} */}
-          </Grid>
-        </Box>
-      )}
-    </Box>
+    <>
+      <Box overflow="auto" className="dashboard-container" flex={1}>
+        <SearchBar />
+        {loading ? (
+          <Box className="loader-container">
+            <Loader color="orange" />
+          </Box>
+        ) : (
+          <Box overflow="auto" className="repo-tiles-grid">
+            <Grid justifyContent="center" container>
+              {data?.map((repo: GetUserInfo) => (
+                <RepoItem
+                  repoName={repo.name}
+                  builds={repo.builds}
+                  key={repo.id}
+                  deleteRepo={deleteRepo}
+                />
+              ))}
+              {/* FOR TESTING */}
+              {/* {reposTiles} */}
+            </Grid>
+          </Box>
+        )}
+      </Box>
+      <Footer />
+    </>
   );
 }
 
