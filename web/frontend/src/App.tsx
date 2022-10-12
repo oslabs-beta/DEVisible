@@ -19,7 +19,7 @@ function App(): JSX.Element {
     fetch('/userAPI/login')
       .then((res) => res.json())
       .then((responseObj) => {
-        if (responseObj) {
+        if (responseObj.username) {
           setUser(responseObj);
         } else {
           setUser(null);
