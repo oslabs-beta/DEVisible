@@ -1,12 +1,12 @@
 import React from 'react';
 import { styled } from '@mui/system';
 import CardMedia from '@mui/material/Card';
-import theme from '../../theme';
-import '../../stylesheets/abouttheteam.css';
-import Michael from '../../assets/Michael.png';
-import Justin from '../../assets/Justin.png';
-import Eden from '../../assets/Eden.png';
-import Tanner from '../../assets/Tanner.png';
+import theme from '../theme';
+import '../stylesheets/abouttheteam.css';
+import Michael from '../assets/Michael.png';
+import Justin from '../assets/Justin.png';
+import Eden from '../assets/Eden.png';
+import Tanner from '../assets/Tanner.png';
 
 function AboutTheTeam() {
   const CardStyle = styled(CardMedia)({

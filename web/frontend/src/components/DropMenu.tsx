@@ -73,6 +73,14 @@ export default function DropMenu({ handleLogout }: DropMenuProps) {
         >
           Dependencies List
         </MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate('/about');
+            handleClose();
+          }}
+        >
+          About Us
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Log Out</MenuItem>
       </Menu>
     </>

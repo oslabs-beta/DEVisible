@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Divider, Grid, Paper, Typography } from '@mui/material';
 import RepoItemDetails from './RepoItemDetails';
-import { BuildInfo, GetUserInfo } from '../types';
+import { BuildInfo } from '../types';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
