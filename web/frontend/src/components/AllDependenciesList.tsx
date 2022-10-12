@@ -58,12 +58,41 @@ function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
+  // const handleCheckbox = (index, dependencyName, dependencyVersionsList) => {
+  //   const resultList = [];
+  //   Object.values(dependencyVersionsList).map((repo) => {
+  //     console.log('val', Object.values(repo));
+  //   });
+  //   dependencyVersionsList = [
+  //     { test1: '16.3.2' },
+  //     { test2: '18.4' },
+  //     { test: '12.3' },
+  //   ];
+  //   let dependencyVersion = Object.values(dependencyVersionsList)[0];
+  //   if (dependencyVersionsList.length > 1) {
+  //     dependencyVersion = Object.values(dependencyVersionsList).sort(
+  //       (a: string, b: string) => {
+  //         console.log('yo', a, parseInt(a, 10), typeof parseInt(a, 10));
+  //         return parseInt(a, 10) - parseInt(b, 10);
+  //       }
+  //     );
+  //     console.log('here', dependencyVersion);
+  //   }
+  //   console.log(
+  //     'index',
+  //     index,
+  //     'depName',
+  //     dependencyName,
+  //     'depVersion',
+  //     dependencyVersion
+  //   );
+  // };
   let parsedDependencies: null | Dependencies[] = null;
   let nestedDependencies: null | NestedDependenciesResult = null;
   if (allDependencies) {
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
       const result = jsonVerify(repo.builds[repo.builds.length - 1].deps);
-      if (!result) return null;
+      if (!result || !Array.isArray(result)) return null;
       return result.map((dep: Omit<Dependencies, 'repoName'>) => ({
         ...dep,
         repoName: repo.name,
@@ -119,7 +148,16 @@ function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
                         key={((index + 1) * -1).toString() + depRow}
                         align="right"
                       >
-                        <Checkbox key={index} />
+                        <Checkbox
+                          key={index}
+                          // onChange={() =>
+                          //   handleCheckbox(
+                          //     index,
+                          //     depRow,
+                          //     nestedDependencies[depRow]
+                          //   )
+                          // }
+                        />
                       </TableCell>
                     </TableRow>
                   </TableBody>
