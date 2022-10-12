@@ -7,8 +7,9 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
-import { User } from './types';
 import Landing from './components/Landing';
+import { User } from './types';
+
 // import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
@@ -19,8 +20,12 @@ function App(): JSX.Element {
     fetch('/userAPI/login')
       .then((res) => res.json())
       .then((responseObj) => {
-        if (responseObj.username) {
-          setUser(responseObj);
+        if (responseObj) {
+          if (responseObj.username.username) {
+            setUser(responseObj.username);
+          } else {
+            setUser(responseObj);
+          }
         } else {
           setUser(null);
         }
