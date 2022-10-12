@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { spawn } from 'cross-spawn';
 import fastFolderSize from 'fast-folder-size';
 import fs from 'fs';
