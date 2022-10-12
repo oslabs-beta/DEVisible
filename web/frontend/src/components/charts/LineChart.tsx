@@ -23,22 +23,42 @@ ChartJS.register(
   Legend
 );
 
-const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
+const FormatData = (
+  buildSizeArray: number[],
+  createdAtArray: string[],
+  buildTimeArray: number[]
+) => {
   const labels: string[] = []; // x-axis
   const timeStamp: string[] = []; //  tooltips
-  const dataPoints: number[] = []; // y-axis
+  const dataPoints: number[] = []; // y-axis for chart 1
+  const buildTimeDataPoints: number[] = []; // y-axis for chart 2
   createdAtArray.forEach((date, index) => {
     const buildTimeStamp = new Date(date).toLocaleString();
     labels.push(`Build ${index}`);
     timeStamp.push(buildTimeStamp);
   });
   buildSizeArray.forEach((build) => dataPoints.push(build));
+  buildTimeArray.forEach((build) => buildTimeDataPoints.push(build));
   const chartData = {
     labels,
     datasets: [
       {
         label: 'Dataset 1',
         data: dataPoints,
+        borderColor: theme.palette.primary.main,
+        pointBorderColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.secondary.main,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      },
+    ],
+  };
+  const buildTimeChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 2',
+        data: buildTimeDataPoints,
         borderColor: theme.palette.primary.main,
         pointBorderColor: theme.palette.secondary.main,
         backgroundColor: theme.palette.secondary.main,
@@ -75,12 +95,45 @@ const FormatData = (buildSizeArray: number[], createdAtArray: string[]) => {
           },
         },
       },
-    },
-    legend: {
-      display: false,
+      legend: {
+        display: false,
+      },
     },
   };
-  return { chartData, chartOptions };
+  const buildTimeChartOptions = {
+    scales: {
+      x: {
+        grid: {
+          color: theme.palette.primary.light,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Build Time (ms)',
+        },
+        grid: {
+          color: theme.palette.primary.light,
+        },
+      },
+    },
+    plugins: {
+      tooltip: {
+        //  TODO on hover over data point, show date (needs TS support)
+        callbacks: {
+          label(context: { dataIndex: number }): string {
+            const labelDataIndex = context.dataIndex;
+            const createdAt = timeStamp[labelDataIndex];
+            return `Created at ${createdAt}`;
+          },
+        },
+      },
+      legend: {
+        display: false,
+      },
+    },
+  };
+  return { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions };
 };
 
 interface LineChartProps {
@@ -89,13 +142,17 @@ interface LineChartProps {
 function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
   const buildSizeArray = buildsInfo.map((build: BuildInfo) => build.buildSize);
   const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt);
-  const { chartData, chartOptions } = FormatData(
-    buildSizeArray,
-    createdAtArray
-  );
+  const buildTimeArray = buildsInfo.map((build: BuildInfo) => build.buildTime);
+  const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
+    FormatData(buildSizeArray, createdAtArray, buildTimeArray);
   return (
     <div>
       <Line className="line-chart" data={chartData} options={chartOptions} />
+      <Line
+        className="line-chart"
+        data={buildTimeChartData}
+        options={buildTimeChartOptions}
+      />
     </div>
   );
 }
