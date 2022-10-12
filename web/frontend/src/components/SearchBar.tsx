@@ -23,7 +23,13 @@ const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar() {
+interface SearchBarProps {
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function SearchBar({
+  setSearchValue,
+}: SearchBarProps): JSX.Element {
   return (
     <Box className="search-bar-container">
       <StyledAutocomplete
@@ -33,6 +39,7 @@ export default function SearchBar() {
         renderInput={(params) => {
           return (
             <TextField
+              onChange={(event) => setSearchValue(event.target.value)}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               label="Search for Repository..."

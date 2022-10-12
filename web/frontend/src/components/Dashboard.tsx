@@ -19,6 +19,9 @@ interface Props {
 function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
+  // state that will be updated by search value typed into SearchBar component
+  const [searchValue, setSearchValue] = useState('');
+
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -40,6 +43,16 @@ function Dashboard({ user }: Props): JSX.Element {
       // remove repo at the predetermined repoIndex that was found where repoId matched target repoId
       setData(newData);
     }
+  };
+
+  const handleSearch = () => {
+    if (data) {
+      return data.filter((repo) =>
+        repo.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+    // otherwise if there is no data (it is falsy), need to specify return value for linting
+    return [];
   };
   // FOR TESTING DISREGARD ERROR
   // const reposTiles = [];
@@ -68,7 +81,7 @@ function Dashboard({ user }: Props): JSX.Element {
   return (
     <>
       <Box overflow="auto" className="dashboard-container" flex={1}>
-        <SearchBar />
+        <SearchBar setSearchValue={setSearchValue} />
         {loading ? (
           <Box className="loader-container">
             <Loader color="orange" />
@@ -76,7 +89,7 @@ function Dashboard({ user }: Props): JSX.Element {
         ) : (
           <Box overflow="auto" className="repo-tiles-grid">
             <Grid justifyContent="center" container>
-              {data?.map((repo: GetUserInfo) => (
+              {handleSearch().map((repo: GetUserInfo) => (
                 <RepoItem
                   repoName={repo.name}
                   builds={repo.builds}
