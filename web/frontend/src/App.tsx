@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
 import Landing from './components/Landing';
+import AboutTheTeam from './components/AboutTheTeam';
 import MasterDependencies from './components/MasterDependencies';
 import { User } from './types';
 
