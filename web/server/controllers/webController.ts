@@ -67,7 +67,7 @@ const webController: WebController = {
           },
         },
       });
-      res.locals.depPrefs = userDepPrefs;
+      res.locals.depPrefs = userDepPrefs?.depPrefs;
       res.locals.allDeps = userAllDeps;
       return next();
     } catch (error) {

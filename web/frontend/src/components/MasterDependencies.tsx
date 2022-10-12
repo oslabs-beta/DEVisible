@@ -3,21 +3,21 @@ import { Box, Divider, Paper, Typography } from '@mui/material';
 import '../stylesheets/dependency-list.css';
 import AllDependenciesList from './AllDependenciesList';
 import MasterDependenciesList from './MasterDependenciesList';
-import { AllDependenciesBuilds, DepPrefsResponse } from '../types';
+import { AllDependenciesBuilds, TrackedDependencies } from '../types';
 import { getUserDeps } from './api/user';
 
-// interface MasterDependenciesProps {
-//   user: User | null;
-// }
 function MasterDependencies() {
-  const [dependencyPrefs, setDependencyPrefs] = useState<null | object>(null);
+  const [dependencyPrefs, setDependencyPrefs] = useState<null | string>(null);
   const [allDependencies, setAllDependencies] = useState<
     null | AllDependenciesBuilds[]
   >(null);
+  const [trackedDependencies, setTrackedDependencies] = useState<
+    null | TrackedDependencies[]
+  >(null);
+  const handleSetTrackedDependencies = () => {};
   useEffect(() => {
     (async () => {
-      const response: [DepPrefsResponse, AllDependenciesBuilds[]] =
-        await getUserDeps();
+      const response: [string, AllDependenciesBuilds[]] = await getUserDeps();
       setDependencyPrefs(response[0]);
       setAllDependencies(response[1]);
     })();
@@ -34,7 +34,7 @@ function MasterDependencies() {
           </Typography>
           <Divider />
           <Box className="list-of-tracked-dependencies">
-            <MasterDependenciesList user={dependencyPrefs} />
+            <MasterDependenciesList dependencyPrefs={dependencyPrefs} />
           </Box>
         </Box>
         <Box className="dependencies-child-container">

@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {
-  AllDependenciesBuilds,
-  DepPrefsResponse,
-  GetUserInfo,
-} from 'frontend/src/types';
+import { AllDependenciesBuilds, GetUserInfo } from 'frontend/src/types';
 
 export const getUserInfoApi = async (): Promise<GetUserInfo[]> => {
   try {
@@ -14,7 +10,7 @@ export const getUserInfoApi = async (): Promise<GetUserInfo[]> => {
   }
 };
 export const getUserDeps = async (): Promise<
-  [DepPrefsResponse, AllDependenciesBuilds[]]
+  [string, AllDependenciesBuilds[]]
 > => {
   try {
     const response = await axios.get(`webAPI/userDeps`);
