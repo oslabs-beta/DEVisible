@@ -78,16 +78,24 @@ function Dashboard({ user }: Props): JSX.Element {
         </p>
       </div>
     );
+  // conditionally render search bar based on number of repos in state
+  const searchbar =
+    data === undefined || data.length < 12 ? null : (
+      <div className="searchContainer">
+        <SearchBar setSearchValue={setSearchValue} />
+      </div>
+    );
+
   return (
     <>
       <Box overflow="auto" className="dashboard-container" flex={1}>
-        <SearchBar setSearchValue={setSearchValue} />
         {loading ? (
           <Box className="loader-container">
             <Loader color="orange" />
           </Box>
         ) : (
           <Box overflow="auto" className="repo-tiles-grid">
+            <div className="search">{searchbar}</div>
             <Grid justifyContent="center" container>
               {handleSearch().map((repo: GetUserInfo) => (
                 <RepoItem

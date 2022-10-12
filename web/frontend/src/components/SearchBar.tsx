@@ -4,6 +4,9 @@ import { styled } from '@mui/material/styles';
 
 const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   color: theme.palette.primary.main,
+  '& .MuiFormControl-root': {
+    borderRadius: '100px',
+  },
   '& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)': {
     // transform: 'translate(34px, 20px) scale(1);',
   },
@@ -11,18 +14,12 @@ const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
     color: theme.palette.primary.main,
     borderRadius: '100px',
     backgroundColor: theme.palette.secondary.main,
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.primary.main,
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.primary.main,
-    },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.primary.main,
+      borderColor: theme.palette.secondary.main,
     },
   },
 }));
-
+const shadow = '0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19)';
 interface SearchBarProps {
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -43,8 +40,8 @@ export default function SearchBar({
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               label="Search for Repository..."
-              variant="outlined"
-              fullWidth
+              size="small"
+              sx={{ boxShadow: `${shadow}` }}
             />
           );
         }}
