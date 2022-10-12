@@ -7,9 +7,9 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
-import { User } from './types';
 import Landing from './components/Landing';
 import MasterDependencies from './components/MasterDependencies';
+import { User } from './types';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components

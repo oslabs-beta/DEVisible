@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 import '../stylesheets/login.css';
 import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
@@ -147,6 +148,7 @@ function Login({ user, setUser }: Props) {
           </div>
         </Box>
       </div>
+      <Footer />
     </>
   );
 }

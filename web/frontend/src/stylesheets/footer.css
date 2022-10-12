@@ -1,6 +1,32 @@
 .footer {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 30% 39% 30%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contactUs {
+  flex: 33%;
+  list-style: none;
+  padding-top: 5px;
+}
+
+.contactUs > ul > li > a {
+  color: inherit;
+  text-decoration: none;
+}
+.contactUs > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contactUs > a:hover {
+  border-radius: 10px;
+  padding: 5px;
+  background-color: black;
+}
+
+.contactUs > ul > li > a:hover {
+  border-radius: 10px;
+  padding: 5px;
+  background-color: black;
 }
