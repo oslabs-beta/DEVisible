@@ -70,7 +70,7 @@ const appController: AppController = {
             createdAt: new Date(),
             buildSize: Number(buildSize),
             buildTime: Number(buildTime),
-            deps: dependencies,
+            deps: JSON.stringify(dependencies),
           },
         });
         res.locals.message = `Repo ${repoName} was updated with a new build (hash: ${commitHash})`;

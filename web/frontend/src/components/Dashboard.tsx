@@ -10,6 +10,7 @@ import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+// import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
   user: User | null;
@@ -21,9 +22,9 @@ function Dashboard({ user }: Props): JSX.Element {
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const response = await getUserInfoApi(user.id);
+      const response = await getUserInfoApi();
       setData(response);
-      setTimeout(() => setLoading(false), 1000);
+      setLoading(false);
     })();
   }, [user]);
 

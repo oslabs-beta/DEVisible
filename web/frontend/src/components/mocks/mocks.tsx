@@ -6,6 +6,16 @@ const mockDependencies = {
   dotenv: '^16.0.3',
   react: '^18.2.0',
   'react-chartjs-2': '^4.3.1',
+  '@emotion/react': '^11.10.4',
+  '@emotion/styled': '^11.10.4',
+  '@mui/material': '^5.10.7',
+  '@types/babel__core': '^7.1.19',
+  '@types/express': '^4.17.14',
+  '@types/node': '^18.7.23',
+  '@types/react': '^18.0.17',
+  '@types/react-dom': '^18.0.6',
+  '@typescript-eslint/eslint-plugin': '^5.38.1',
+  '@typescript-eslint/parser': '^5.38.1',
 };
 
 const mockDependencies2 = {

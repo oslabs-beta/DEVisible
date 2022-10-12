@@ -8,9 +8,8 @@ import Register from './components/Register';
 import Account from './components/Account';
 import Recovery from './components/Recovery';
 import Landing from './components/Landing';
+import MasterDependencies from './components/MasterDependencies';
 import { User } from './types';
-
-// import MasterDependencies from './components/MasterDependencies';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
@@ -21,11 +20,7 @@ function App(): JSX.Element {
       .then((res) => res.json())
       .then((responseObj) => {
         if (responseObj) {
-          if (responseObj.username.username) {
-            setUser(responseObj.username);
-          } else {
-            setUser(responseObj);
-          }
+          setUser(responseObj);
         } else {
           setUser(null);
         }
@@ -56,7 +51,7 @@ function App(): JSX.Element {
           <Route path="/home" element={<Dashboard user={user} />} />
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/recovery" element={<Recovery />} />
-          {/* <Route path="/deps" element={<MasterDependencies />} /> */}
+          <Route path="/deps" element={<MasterDependencies />} />
         </Routes>
       </BrowserRouter>
     </Box>
