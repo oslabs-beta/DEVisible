@@ -3,7 +3,8 @@ const jsonVerify = (jsonString: string) => {
   const error = null;
   if (!jsonString) return error;
   try {
-    return JSON.parse(jsonString);
+    const carrotRemovedString = jsonString.replaceAll('^', '');
+    return JSON.parse(carrotRemovedString);
   } catch {
     return error;
   }

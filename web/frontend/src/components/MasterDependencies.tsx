@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import '../stylesheets/dependency-list.css';
 import AllDependenciesList from './AllDependenciesList';
 import MasterDependenciesList from './MasterDependenciesList';
-import { User } from '../types';
+import { AllDependenciesBuilds, DepPrefsResponse } from '../types';
 import { getUserDeps } from './api/user';
 
-interface MasterDependenciesProps {
-  user: User | null;
-  dependencies: string[] | null;
-}
-function MasterDependencies({ user, dependencies }: MasterDependenciesProps) {
+// interface MasterDependenciesProps {
+//   user: User | null;
+// }
+function MasterDependencies() {
+  const [dependencyPrefs, setDependencyPrefs] = useState<null | object>(null);
+  const [allDependencies, setAllDependencies] = useState<
+    null | AllDependenciesBuilds[]
+  >(null);
   useEffect(() => {
     (async () => {
-      const response = await getUserDeps();
-      console.log('resHere', response);
+      const response: [DepPrefsResponse, AllDependenciesBuilds[]] =
+        await getUserDeps();
+      setDependencyPrefs(response[0]);
+      setAllDependencies(response[1]);
     })();
   }, []);
   return (
@@ -29,7 +34,7 @@ function MasterDependencies({ user, dependencies }: MasterDependenciesProps) {
           </Typography>
           <Divider />
           <Box className="list-of-tracked-dependencies">
-            <MasterDependenciesList user={user} />
+            <MasterDependenciesList user={dependencyPrefs} />
           </Box>
         </Box>
         <Box className="dependencies-child-container">
@@ -38,7 +43,7 @@ function MasterDependencies({ user, dependencies }: MasterDependenciesProps) {
           </Typography>
           <Divider />
           <Box className="list-of-all-dependencies">
-            <AllDependenciesList dependencies={dependencies} />
+            <AllDependenciesList allDependencies={allDependencies} />
           </Box>
         </Box>
       </Paper>

@@ -11,22 +11,16 @@ import SearchBar from './SearchBar';
 
 interface Props {
   user: User | null;
-  handleSetDependenciesList: (arg: string) => void;
 }
 
-function Dashboard({ user, handleSetDependenciesList }: Props): JSX.Element {
+function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const response = await getUserInfoApi(user.id);
+      const response = await getUserInfoApi();
       setData(response);
-      // handleSetDependenciesList(
-      //   response.map(
-      //     (repo: string[] | string) => repo.builds[repo.builds.length - 1].deps
-      //   )
-      // );
       setLoading(false);
     })();
   }, [user]);

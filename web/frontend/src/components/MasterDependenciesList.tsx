@@ -6,7 +6,7 @@ import {
   TableBody,
   TableCell,
 } from '@mui/material';
-import jsonVerify from './utils/jsonVerify';
+import { User } from '../types';
 
 interface MasterDependenciesProps {
   user: User | null;

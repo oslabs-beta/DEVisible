@@ -37,11 +37,11 @@
   height: 7%;
 }
 
-  .list-of-all-dependencies {
-    margin-top: 1%;
-    width: 100%;
-    height: 90%;
-    overflow: auto;
+.list-of-all-dependencies {
+  margin-top: 1%;
+  width: 100%;
+  height: 90%;
+  overflow: auto;
   }
   .list-of-tracked-dependencies {
     margin-top: 1%;
@@ -59,7 +59,7 @@
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
 }
- 
+
 /* Handle */
 .list-of-tracked-dependencies::-webkit-scrollbar-thumb {
   /* border: 1px solid #EF8354; */

@@ -67,8 +67,6 @@ const webController: WebController = {
           },
         },
       });
-      console.log('depPrefs', userDepPrefs);
-      console.log('allDeps', userAllDeps);
       res.locals.depPrefs = userDepPrefs;
       res.locals.allDeps = userAllDeps;
       return next();
