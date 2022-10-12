@@ -21,6 +21,14 @@ router.get(
     res.status(200).json([res.locals.depPrefs, res.locals.allDeps]);
   }
 );
+router.post(
+  '/userDeps',
+  userController.verifyJwt,
+  webController.postUserDepPrefs,
+  (req, res) => {
+    res.status(200).json(console.log('updated dep prefs!'));
+  }
+);
 
 // create route that will handle delete requests for specific repo
 router.delete(

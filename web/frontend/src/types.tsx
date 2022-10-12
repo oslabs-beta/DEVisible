@@ -25,6 +25,7 @@ export type AllDependenciesBuilds = {
   builds: Pick<BuildInfo, 'repoId' | 'deps'>[];
 };
 
-export type DepPrefsResponse = {
-  depPrefs: string;
+export type TrackedDependencies = {
+  name?: string;
+  version?: string;
 };
