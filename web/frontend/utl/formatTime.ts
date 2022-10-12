@@ -11,7 +11,3 @@ export default function formatTime(ms: number) {
     (ms % (1000 * 60 * 60)) / (1000 * 60)
   )}min ${Math.floor((ms % (1000 * 60)) / 1000)}sec`;
 }
-
-console.log(formatTime(2000)); // 2 sec
-console.log(formatTime(121000)); // 2 min
-console.log(formatTime(7605000)); // 2 hr
