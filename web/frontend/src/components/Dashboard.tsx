@@ -17,7 +17,7 @@ interface Props {
 }
 
 function Dashboard({ user }: Props): JSX.Element {
-  const [data, setData] = useState<GetUserInfo[]>();
+  const [data, setData] = useState<GetUserInfo[]>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!user) return;

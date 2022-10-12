@@ -6,25 +6,26 @@ import {
   TableBody,
   TableCell,
 } from '@mui/material';
+import { AddedTrackedDependency } from '../types';
 
 interface MasterDependenciesListProps {
-  dependencyPrefs: string | null;
+  dependencyPrefs: AddedTrackedDependency[];
 }
 function MasterDependencies({ dependencyPrefs }: MasterDependenciesListProps) {
-  // console.log(dependencyPrefs);
-  let parsedDependencies = null;
-  if (dependencyPrefs) {
-    parsedDependencies = JSON.parse(dependencyPrefs);
-    parsedDependencies = JSON.parse(parsedDependencies);
-    console.log('parse', parsedDependencies);
-  }
+  console.log(dependencyPrefs);
+  // let parsedDependencies = null;
+  // if (dependencyPrefs) {
+  //   parsedDependencies = JSON.parse(dependencyPrefs);
+  //   parsedDependencies = JSON.parse(parsedDependencies);
+  //   console.log('Masterparse', parsedDependencies);
+  // }
   return (
     <div>
       <TableContainer>
         <Table>
           <TableBody>
-            {/* {Array.isArray(parsedDependencies) ? (
-              parsedDependencies?.map((depRow) => (
+            {dependencyPrefs ? (
+              dependencyPrefs?.map((depRow) => (
                 <TableRow>
                   <TableCell>{depRow.name}</TableCell>
                   <TableCell>{depRow.version}</TableCell>
@@ -34,7 +35,7 @@ function MasterDependencies({ dependencyPrefs }: MasterDependenciesListProps) {
               <TableRow>
                 <TableCell>No Tracked Dependencies</TableCell>
               </TableRow>
-            )} */}
+            )}
           </TableBody>
         </Table>
       </TableContainer>

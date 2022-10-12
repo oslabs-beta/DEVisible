@@ -17,10 +17,11 @@ import {
 } from '@mui/icons-material';
 import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
-import { AllDependenciesBuilds } from '../types';
+import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 
 interface AllDependenciesListProps {
   allDependencies: AllDependenciesBuilds[] | null;
+  handleAddToTrackedDependencies: (arg: AddedTrackedDependency) => void;
 }
 interface Dependencies {
   name: string;
@@ -28,13 +29,13 @@ interface Dependencies {
   repoName: string;
   isDevDependency?: boolean;
 }
-type NestedDepencies = {
+type NestedDependencies = {
   [key: string]: string;
 };
 interface NestedDependenciesResult {
-  [key: string]: NestedDepencies[];
+  [key: string]: NestedDependencies[];
 }
-const nestDependencies = (dependencies: Dependencies[]) => {
+const nestDependencies = (dependencies: Dependencies[] | null) => {
   const nestedDependencies: NestedDependenciesResult = {};
   dependencies.forEach((dependency: Dependencies) => {
     if (dependency) {
@@ -53,40 +54,36 @@ const nestDependencies = (dependencies: Dependencies[]) => {
 
   return nestedDependencies;
 };
-function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
+function AllDependenciesList({
+  allDependencies,
+  handleAddToTrackedDependencies,
+}: AllDependenciesListProps) {
   const [open, setOpen] = useState(-1);
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
-  // const handleCheckbox = (index, dependencyName, dependencyVersionsList) => {
-  //   const resultList = [];
-  //   Object.values(dependencyVersionsList).map((repo) => {
-  //     console.log('val', Object.values(repo));
-  //   });
-  //   dependencyVersionsList = [
-  //     { test1: '16.3.2' },
-  //     { test2: '18.4' },
-  //     { test: '12.3' },
-  //   ];
-  //   let dependencyVersion = Object.values(dependencyVersionsList)[0];
-  //   if (dependencyVersionsList.length > 1) {
-  //     dependencyVersion = Object.values(dependencyVersionsList).sort(
-  //       (a: string, b: string) => {
-  //         console.log('yo', a, parseInt(a, 10), typeof parseInt(a, 10));
-  //         return parseInt(a, 10) - parseInt(b, 10);
-  //       }
-  //     );
-  //     console.log('here', dependencyVersion);
-  //   }
-  //   console.log(
-  //     'index',
-  //     index,
-  //     'depName',
-  //     dependencyName,
-  //     'depVersion',
-  //     dependencyVersion
-  //   );
-  // };
+  const handleCheckbox = (
+    index: number,
+    dependencyName: string,
+    repoNameAndDepVersion: NestedDependencies[]
+  ) => {
+    const versionList: string[] = [];
+    Object.values(repoNameAndDepVersion).map((repo: object) =>
+      versionList.push(...Object.values(repo))
+    );
+    let dependencyVersion: string | string[] = versionList[0];
+    if (versionList.length > 1) {
+      const sortedVersionList = versionList.sort(
+        (a: string, b: string) => parseInt(b, 10) - parseInt(a, 10)
+      );
+      [dependencyVersion] = sortedVersionList;
+    }
+    handleAddToTrackedDependencies({
+      name: dependencyName,
+      version: dependencyVersion,
+    });
+  };
+
   let parsedDependencies: null | Dependencies[] = null;
   let nestedDependencies: null | NestedDependenciesResult = null;
   if (allDependencies) {
@@ -100,7 +97,6 @@ function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
     });
     parsedDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
     nestedDependencies = nestDependencies(parsedDependencies);
-    // nestedDependencies = false;
   }
   return (
     <div>
@@ -150,13 +146,13 @@ function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
                       >
                         <Checkbox
                           key={index}
-                          // onChange={() =>
-                          //   handleCheckbox(
-                          //     index,
-                          //     depRow,
-                          //     nestedDependencies[depRow]
-                          //   )
-                          // }
+                          onChange={() =>
+                            handleCheckbox(
+                              index,
+                              depRow,
+                              nestedDependencies[depRow]
+                            )
+                          }
                         />
                       </TableCell>
                     </TableRow>

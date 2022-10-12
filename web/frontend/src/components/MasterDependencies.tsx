@@ -3,25 +3,43 @@ import { Box, Divider, Paper, Typography } from '@mui/material';
 import '../stylesheets/dependency-list.css';
 import AllDependenciesList from './AllDependenciesList';
 import MasterDependenciesList from './MasterDependenciesList';
-import { AllDependenciesBuilds, TrackedDependencies } from '../types';
-import { getUserDeps } from './api/user';
+import {
+  AllDependenciesBuilds,
+  TrackedDependencies,
+  AddedTrackedDependency,
+} from '../types';
+import { getUserDeps, postUserDepPrefs } from './api/user';
 
 function MasterDependencies() {
-  const [dependencyPrefs, setDependencyPrefs] = useState<null | string>(null);
+  const [dependencyPrefs, setDependencyPrefs] = useState<
+    null | AddedTrackedDependency[]
+  >(null);
   const [allDependencies, setAllDependencies] = useState<
     null | AllDependenciesBuilds[]
   >(null);
-  const [trackedDependencies, setTrackedDependencies] = useState<
-    null | TrackedDependencies[]
-  >(null);
-  const handleSetTrackedDependencies = () => {};
+  const handleAddToTrackedDependencies = (
+    dependencyToAdd: AddedTrackedDependency
+  ) => {
+    if (!dependencyPrefs) setDependencyPrefs([dependencyToAdd]);
+    else {
+      setDependencyPrefs([...dependencyPrefs, dependencyToAdd]);
+    }
+  };
   useEffect(() => {
     (async () => {
-      const response: [string, AllDependenciesBuilds[]] = await getUserDeps();
-      setDependencyPrefs(response[0]);
-      setAllDependencies(response[1]);
+      const [depPrefsString, listOfAllDeps]: [string, AllDependenciesBuilds[]] =
+        await getUserDeps();
+      const parsedDepPrefsString = JSON.parse(JSON.parse(depPrefsString));
+      if (depPrefsString) setDependencyPrefs(parsedDepPrefsString);
+      setAllDependencies(listOfAllDeps);
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      console.log('entered');
+      // const response = await postUserDepPrefs();
+    })();
+  }, [dependencyPrefs]);
   return (
     <Box bgcolor="primary.light" className="dependencies-page-container">
       <Paper className="dependencies-list-parent-container" elevation={3}>
@@ -43,7 +61,10 @@ function MasterDependencies() {
           </Typography>
           <Divider />
           <Box className="list-of-all-dependencies">
-            <AllDependenciesList allDependencies={allDependencies} />
+            <AllDependenciesList
+              allDependencies={allDependencies}
+              handleAddToTrackedDependencies={handleAddToTrackedDependencies}
+            />
           </Box>
         </Box>
       </Paper>
