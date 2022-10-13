@@ -9,18 +9,19 @@ import {
   Collapse,
   IconButton,
   Typography,
-  Checkbox,
 } from '@mui/material';
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
+  Add as AddIcon,
 } from '@mui/icons-material';
 import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
-import { AllDependenciesBuilds } from '../types';
+import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 
 interface AllDependenciesListProps {
   allDependencies: AllDependenciesBuilds[] | null;
+  handleAddToTrackedDependencies: (arg: AddedTrackedDependency) => void;
 }
 interface Dependencies {
   name: string;
@@ -28,85 +29,92 @@ interface Dependencies {
   repoName: string;
   isDevDependency?: boolean;
 }
-type NestedDepencies = {
+type NestedDependencies = {
   [key: string]: string;
 };
 interface NestedDependenciesResult {
-  [key: string]: NestedDepencies[];
+  [key: string]: NestedDependencies[];
 }
-const nestDependencies = (dependencies: Dependencies[]) => {
+// TODO refactor TS
+const nestDependencies = (
+  dependencies: (Dependencies | undefined)[] | null
+) => {
   const nestedDependencies: NestedDependenciesResult = {};
-  dependencies.forEach((dependency: Dependencies) => {
-    if (dependency) {
-      if (!nestedDependencies[dependency.name])
-        nestedDependencies[dependency.name] = [
-          { [dependency.repoName]: dependency.version },
-        ];
-      else {
-        nestedDependencies[dependency.name] = [
-          ...nestedDependencies[dependency.name],
-          { [dependency.repoName]: dependency.version },
-        ];
+  if (dependencies) {
+    dependencies.forEach((dependency) => {
+      if (dependency) {
+        if (!nestedDependencies[dependency.name])
+          nestedDependencies[dependency.name] = [
+            { [dependency.repoName]: dependency.version },
+          ];
+        else {
+          nestedDependencies[dependency.name] = [
+            ...nestedDependencies[dependency.name],
+            { [dependency.repoName]: dependency.version },
+          ];
+        }
       }
-    }
-  });
+    });
+  }
 
   return nestedDependencies;
 };
-function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
+function AllDependenciesList({
+  allDependencies,
+  handleAddToTrackedDependencies,
+}: AllDependenciesListProps) {
   const [open, setOpen] = useState(-1);
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
-  // const handleCheckbox = (index, dependencyName, dependencyVersionsList) => {
-  //   const resultList = [];
-  //   Object.values(dependencyVersionsList).map((repo) => {
-  //     console.log('val', Object.values(repo));
-  //   });
-  //   dependencyVersionsList = [
-  //     { test1: '16.3.2' },
-  //     { test2: '18.4' },
-  //     { test: '12.3' },
-  //   ];
-  //   let dependencyVersion = Object.values(dependencyVersionsList)[0];
-  //   if (dependencyVersionsList.length > 1) {
-  //     dependencyVersion = Object.values(dependencyVersionsList).sort(
-  //       (a: string, b: string) => {
-  //         console.log('yo', a, parseInt(a, 10), typeof parseInt(a, 10));
-  //         return parseInt(a, 10) - parseInt(b, 10);
-  //       }
-  //     );
-  //     console.log('here', dependencyVersion);
-  //   }
-  //   console.log(
-  //     'index',
-  //     index,
-  //     'depName',
-  //     dependencyName,
-  //     'depVersion',
-  //     dependencyVersion
-  //   );
-  // };
-  let parsedDependencies: null | Dependencies[] = null;
+  const handleCheckbox = (
+    index: number,
+    dependencyName: string,
+    repoNameAndDepVersion: NestedDependencies[]
+  ) => {
+    const versionList: string[] = [];
+    Object.values(repoNameAndDepVersion).map((repo: object) =>
+      versionList.push(...Object.values(repo))
+    );
+    let dependencyVersion: string | string[] = versionList[0];
+    if (versionList.length > 1) {
+      const sortedVersionList = versionList.sort(
+        (a: string, b: string) => parseInt(b, 10) - parseInt(a, 10)
+      );
+      [dependencyVersion] = sortedVersionList;
+    }
+    handleAddToTrackedDependencies({
+      name: dependencyName,
+      version: dependencyVersion,
+    });
+  };
+
+  // TODO refactor TS and rest of page
+  let parsedDependencies: (Dependencies[] | undefined)[] | null = null;
   let nestedDependencies: null | NestedDependenciesResult = null;
   if (allDependencies) {
+    // eslint-disable-next-line consistent-return, array-callback-return
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
       const result = jsonVerify(repo.builds[repo.builds.length - 1].deps);
-      if (!result || !Array.isArray(result)) return null;
-      return result.map((dep: Omit<Dependencies, 'repoName'>) => ({
-        ...dep,
-        repoName: repo.name,
-      })); // append repo name to each object of array
+      if (result && Array.isArray(result)) {
+        return result.map((dep: Omit<Dependencies, 'repoName'>) => {
+          return {
+            ...dep,
+            repoName: repo.name,
+          } as Dependencies;
+        }); // append repo name to each object of array
+      }
     });
-    parsedDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
-    nestedDependencies = nestDependencies(parsedDependencies);
-    // nestedDependencies = false;
+    if (parsedDependencies) {
+      const flatDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
+      nestedDependencies = nestDependencies(flatDependencies);
+    }
   }
   return (
     <div>
       <TableContainer>
         {nestedDependencies ? (
-          Object.keys(nestedDependencies)?.map((depRow, index) => {
+          Object.keys(nestedDependencies).map((depRow, index) => {
             return (
               <React.Fragment key={index}>
                 <Table key={index}>
@@ -148,16 +156,19 @@ function AllDependenciesList({ allDependencies }: AllDependenciesListProps) {
                         key={((index + 1) * -1).toString() + depRow}
                         align="right"
                       >
-                        <Checkbox
-                          key={index}
-                          // onChange={() =>
-                          //   handleCheckbox(
-                          //     index,
-                          //     depRow,
-                          //     nestedDependencies[depRow]
-                          //   )
-                          // }
-                        />
+                        <IconButton
+                          color="secondary"
+                          onClick={() =>
+                            handleCheckbox(
+                              index,
+                              depRow,
+                              //  TODO need to refactor TS
+                              nestedDependencies[depRow]
+                            )
+                          }
+                        >
+                          <AddIcon key={index} />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   </TableBody>
