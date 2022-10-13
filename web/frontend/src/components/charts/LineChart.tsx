@@ -22,9 +22,23 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+const calculateSizeScale = (buildSizes: number[]) => {
+  const k = 1024;
+
+  const scale = Math.floor(
+    Math.log(buildSizes[buildSizes.length - 1]) / Math.log(k)
+  );
+  const formattedBuilds = buildSizes.map((buildSize) => {
+    return buildSize / k ** scale;
+  });
+  return { scale, formattedBuilds };
+};
 
 const FormatData = (
   buildSizeArray: number[],
+  buildSizeScale: number,
   createdAtArray: string[],
   buildTimeArray: number[]
 ) => {
@@ -34,7 +48,7 @@ const FormatData = (
   const buildTimeDataPoints: number[] = []; // y-axis for chart 2
   createdAtArray.forEach((date, index) => {
     const buildTimeStamp = new Date(date).toLocaleString();
-    labels.push(`Build ${index}`);
+    labels.push(`Build ${index + 1}`);
     timeStamp.push(buildTimeStamp);
   });
   buildSizeArray.forEach((build) => dataPoints.push(build));
@@ -77,7 +91,7 @@ const FormatData = (
       y: {
         title: {
           display: true,
-          text: 'Build Size (kB)',
+          text: `Build Size (${sizes[buildSizeScale]})`,
         },
         grid: {
           color: theme.palette.primary.light,
@@ -140,11 +154,13 @@ interface LineChartProps {
   buildsInfo: BuildInfo[];
 }
 function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
-  const buildSizeArray = buildsInfo.map((build: BuildInfo) => build.buildSize);
+  const { formattedBuilds, scale } = calculateSizeScale(
+    buildsInfo.map((build: BuildInfo) => build.buildSize)
+  );
   const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt);
   const buildTimeArray = buildsInfo.map((build: BuildInfo) => build.buildTime);
   const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
-    FormatData(buildSizeArray, createdAtArray, buildTimeArray);
+    FormatData(formattedBuilds, scale, createdAtArray, buildTimeArray);
   return (
     <div>
       <Line className="line-chart" data={chartData} options={chartOptions} />
