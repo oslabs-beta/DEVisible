@@ -47,7 +47,12 @@ const webController: WebController = {
     }
   },
   getUserDeps: async (req, res, next) => {
-    const userId: number = res.locals.jwt.id;
+    let userId: number;
+    if (res.locals.jwt.username.username) {
+      userId = res.locals.jwt.username.id;
+    } else {
+      userId = res.locals.jwt.id;
+    }
     try {
       const userDepPrefs = await prisma.user.findUnique({
         where: {
