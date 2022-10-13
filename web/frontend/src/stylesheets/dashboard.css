@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
+
 .repo-item-container {
   animation-name: growOnLoad;
   animation-duration: .3s;
@@ -82,3 +82,60 @@ height: 50%
   margin-top: 20px;
   margin-bottom: 1%;
 }
+
+.emptyRepoContainer {
+  width: 100%;
+  height: 90%;
+  display: grid;
+  overflow: contain;
+  justify-content: center;
+}
+
+.emptyRepoContent {
+  width: 35%;
+  height: 20%;
+  justify-self: center;
+  border-radius: 10px;
+  margin-top: 5%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19);
+}
+
+.emptyRepoContent #header {
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 2%;
+}
+
+.bottomContainer {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  margin: 0;
+}
+
+.code {
+  padding: 3%;
+}
+
+.instructions {
+  padding: 5%;
+}
+
+.instructions a {
+  font-weight: 600;
+}
+
+.instructions a:hover {
+  filter: brightness(115%);
+}
+
+.codeBox {
+  box-shadow: 0 4px 6px 0 rgba(201, 198, 198, 0.2), 0 4px 20px 0 rgb(2, 2, 2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+
+
+
