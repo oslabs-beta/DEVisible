@@ -10,6 +10,7 @@ import {
 import jsonVerify from './utils/jsonVerify';
 
 interface RepoItemDependenciesProps {
+  outOfSpecDeps: string[];
   dependencies: string;
 }
 interface ParsedDependencies {
@@ -18,6 +19,7 @@ interface ParsedDependencies {
   isDevDependency: boolean;
 }
 function RepoItemDependencies({
+  outOfSpecDeps,
   dependencies,
 }: RepoItemDependenciesProps): JSX.Element {
   //  jsonVerify returns null if argument is empty of invalid JSON
@@ -31,7 +33,14 @@ function RepoItemDependencies({
           <TableBody>
             {parsedDependencies.map(
               (depRow: ParsedDependencies, index: number) => (
-                <TableRow key={index}>
+                <TableRow
+                  key={index}
+                  sx={{
+                    bgcolor: outOfSpecDeps.includes(depRow.name)
+                      ? 'error.main'
+                      : '',
+                  }}
+                >
                   <TableCell key={index}>{depRow.name}</TableCell>
                   <TableCell key={(index + 1) * -1}>{depRow.version}</TableCell>
                 </TableRow>

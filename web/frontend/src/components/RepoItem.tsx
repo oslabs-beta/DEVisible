@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Divider, Grid, Paper, Typography } from '@mui/material';
 import RepoItemDetails from './RepoItemDetails';
-import { BuildInfo } from '../types';
+import { BuildInfo, OutOfSpecDeps } from '../types';
 import formatBytes from './utils/formatBytes';
+import theme from '../theme';
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item = styled(Paper)(() => ({
   backgroundColor: theme.palette.primary.main,
   padding: theme.spacing(1),
   margin: '50px',
   height: '250px',
   width: '250px',
   borderRadius: '20px',
-  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 15px 0 rgba(0,0,0.19)',
   color: theme.palette.primary.contrastText,
 }));
 
 interface RepoItemProps {
+  repoOutOfSpecInfo: OutOfSpecDeps;
   repoName: string;
   builds: BuildInfo[];
   deleteRepo: (repoId: number) => void;
@@ -26,6 +27,7 @@ const percentChange = (current: number, previous: number) => {
 };
 
 function RepoItem({
+  repoOutOfSpecInfo,
   repoName,
   builds,
   deleteRepo,
@@ -47,7 +49,15 @@ function RepoItem({
   return (
     <div>
       <Grid>
-        <Item className="repo-item-container" onClick={handleOpenRepoModal}>
+        <Item
+          className="repo-item-container"
+          onClick={handleOpenRepoModal}
+          sx={{
+            boxShadow: repoOutOfSpecInfo.status
+              ? `0 6px 20px 0 ${theme.palette.error.main}, 0 3px 15px 0 rgba(0,0,0.19)`
+              : '0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 15px 0 rgba(0,0,0.19)',
+          }}
+        >
           <Typography
             sx={{ mt: '5px', mb: '5px' }}
             variant="h5"
@@ -71,6 +81,7 @@ function RepoItem({
         </Item>
         <RepoItemDetails
           key={repoName}
+          outOfSpecDeps={repoOutOfSpecInfo.depsOutOfSpec}
           repoName={repoName}
           open={openRepoModal}
           handleClose={handleCloseRepoModal}

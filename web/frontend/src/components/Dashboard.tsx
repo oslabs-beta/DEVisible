@@ -7,10 +7,11 @@ import axios from 'axios';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserDeps, getUserInfoApi } from './api/user';
-import { GetUserInfo, User } from '../types';
+import { GetUserInfo, OutOfSpecRepos, OutOfSpecDeps, User } from '../types';
 import SearchBar from './SearchBar';
 import theme from '../theme';
 import Footer from './Footer';
+import findOutOfSpecRepos from './utils/findOutOfSpecRepos';
 
 interface Props {
   user: User | null;
@@ -22,11 +23,17 @@ function Dashboard({ user }: Props): JSX.Element {
   // state that will be updated by search value typed into SearchBar component
   const [searchValue, setSearchValue] = useState('');
 
+  const [outOfSpecRepos, setOutOfSpecRepos] = useState<OutOfSpecRepos>({});
+  let repoOutOfSpecStatus: OutOfSpecDeps = {
+    status: false,
+    depsOutOfSpec: [],
+  };
   useEffect(() => {
     if (!user) return;
     (async () => {
       const response = await getUserInfoApi();
-      const [depsResponse] = await getUserDeps();
+      const [preferredDeps, allDependencies] = await getUserDeps();
+      setOutOfSpecRepos(findOutOfSpecRepos(preferredDeps, allDependencies));
       setData(response);
       setLoading(false);
     })();
@@ -111,14 +118,28 @@ function Dashboard({ user }: Props): JSX.Element {
           <Box overflow="auto" className="repo-tiles-grid">
             <div className="search">{searchbar}</div>
             <Grid justifyContent="center" container>
-              {handleSearch().map((repo: GetUserInfo) => (
-                <RepoItem
-                  repoName={repo.name}
-                  builds={repo.builds}
-                  key={repo.id}
-                  deleteRepo={deleteRepo}
-                />
-              ))}
+              {handleSearch().map((repo: GetUserInfo) => {
+                if (outOfSpecRepos[repo.id]) {
+                  repoOutOfSpecStatus = {
+                    status: true,
+                    depsOutOfSpec: outOfSpecRepos[repo.id],
+                  };
+                } else {
+                  repoOutOfSpecStatus = {
+                    status: false,
+                    depsOutOfSpec: [],
+                  };
+                }
+                return (
+                  <RepoItem
+                    repoOutOfSpecInfo={repoOutOfSpecStatus}
+                    repoName={repo.name}
+                    builds={repo.builds}
+                    key={repo.id}
+                    deleteRepo={deleteRepo}
+                  />
+                );
+              })}
             </Grid>
           </Box>
         )}
