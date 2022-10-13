@@ -18,11 +18,14 @@ const findOutOfSpecRepos = (
   const parsedDepPrefs = JSON.parse(preferredDependencies);
   const cacheOfReposOutOfDate: OutOfSpecRepos = {};
   if (Array.isArray(allDependencies)) {
+    if (!Array.isArray(allDependencies)) return;
     allDependencies.forEach((repo) => {
       const parsedDepForRepo = jsonVerify(
         repo.builds[repo.builds.length - 1].deps
       );
+      if (!Array.isArray(parsedDepPrefs)) return;
       parsedDepPrefs.forEach((preferredDep: TrackedDependencies) => {
+        if (!Array.isArray(parsedDepForRepo)) return;
         parsedDepForRepo.forEach((dep: RepoDependencies) => {
           if (
             preferredDep.name === dep.name &&
