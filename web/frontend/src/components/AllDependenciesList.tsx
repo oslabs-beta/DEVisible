@@ -162,6 +162,7 @@ function AllDependenciesList({
                             handleCheckbox(
                               index,
                               depRow,
+                              //  TODO need to refactor TS
                               nestedDependencies[depRow]
                             )
                           }
