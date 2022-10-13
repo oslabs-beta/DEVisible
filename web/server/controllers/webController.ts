@@ -30,6 +30,9 @@ const webController: WebController = {
               buildSize: true,
               deps: true,
             },
+            orderBy: {
+              id: 'asc',
+            },
           },
         },
       });
@@ -62,8 +65,12 @@ const webController: WebController = {
           name: true,
           builds: {
             select: {
+              id: true,
               repoId: true,
               deps: true,
+            },
+            orderBy: {
+              id: 'asc',
             },
           },
         },

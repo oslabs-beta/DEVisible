@@ -7,7 +7,7 @@ import axios from 'axios';
 import Footer from './Footer';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
-import { getUserInfoApi } from './api/user';
+import { getUserDeps, getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
 
@@ -22,6 +22,7 @@ function Dashboard({ user }: Props): JSX.Element {
     if (!user) return;
     (async () => {
       const response = await getUserInfoApi();
+      const [depsResponse] = await getUserDeps();
       setData(response);
       setLoading(false);
     })();
