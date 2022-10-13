@@ -36,11 +36,32 @@ const calculateSizeScale = (buildSizes: number[]) => {
   return { scale, formattedBuilds };
 };
 
+const calculateTimeScale = (buildTimes: number[]) => {
+  const longestBuild = Math.max(...buildTimes);
+  if (longestBuild < 1000)
+    return { timeScale: 'ms', formattedTimes: buildTimes };
+  if (longestBuild < 1000 * 60)
+    return {
+      timeScale: 'sec',
+      formattedTimes: buildTimes.map((time) => time / 1000),
+    };
+  if (longestBuild < 1000 * 60 * 60)
+    return {
+      timeScale: 'min',
+      formattedTimes: buildTimes.map((time) => time / (60 * 1000)),
+    };
+  return {
+    timeScale: 'hr',
+    formattedTimes: buildTimes.map((time) => time / (60 * 1000 * 60)),
+  };
+};
+
 const FormatData = (
   buildSizeArray: number[],
   buildSizeScale: number,
   createdAtArray: string[],
-  buildTimeArray: number[]
+  buildTimeArray: number[],
+  timeScale: string
 ) => {
   const labels: string[] = []; // x-axis
   const timeStamp: string[] = []; //  tooltips
@@ -124,7 +145,7 @@ const FormatData = (
       y: {
         title: {
           display: true,
-          text: 'Build Time (ms)',
+          text: `Build Time (${timeScale})`,
         },
         grid: {
           color: theme.palette.primary.light,
@@ -158,9 +179,17 @@ function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
     buildsInfo.map((build: BuildInfo) => build.buildSize)
   );
   const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt);
-  const buildTimeArray = buildsInfo.map((build: BuildInfo) => build.buildTime);
+  const { formattedTimes, timeScale } = calculateTimeScale(
+    buildsInfo.map((build: BuildInfo) => build.buildTime)
+  );
   const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
-    FormatData(formattedBuilds, scale, createdAtArray, buildTimeArray);
+    FormatData(
+      formattedBuilds,
+      scale,
+      createdAtArray,
+      formattedTimes,
+      timeScale
+    );
   return (
     <div>
       <Line className="line-chart" data={chartData} options={chartOptions} />
