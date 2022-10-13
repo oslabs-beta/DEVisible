@@ -23,7 +23,6 @@ const findOutOfSpecRepos = (
         repo.builds[repo.builds.length - 1].deps
       );
       parsedDepPrefs.forEach((preferredDep: TrackedDependencies) => {
-        console.log('arse', parsedDepForRepo);
         parsedDepForRepo.forEach((dep: RepoDependencies) => {
           if (
             preferredDep.name === dep.name &&
@@ -37,7 +36,6 @@ const findOutOfSpecRepos = (
       });
     });
   }
-  console.log(cacheOfReposOutOfDate);
   return cacheOfReposOutOfDate;
 };
 export default findOutOfSpecRepos;
