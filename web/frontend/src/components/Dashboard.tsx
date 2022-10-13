@@ -18,6 +18,9 @@ interface Props {
 function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
+  // state that will be updated by search value typed into SearchBar component
+  const [searchValue, setSearchValue] = useState('');
+
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -40,6 +43,7 @@ function Dashboard({ user }: Props): JSX.Element {
       setData(newData);
     }
   };
+  
   if (!user) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (
@@ -52,18 +56,26 @@ function Dashboard({ user }: Props): JSX.Element {
         </p>
       </div>
     );
+  // conditionally render search bar based on number of repos in state
+  const searchbar =
+    data === undefined || data.length < 12 ? null : (
+      <div className="searchContainer">
+        <SearchBar setSearchValue={setSearchValue} />
+      </div>
+    );
+
   return (
     <>
       <Box overflow="auto" className="dashboard-container" flex={1}>
-        <SearchBar />
         {loading ? (
           <Box className="loader-container">
             <Loader color="orange" />
           </Box>
         ) : (
           <Box overflow="auto" className="repo-tiles-grid">
+            <div className="search">{searchbar}</div>
             <Grid justifyContent="center" container>
-              {data?.map((repo: GetUserInfo) => (
+              {handleSearch().map((repo: GetUserInfo) => (
                 <RepoItem
                   repoName={repo.name}
                   builds={repo.builds}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-$APIKEY = `cat api_key.txt`
+APIKEY=`cat api_key.txt`
 
 while read repo; do
   git clone $repo test_build 
