@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import {
   TableContainer,
@@ -28,12 +29,14 @@ function RepoItemDependencies({
       <TableContainer>
         <Table>
           <TableBody>
-            {parsedDependencies.map((depRow: ParsedDependencies) => (
-              <TableRow>
-                <TableCell>{depRow.name}</TableCell>
-                <TableCell>{depRow.version}</TableCell>
-              </TableRow>
-            ))}
+            {parsedDependencies.map(
+              (depRow: ParsedDependencies, index: number) => (
+                <TableRow key={index}>
+                  <TableCell key={index}>{depRow.name}</TableCell>
+                  <TableCell key={(index + 1) * -1}>{depRow.version}</TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>

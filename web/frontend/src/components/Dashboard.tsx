@@ -23,7 +23,6 @@ function Dashboard({ user }: Props): JSX.Element {
     (async () => {
       const response = await getUserInfoApi();
       const [depsResponse] = await getUserDeps();
-      console.log('depsResponse, ', JSON.parse(depsResponse));
       setData(response);
       setLoading(false);
     })();

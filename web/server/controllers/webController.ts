@@ -30,6 +30,9 @@ const webController: WebController = {
               buildSize: true,
               deps: true,
             },
+            orderBy: {
+              id: 'asc',
+            },
           },
         },
       });
