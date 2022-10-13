@@ -26,7 +26,7 @@ router.post(
   userController.verifyJwt,
   webController.postUserDepPrefs,
   (req, res) => {
-    res.status(200).json(console.log('updated dep prefs!'));
+    res.status(200).json('Dependency preferences updated');
   }
 );
 
