@@ -1,19 +1,30 @@
-import { AllDependenciesBuilds } from 'frontend/src/types';
+import {
+  AllDependenciesBuilds,
+  TrackedDependencies,
+  OutOfSpecRepos,
+} from 'frontend/src/types';
 import jsonVerify from './jsonVerify';
+
+interface RepoDependencies {
+  name: string;
+  version: string;
+  isDevDependency?: boolean;
+}
 
 const findOutOfSpecRepos = (
   preferredDependencies: string,
   allDependencies: AllDependenciesBuilds[]
 ) => {
   const parsedDepPrefs = JSON.parse(preferredDependencies);
-  const cacheOfReposOutOfDate = {};
+  const cacheOfReposOutOfDate: OutOfSpecRepos = {};
   if (Array.isArray(allDependencies)) {
     allDependencies.forEach((repo) => {
       const parsedDepForRepo = jsonVerify(
         repo.builds[repo.builds.length - 1].deps
       );
-      parsedDepPrefs.forEach((preferredDep) => {
-        parsedDepForRepo.forEach((dep) => {
+      parsedDepPrefs.forEach((preferredDep: TrackedDependencies) => {
+        console.log('arse', parsedDepForRepo);
+        parsedDepForRepo.forEach((dep: RepoDependencies) => {
           if (
             preferredDep.name === dep.name &&
             parseFloat(preferredDep.version) > parseFloat(dep.version)
@@ -26,6 +37,7 @@ const findOutOfSpecRepos = (
       });
     });
   }
+  console.log(cacheOfReposOutOfDate);
   return cacheOfReposOutOfDate;
 };
 export default findOutOfSpecRepos;

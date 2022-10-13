@@ -32,7 +32,6 @@ function RepoItem({
   deleteRepo,
 }: RepoItemProps): JSX.Element {
   const [openRepoModal, setOpenRepoModal] = useState(false);
-  console.log('repoItem', repoOutOfSpecInfo, repoName);
   const mostRecentBuildSize = builds[builds.length - 1].buildSize;
   const buildPercentChange = builds[builds.length - 2]
     ? percentChange(

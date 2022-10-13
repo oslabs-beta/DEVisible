@@ -30,7 +30,6 @@ function Dashboard({ user }: Props): JSX.Element {
       const response = await getUserInfoApi();
       const [preferredDeps, allDependencies] = await getUserDeps();
       setOutOfSpecRepos(findOutOfSpecRepos(preferredDeps, allDependencies));
-      console.log(outOfSpecRepos);
       setData(response);
       setLoading(false);
     })();
