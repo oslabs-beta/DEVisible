@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomNavigation from '@mui/material/BottomNavigation';
 import '../stylesheets/footer.css';
 import { styled } from '@mui/system';
 import theme from '../theme';
