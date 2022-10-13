@@ -6,11 +6,10 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
-import { getUserInfoApi } from './api/user';
+import { getUserDeps, getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
 import Footer from './Footer';
-// import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
   user: User | null;
@@ -23,11 +22,11 @@ function Dashboard({ user }: Props): JSX.Element {
     if (!user) return;
     (async () => {
       const response = await getUserInfoApi();
+      const [depsResponse] = await getUserDeps();
       setData(response);
       setLoading(false);
     })();
   }, [user]);
-
   // function for handling click of delete button within individual repo components
   const deleteRepo = async (repoId: number): Promise<void> => {
     // make axios delete request to server
@@ -41,18 +40,6 @@ function Dashboard({ user }: Props): JSX.Element {
       setData(newData);
     }
   };
-  // FOR TESTING DISREGARD ERROR
-  // const reposTiles = [];
-  // for (let i = 0; i < 100; i += 1) {
-  //   reposTiles.push(
-  //     <RepoItem
-  //       repoName={mockData.repos[0].name}
-  //       builds={mockData.repos[0].builds}
-  //       key={mockData.repos[0].id}
-  //     />
-  //   );
-  // }
-  //  END OF TESTING
   if (!user) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (
@@ -84,8 +71,6 @@ function Dashboard({ user }: Props): JSX.Element {
                   deleteRepo={deleteRepo}
                 />
               ))}
-              {/* FOR TESTING */}
-              {/* {reposTiles} */}
             </Grid>
           </Box>
         )}

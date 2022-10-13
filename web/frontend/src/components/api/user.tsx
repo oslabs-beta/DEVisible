@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
+  AddedTrackedDependency,
   AllDependenciesBuilds,
   GetUserInfo,
-  TrackedDependencies,
 } from 'frontend/src/types';
 
 export const getUserInfoApi = async (): Promise<GetUserInfo[]> => {
@@ -24,7 +24,7 @@ export const getUserDeps = async (): Promise<
   }
 };
 export const postUserDepPrefs = async (
-  depPrefs: TrackedDependencies[]
+  depPrefs: AddedTrackedDependency[]
 ): Promise<any> => {
   try {
     const response = await axios.post(`webAPI/userDeps`, {
