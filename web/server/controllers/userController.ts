@@ -128,11 +128,11 @@ const userController: UserController = {
   },
   getToken: async (req, res, next) => {
     try {
-      const { data } = res.locals.jwt;
+      const { username } = res.locals.jwt;
 
       const loggedInUser = await prisma.user.findFirstOrThrow({
         where: {
-          username: data,
+          username,
         },
       });
       const { APIToken } = loggedInUser;
