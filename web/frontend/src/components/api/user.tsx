@@ -18,6 +18,7 @@ export const getUserDeps = async (): Promise<
 > => {
   try {
     const response = await axios.get(`webAPI/userDeps`);
+    console.log('here', response.data[1][0].builds);
     return response.data;
   } catch (error: any) {
     return error;

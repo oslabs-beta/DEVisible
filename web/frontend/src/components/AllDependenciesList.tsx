@@ -95,7 +95,9 @@ function AllDependenciesList({
   if (allDependencies) {
     // eslint-disable-next-line consistent-return, array-callback-return
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
+      console.log('repo', repo);
       const result = jsonVerify(repo.builds[repo.builds.length - 1].deps);
+      console.log('res', result);
       if (result && Array.isArray(result)) {
         return result.map((dep: Omit<Dependencies, 'repoName'>) => {
           return {
@@ -106,8 +108,10 @@ function AllDependenciesList({
       }
     });
     if (parsedDependencies) {
+      console.log(parsedDependencies);
       const flatDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
       nestedDependencies = nestDependencies(flatDependencies);
+      console.log(nestedDependencies);
     }
   }
   return (

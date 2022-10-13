@@ -38,6 +38,7 @@ function MasterDependencies() {
       const parsedDepPrefsString = JSON.parse(depPrefsString);
       if (depPrefsString) setDependencyPrefs(parsedDepPrefsString);
       setAllDependencies(listOfAllDeps);
+      console.log(listOfAllDeps);
     })();
   }, []);
   useEffect(() => {
