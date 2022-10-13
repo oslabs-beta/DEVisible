@@ -1,20 +1,71 @@
-.installation {
-  width: 100vw;
-  height: 100vh;
-}
-.installContainer {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.container {
+  height: 100%;
+  width: 100%;
+  display: grid;
 }
 
+.teamContainer {
+  border-radius: 10px;
+  margin-top: 4%;
+  justify-self: center;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: blue;
+  width: 70%;
+  height: 65%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19);
+}
+
+#headerContainer {
+  grid-area: 1/1/2/5;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  align-items: end;
+  justify-content: center;
+  padding-top: 2%;
+}
+
+#divider {
+  width: 100%;
+}
+
+#headerContainer p {
+  font-size: 2em;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
+  align-self: end;
+  text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+.teamMember {
+  margin-top: 3%;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+}
+
+.qrContainer {
+  height: 50%;
+  width: 90%;
+  padding: 15%;
+  display: grid;
+  padding-top: 5%;
+  justify-self: center;
+}
+
+.qrContainer img {
+  justify-self: center;
+  align-self: start;
+}
 img {
   width: 80%;
-}
-
-.instructions {
-  width: 80vw;
-  height: 100vh;
+  border-radius: 5px;
 }
