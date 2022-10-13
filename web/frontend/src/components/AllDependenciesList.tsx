@@ -79,10 +79,11 @@ function AllDependenciesList({
     let dependencyVersion: string | string[] = versionList[0];
     if (versionList.length > 1) {
       const sortedVersionList = versionList.sort(
-        (a: string, b: string) => parseInt(b, 10) - parseInt(a, 10)
+        (a: string, b: string) => parseFloat(b) - parseFloat(a)
       );
       [dependencyVersion] = sortedVersionList;
     }
+    console.log(dependencyVersion);
     handleAddToTrackedDependencies({
       name: dependencyName,
       version: dependencyVersion,
