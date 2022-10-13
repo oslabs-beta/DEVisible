@@ -29,3 +29,6 @@ export type TrackedDependencies = {
   name?: string;
   version?: string;
 };
+export type AddedTrackedDependency = {
+  [key: string]: string;
+};
