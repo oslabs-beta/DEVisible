@@ -70,7 +70,7 @@ function RepoItem({
           </div>
         </Item>
         <RepoItemDetails
-          key={repoName + Math.random().toString()}
+          key={repoName}
           repoName={repoName}
           open={openRepoModal}
           handleClose={handleCloseRepoModal}
