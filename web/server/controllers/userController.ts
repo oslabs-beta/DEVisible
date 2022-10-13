@@ -43,6 +43,7 @@ const userController: UserController = {
       });
 
       res.locals.user = newUser;
+
       return next();
     } catch (error) {
       return next({
@@ -97,18 +98,20 @@ const userController: UserController = {
   assignJwt: (req, res, next) => {
     const token = jwt.sign(
       {
-        username: res.locals.user,
+        user: res.locals.user,
         id: res.locals.userId,
         depPrefs: res.locals.depPrefs,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }
     );
+
     res.cookie('access_token', token, { httpOnly: true });
     return next();
   },
   verifyJwt: (req, res, next) => {
     const token = req.cookies.access_token;
+
     if (!token) {
       return next({
         status: 403,
@@ -118,6 +121,7 @@ const userController: UserController = {
 
     const verified = jwt.verify(token, JWT_SECRET as string);
     res.locals.jwt = verified;
+
     return verified
       ? next()
       : next({ status: 403, message: 'Unauthorized request' });

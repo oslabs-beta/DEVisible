@@ -1,7 +1,6 @@
 import GetStarted from './GetStarted';
 import Installation from './Installation';
 import HowToUse from './HowToUse';
-import AboutTheTeam from '../AboutTheTeam';
-import Footer from './Footer';
+import ContactUs from './ContactUs';
 
-export { GetStarted, Installation, HowToUse, AboutTheTeam, Footer };
+export { GetStarted, Installation, HowToUse, ContactUs };

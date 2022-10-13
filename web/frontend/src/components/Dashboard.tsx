@@ -4,12 +4,12 @@ import '../stylesheets/dashboard.css';
 import { Grid, Box } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import Footer from './Footer';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserDeps, getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+import Footer from './Footer';
 
 interface Props {
   user: User | null;
