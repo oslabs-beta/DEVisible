@@ -21,7 +21,7 @@ function RepoItemDependencies({
   dependencies,
 }: RepoItemDependenciesProps): JSX.Element {
   //  jsonVerify returns null if argument is empty of invalid JSON
-  const parsedDependencies = jsonVerify(dependencies)
+  const parsedDependencies = Array.isArray(jsonVerify(dependencies))
     ? jsonVerify(dependencies)
     : [{ name: 'No Dependencies' }];
   return (
