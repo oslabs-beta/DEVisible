@@ -12,6 +12,8 @@ import {
 import { Line } from 'react-chartjs-2';
 import { BuildInfo } from 'frontend/src/types';
 import theme from '../../theme';
+import formatBytes from '../utils/formatBytes';
+import formatTime from '../utils/formatTime';
 
 ChartJS.register(
   CategoryScale,
@@ -29,11 +31,11 @@ const calculateSizeScale = (buildSizes: number[]) => {
 
   const largestBuild = Math.max(...buildSizes);
 
-  const scale = Math.floor(Math.log(largestBuild) / Math.log(k));
+  const buildScale = Math.floor(Math.log(largestBuild) / Math.log(k));
   const formattedBuilds = buildSizes.map((buildSize) => {
-    return buildSize / k ** scale;
+    return buildSize / k ** buildScale;
   });
-  return { scale, formattedBuilds };
+  return { buildScale, formattedBuilds };
 };
 
 const calculateTimeScale = (buildTimes: number[]) => {
@@ -58,22 +60,23 @@ const calculateTimeScale = (buildTimes: number[]) => {
 
 const FormatData = (
   buildSizeArray: number[],
-  buildSizeScale: number,
   createdAtArray: string[],
-  buildTimeArray: number[],
-  timeScale: string
+  buildTimeArray: number[]
 ) => {
   const labels: string[] = []; // x-axis
   const timeStamp: string[] = []; //  tooltips
   const dataPoints: number[] = []; // y-axis for chart 1
   const buildTimeDataPoints: number[] = []; // y-axis for chart 2
+  const { formattedBuilds, buildScale } = calculateSizeScale(buildSizeArray);
+  const { formattedTimes, timeScale } = calculateTimeScale(buildTimeArray);
+
   createdAtArray.forEach((date, index) => {
     const buildTimeStamp = new Date(date).toLocaleString();
     labels.push(`Build ${index + 1}`);
     timeStamp.push(buildTimeStamp);
   });
-  buildSizeArray.forEach((build) => dataPoints.push(build));
-  buildTimeArray.forEach((build) => buildTimeDataPoints.push(build));
+  formattedBuilds.forEach((build) => dataPoints.push(build));
+  formattedTimes.forEach((build) => buildTimeDataPoints.push(build));
   const chartData = {
     labels,
     datasets: [
@@ -112,7 +115,7 @@ const FormatData = (
       y: {
         title: {
           display: true,
-          text: `Build Size (${sizes[buildSizeScale]})`,
+          text: `Build Size (${sizes[buildScale]})`,
         },
         grid: {
           color: theme.palette.primary.light,
@@ -126,7 +129,8 @@ const FormatData = (
           label(context: { dataIndex: number }): string {
             const labelDataIndex = context.dataIndex;
             const createdAt = timeStamp[labelDataIndex];
-            return `Created at ${createdAt}`;
+            return `${formatBytes(buildSizeArray[labelDataIndex])}
+            Created at ${createdAt}`;
           },
         },
       },
@@ -159,7 +163,8 @@ const FormatData = (
           label(context: { dataIndex: number }): string {
             const labelDataIndex = context.dataIndex;
             const createdAt = timeStamp[labelDataIndex];
-            return `Created at ${createdAt}`;
+            return `${formatTime(buildTimeArray[labelDataIndex])}
+            Created at ${createdAt}`;
           },
         },
       },
@@ -175,21 +180,11 @@ interface LineChartProps {
   buildsInfo: BuildInfo[];
 }
 function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
-  const { formattedBuilds, scale } = calculateSizeScale(
-    buildsInfo.map((build: BuildInfo) => build.buildSize)
-  );
+  const buildSizeArray = buildsInfo.map((build: BuildInfo) => build.buildSize);
   const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt);
-  const { formattedTimes, timeScale } = calculateTimeScale(
-    buildsInfo.map((build: BuildInfo) => build.buildTime)
-  );
+  const buildTimeArray = buildsInfo.map((build: BuildInfo) => build.buildTime);
   const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
-    FormatData(
-      formattedBuilds,
-      scale,
-      createdAtArray,
-      formattedTimes,
-      timeScale
-    );
+    FormatData(buildSizeArray, createdAtArray, buildTimeArray);
   return (
     <div>
       <Line className="line-chart" data={chartData} options={chartOptions} />
