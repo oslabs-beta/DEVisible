@@ -98,7 +98,7 @@ const userController: UserController = {
   assignJwt: (req, res, next) => {
     const token = jwt.sign(
       {
-        user: res.locals.user,
+        username: res.locals.user,
         id: res.locals.userId,
         depPrefs: res.locals.depPrefs,
       },
