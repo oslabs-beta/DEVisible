@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import '../stylesheets/footer.css';
-import { flexbox, styled } from '@mui/system';
+import { styled } from '@mui/system';
 import theme from '../theme';
 
 function Footer() {
@@ -27,6 +27,3 @@ function Footer() {
 }
 
 export default Footer;
-
-{
-}
