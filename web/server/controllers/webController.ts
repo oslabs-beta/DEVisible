@@ -83,15 +83,12 @@ const webController: WebController = {
     const { depPrefs } = req.body;
     const userId: number = res.locals.jwt.id;
     try {
-      const updatedDepPrefs = await prisma.user.upsert({
+      const updatedDepPrefs = await prisma.user.update({
         where: {
           id: userId,
         },
-        update: {
-          depPrefs,
-        },
-        create: {
-          depPrefs,
+        data: {
+          depPrefs: JSON.stringify(depPrefs),
         },
       });
       res.locals.updatedDepPrefs = updatedDepPrefs;

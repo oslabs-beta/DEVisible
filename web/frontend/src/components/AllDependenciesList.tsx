@@ -9,11 +9,11 @@ import {
   Collapse,
   IconButton,
   Typography,
-  Checkbox,
 } from '@mui/material';
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
+  Add as AddIcon,
 } from '@mui/icons-material';
 import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
@@ -35,22 +35,27 @@ type NestedDependencies = {
 interface NestedDependenciesResult {
   [key: string]: NestedDependencies[];
 }
-const nestDependencies = (dependencies: Dependencies[] | null) => {
+// TODO refactor TS
+const nestDependencies = (
+  dependencies: (Dependencies | undefined)[] | null
+) => {
   const nestedDependencies: NestedDependenciesResult = {};
-  dependencies.forEach((dependency: Dependencies) => {
-    if (dependency) {
-      if (!nestedDependencies[dependency.name])
-        nestedDependencies[dependency.name] = [
-          { [dependency.repoName]: dependency.version },
-        ];
-      else {
-        nestedDependencies[dependency.name] = [
-          ...nestedDependencies[dependency.name],
-          { [dependency.repoName]: dependency.version },
-        ];
+  if (dependencies) {
+    dependencies.forEach((dependency) => {
+      if (dependency) {
+        if (!nestedDependencies[dependency.name])
+          nestedDependencies[dependency.name] = [
+            { [dependency.repoName]: dependency.version },
+          ];
+        else {
+          nestedDependencies[dependency.name] = [
+            ...nestedDependencies[dependency.name],
+            { [dependency.repoName]: dependency.version },
+          ];
+        }
       }
-    }
-  });
+    });
+  }
 
   return nestedDependencies;
 };
@@ -84,25 +89,32 @@ function AllDependenciesList({
     });
   };
 
-  let parsedDependencies: null | Dependencies[] = null;
+  // TODO refactor TS and rest of page
+  let parsedDependencies: (Dependencies[] | undefined)[] | null = null;
   let nestedDependencies: null | NestedDependenciesResult = null;
   if (allDependencies) {
+    // eslint-disable-next-line consistent-return, array-callback-return
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
       const result = jsonVerify(repo.builds[repo.builds.length - 1].deps);
-      if (!result || !Array.isArray(result)) return null;
-      return result.map((dep: Omit<Dependencies, 'repoName'>) => ({
-        ...dep,
-        repoName: repo.name,
-      })); // append repo name to each object of array
+      if (result && Array.isArray(result)) {
+        return result.map((dep: Omit<Dependencies, 'repoName'>) => {
+          return {
+            ...dep,
+            repoName: repo.name,
+          } as Dependencies;
+        }); // append repo name to each object of array
+      }
     });
-    parsedDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
-    nestedDependencies = nestDependencies(parsedDependencies);
+    if (parsedDependencies) {
+      const flatDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
+      nestedDependencies = nestDependencies(flatDependencies);
+    }
   }
   return (
     <div>
       <TableContainer>
         {nestedDependencies ? (
-          Object.keys(nestedDependencies)?.map((depRow, index) => {
+          Object.keys(nestedDependencies).map((depRow, index) => {
             return (
               <React.Fragment key={index}>
                 <Table key={index}>
@@ -144,16 +156,18 @@ function AllDependenciesList({
                         key={((index + 1) * -1).toString() + depRow}
                         align="right"
                       >
-                        <Checkbox
-                          key={index}
-                          onChange={() =>
+                        <IconButton
+                          color="secondary"
+                          onClick={() =>
                             handleCheckbox(
                               index,
                               depRow,
                               nestedDependencies[depRow]
                             )
                           }
-                        />
+                        >
+                          <AddIcon key={index} />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   </TableBody>

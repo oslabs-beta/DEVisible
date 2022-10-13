@@ -17,7 +17,7 @@ interface Props {
 }
 
 function Dashboard({ user }: Props): JSX.Element {
-  const [data, setData] = useState<GetUserInfo[]>(null);
+  const [data, setData] = useState<GetUserInfo[]>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!user) return;
@@ -27,7 +27,7 @@ function Dashboard({ user }: Props): JSX.Element {
       setLoading(false);
     })();
   }, [user]);
-
+  console.log('data', data);
   // function for handling click of delete button within individual repo components
   const deleteRepo = async (repoId: number): Promise<void> => {
     // make axios delete request to server

@@ -3,11 +3,7 @@ import { Box, Divider, Paper, Typography } from '@mui/material';
 import '../stylesheets/dependency-list.css';
 import AllDependenciesList from './AllDependenciesList';
 import MasterDependenciesList from './MasterDependenciesList';
-import {
-  AllDependenciesBuilds,
-  TrackedDependencies,
-  AddedTrackedDependency,
-} from '../types';
+import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 import { getUserDeps, postUserDepPrefs } from './api/user';
 
 function MasterDependencies() {
@@ -20,24 +16,35 @@ function MasterDependencies() {
   const handleAddToTrackedDependencies = (
     dependencyToAdd: AddedTrackedDependency
   ) => {
-    if (!dependencyPrefs) setDependencyPrefs([dependencyToAdd]);
-    else {
+    if (!dependencyPrefs) {
+      setDependencyPrefs([dependencyToAdd]);
+      return;
+    }
+    if (dependencyPrefs.every((dep) => dep.name !== dependencyToAdd.name)) {
       setDependencyPrefs([...dependencyPrefs, dependencyToAdd]);
+    }
+  };
+  const handleDeleteTrackedDependency = (dependencyName: string) => {
+    if (dependencyPrefs) {
+      setDependencyPrefs(
+        dependencyPrefs.filter((dep) => dep.name !== dependencyName)
+      );
     }
   };
   useEffect(() => {
     (async () => {
       const [depPrefsString, listOfAllDeps]: [string, AllDependenciesBuilds[]] =
         await getUserDeps();
-      const parsedDepPrefsString = JSON.parse(JSON.parse(depPrefsString));
+      const parsedDepPrefsString = JSON.parse(depPrefsString);
       if (depPrefsString) setDependencyPrefs(parsedDepPrefsString);
       setAllDependencies(listOfAllDeps);
     })();
   }, []);
   useEffect(() => {
     (async () => {
-      console.log('entered');
-      // const response = await postUserDepPrefs();
+      if (dependencyPrefs) {
+        await postUserDepPrefs(dependencyPrefs);
+      }
     })();
   }, [dependencyPrefs]);
   return (
@@ -52,7 +59,10 @@ function MasterDependencies() {
           </Typography>
           <Divider />
           <Box className="list-of-tracked-dependencies">
-            <MasterDependenciesList dependencyPrefs={dependencyPrefs} />
+            <MasterDependenciesList
+              dependencyPrefs={dependencyPrefs}
+              handleDeleteTrackedDependency={handleDeleteTrackedDependency}
+            />
           </Box>
         </Box>
         <Box className="dependencies-child-container">
