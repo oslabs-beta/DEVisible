@@ -27,9 +27,9 @@ const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 const calculateSizeScale = (buildSizes: number[]) => {
   const k = 1024;
 
-  const scale = Math.floor(
-    Math.log(buildSizes[buildSizes.length - 1]) / Math.log(k)
-  );
+  const largestBuild = Math.max(...buildSizes);
+
+  const scale = Math.floor(Math.log(largestBuild) / Math.log(k));
   const formattedBuilds = buildSizes.map((buildSize) => {
     return buildSize / k ** scale;
   });
