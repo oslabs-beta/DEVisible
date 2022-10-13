@@ -20,8 +20,10 @@ function App(): JSX.Element {
     fetch('/userAPI/login')
       .then((res) => res.json())
       .then((responseObj) => {
-        if (responseObj.username) {
-          setUser(responseObj);
+        if (responseObj.user) {
+          if (responseObj.user.username || responseObj.id) {
+            setUser(responseObj);
+          }
         } else {
           setUser(null);
         }
@@ -53,6 +55,7 @@ function App(): JSX.Element {
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/deps" element={<MasterDependencies />} />
+          <Route path="/about" element={<AboutTheTeam />} />
         </Routes>
       </BrowserRouter>
     </Box>

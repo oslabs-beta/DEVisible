@@ -6,7 +6,7 @@ import {
   GetStarted,
   Installation,
   HowToUse,
-  Footer,
+  ContactUs,
 } from './landingSubPages/Exporter';
 
 function Landing() {
@@ -15,7 +15,7 @@ function Landing() {
       <GetStarted />
       <Installation />
       <HowToUse />
-      <Footer />
+      <ContactUs />
       <div id="sidebar">
         <ul id="sidebarActive">
           <li className="sidebarItem">

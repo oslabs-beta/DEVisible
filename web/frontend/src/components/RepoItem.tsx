@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Divider, Grid, Paper, Typography } from '@mui/material';
 import RepoItemDetails from './RepoItemDetails';
 import { BuildInfo, OutOfSpecDeps } from '../types';
+import formatBytes from './utils/formatBytes';
 import theme from '../theme';
 
 const Item = styled(Paper)(() => ({
@@ -32,7 +33,7 @@ function RepoItem({
   deleteRepo,
 }: RepoItemProps): JSX.Element {
   const [openRepoModal, setOpenRepoModal] = useState(false);
-  const mostRecentBuildSize = builds[builds.length - 1].buildSize;
+  const mostRecentBuildSize = formatBytes(builds[builds.length - 1].buildSize);
   const buildPercentChange = builds[builds.length - 2]
     ? percentChange(
         builds[builds.length - 1].buildSize,
@@ -68,11 +69,9 @@ function RepoItem({
           <Divider sx={{ bgcolor: 'secondary.light' }} />
           <div className="repo-item-condensed">
             <Typography sx={{ mt: '30px' }}>Build Size:</Typography>
-            <Typography
-              sx={{ mb: '10px' }}
-              variant="h6"
-              color="white"
-            >{`${mostRecentBuildSize} kB`}</Typography>
+            <Typography sx={{ mb: '10px' }} variant="h6" color="white">
+              {mostRecentBuildSize}
+            </Typography>
 
             <Typography>Percent Change:</Typography>
             <Typography variant="h6" color="white">
@@ -81,7 +80,7 @@ function RepoItem({
           </div>
         </Item>
         <RepoItemDetails
-          key={repoName + Math.random().toString()}
+          key={repoName}
           outOfSpecDeps={repoOutOfSpecInfo.depsOutOfSpec}
           repoName={repoName}
           open={openRepoModal}

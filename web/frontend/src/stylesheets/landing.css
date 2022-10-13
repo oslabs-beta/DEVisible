@@ -15,6 +15,7 @@
   top: 15%;
   color: rgba(241, 235, 247, 0.85);
   font-size: 1.2em;
+  cursor: pointer;
 }
 
 .sidebarItem:not(:last-child) {

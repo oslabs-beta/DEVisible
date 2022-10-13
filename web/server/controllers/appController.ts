@@ -12,11 +12,11 @@ const appController: AppController = {
   checkRepo: async (req, res, next) => {
     try {
       // destructure data from req.body
-      const { repoName, apiToken } = req.body;
+      const { repoName, apiKey } = req.body;
       // search for the repo to see if it already exists in the database
       const userInfo = await prisma.user.findFirst({
         where: {
-          APIToken: apiToken,
+          APIToken: apiKey,
         },
         include: {
           repos: true,
