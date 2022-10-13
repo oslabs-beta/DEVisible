@@ -17,6 +17,7 @@ import { BuildInfo } from '../types';
 import RepoItemDependencies from './RepoItemDependencies';
 
 interface RepoItemDetailsProps {
+  outOfSpecDeps: string[];
   repoName: string;
   open: boolean;
   handleClose: () => void;
@@ -25,6 +26,7 @@ interface RepoItemDetailsProps {
 }
 
 function RepoItemDetails({
+  outOfSpecDeps,
   repoName,
   open,
   handleClose,
@@ -85,6 +87,7 @@ function RepoItemDetails({
             <LineChart buildsInfo={buildsInfo} />
           ) : (
             <RepoItemDependencies
+              outOfSpecDeps={outOfSpecDeps}
               key={buildsInfo[0].id}
               dependencies={dependencies}
             />

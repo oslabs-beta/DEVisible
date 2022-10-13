@@ -62,6 +62,7 @@ const webController: WebController = {
           userId,
         },
         select: {
+          id: true,
           name: true,
           builds: {
             select: {

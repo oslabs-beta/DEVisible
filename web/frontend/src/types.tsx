@@ -23,6 +23,7 @@ export type GetUserInfo = {
 export type AllDependenciesBuilds = {
   name: string;
   builds: Pick<BuildInfo, 'repoId' | 'deps'>[];
+  id?: number;
 };
 
 export type TrackedDependencies = {
@@ -31,4 +32,12 @@ export type TrackedDependencies = {
 };
 export type AddedTrackedDependency = {
   [key: string]: string;
+};
+
+export type OutOfSpecRepos = {
+  [key: string]: string[];
+};
+export type OutOfSpecDeps = {
+  status: boolean;
+  depsOutOfSpec: string[];
 };

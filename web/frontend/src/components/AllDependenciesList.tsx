@@ -83,7 +83,6 @@ function AllDependenciesList({
       );
       [dependencyVersion] = sortedVersionList;
     }
-    console.log(dependencyVersion);
     handleAddToTrackedDependencies({
       name: dependencyName,
       version: dependencyVersion,
