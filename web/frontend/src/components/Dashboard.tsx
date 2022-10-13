@@ -9,6 +9,7 @@ import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+import Footer from './Footer';
 // import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
@@ -65,29 +66,32 @@ function Dashboard({ user }: Props): JSX.Element {
       </div>
     );
   return (
-    <Box overflow="auto" className="dashboard-container" flex={1}>
-      <SearchBar />
-      {loading ? (
-        <Box className="loader-container">
-          <Loader color="orange" />
-        </Box>
-      ) : (
-        <Box overflow="auto" className="repo-tiles-grid">
-          <Grid justifyContent="center" container>
-            {data?.map((repo: GetUserInfo) => (
-              <RepoItem
-                repoName={repo.name}
-                builds={repo.builds}
-                key={repo.id}
-                deleteRepo={deleteRepo}
-              />
-            ))}
-            {/* FOR TESTING */}
-            {/* {reposTiles} */}
-          </Grid>
-        </Box>
-      )}
-    </Box>
+    <>
+      <Box overflow="auto" className="dashboard-container" flex={1}>
+        <SearchBar />
+        {loading ? (
+          <Box className="loader-container">
+            <Loader color="orange" />
+          </Box>
+        ) : (
+          <Box overflow="auto" className="repo-tiles-grid">
+            <Grid justifyContent="center" container>
+              {data?.map((repo: GetUserInfo) => (
+                <RepoItem
+                  repoName={repo.name}
+                  builds={repo.builds}
+                  key={repo.id}
+                  deleteRepo={deleteRepo}
+                />
+              ))}
+              {/* FOR TESTING */}
+              {/* {reposTiles} */}
+            </Grid>
+          </Box>
+        )}
+      </Box>
+      <Footer />
+    </>
   );
 }
 
