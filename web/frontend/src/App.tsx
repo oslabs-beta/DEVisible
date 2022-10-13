@@ -55,6 +55,7 @@ function App(): JSX.Element {
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/deps" element={<MasterDependencies />} />
+          <Route path="/about" element={<AboutTheTeam />} />
         </Routes>
       </BrowserRouter>
     </Box>

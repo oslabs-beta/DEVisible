@@ -10,3 +10,7 @@
 .footerBox {
   width: 300px;
 }
+
+.label:nth-child(-n + 2) {
+  flex: 40%;
+}

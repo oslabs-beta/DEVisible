@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import '../stylesheets/footer.css';
-import { styled } from '@mui/system';
 import theme from '../theme';
 
 function Footer() {
   return (
-    <Box className="footerContainer">
+    <div className="footerContainer">
       <Box className="footerBox">
         <BottomNavigation
           style={{
@@ -18,11 +19,28 @@ function Footer() {
             borderBottomRightRadius: '30px',
             borderColor: theme.palette.primary.main,
             border: '1px solid',
-            opacity: 0.2,
+            display: 'flex',
+            flexWrap: 'wrap',
+            // opacity: 0.2,
           }}
-        />
+          showLabels
+        >
+          <BottomNavigationAction
+            className="label"
+            label="Get Started"
+            component={Link}
+            to="/"
+          />
+          <BottomNavigationAction
+            className="label"
+            label="Meet the Team"
+            component={Link}
+            to="/about"
+          />
+          <BottomNavigationAction className="label" label="DEVisible © 2022" />
+        </BottomNavigation>
       </Box>
-    </Box>
+    </div>
   );
 }
 
