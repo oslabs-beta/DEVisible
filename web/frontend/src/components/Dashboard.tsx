@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/dashboard.css';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Divider, Typography } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import Footer from './Footer';
@@ -10,6 +10,7 @@ import Loader from './Loader';
 import { getUserInfoApi } from './api/user';
 import { GetUserInfo, User } from '../types';
 import SearchBar from './SearchBar';
+import theme from '../theme';
 // import mockData from './mocks/mocks'; //  FOR TESTING
 
 interface Props {
@@ -66,16 +67,42 @@ function Dashboard({ user }: Props): JSX.Element {
   //   );
   // }
   //  END OF TESTING
+
+  // declare quoted command in a variable to avoid security vulnerability associated with someone potentially escaping the quotations
+  const buildCommand = '"npm run build"';
+
   if (!user) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (
-      <div>
-        <h2>No repos have been added yet!</h2>
-        <p>
-          To add a repo, grab your API key from{' '}
-          <Link to="/account">the User Page</Link> and invoke the DEVisible
-          application using it.
-        </p>
+      <div className="emptyRepoContainer">
+        <Box className="emptyRepoContent" bgcolor="primary.main">
+          <Typography id="header" color="white">
+            No repos have been added yet!
+          </Typography>
+          <Divider sx={{ bgcolor: 'secondary.light' }} />
+          <div className="bottomContainer">
+            <div className="instructions">
+              <Typography color="secondary.light">
+                To add a repo, grab your API key from the{' '}
+                <Link
+                  style={{ color: theme.palette.primary.light }}
+                  to="/account"
+                >
+                  User Page
+                </Link>{' '}
+                and invoke the DEVisible application using it.
+              </Typography>
+            </div>
+            <div className="code">
+              <Box bgcolor={theme.palette.primary.light} className="codeBox">
+                <code>
+                  node devisible.js --apiKey api_key_goes_here --buildPath
+                  dist/--command {buildCommand}
+                </code>
+              </Box>
+            </div>
+          </div>
+        </Box>
       </div>
     );
   // conditionally render search bar based on number of repos in state
