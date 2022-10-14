@@ -16,6 +16,7 @@ const findOutOfSpecRepos = (
   allDependencies: AllDependenciesBuilds[]
 ) => {
   const parsedDepPrefs = JSON.parse(preferredDependencies);
+  console.log(parsedDepPrefs);
   const cacheOfReposOutOfDate: OutOfSpecRepos = {};
   if (Array.isArray(allDependencies)) {
     if (!Array.isArray(allDependencies)) return;
