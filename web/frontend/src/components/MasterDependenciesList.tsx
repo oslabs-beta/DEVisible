@@ -7,6 +7,7 @@ import {
   TableBody,
   TableCell,
   IconButton,
+  TextField,
 } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { AddedTrackedDependency } from '../types';
@@ -31,7 +32,7 @@ function MasterDependencies({
                     {depRow.name}
                   </TableCell>
                   <TableCell key={(index + 1) * -1} align="left" width="60%">
-                    {depRow.version}
+                    <TextField variant="outlined" label={depRow.version} />
                   </TableCell>
 
                   <TableCell key={`-${index.toString()}`} align="center">
