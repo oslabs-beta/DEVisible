@@ -11,12 +11,7 @@ interface WebController {
 
 const webController: WebController = {
   getUserInfo: async (req, res, next) => {
-    let userId: number;
-    if (res.locals.jwt.username.username) {
-      userId = res.locals.jwt.username.id;
-    } else {
-      userId = res.locals.jwt.id;
-    }
+    const userId: number = res.locals.jwt.id;
     try {
       const userRepos = await prisma.repo.findMany({
         where: {
@@ -52,12 +47,7 @@ const webController: WebController = {
     }
   },
   getUserDeps: async (req, res, next) => {
-    let userId: number;
-    if (res.locals.jwt.username.username) {
-      userId = res.locals.jwt.username.id;
-    } else {
-      userId = res.locals.jwt.id;
-    }
+    const userId: number = res.locals.jwt.id;
     try {
       const userDepPrefs = await prisma.user.findUnique({
         where: {

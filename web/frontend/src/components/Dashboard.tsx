@@ -18,7 +18,7 @@ interface Props {
 }
 
 function Dashboard({ user }: Props): JSX.Element {
-  const [data, setData] = useState<GetUserInfo[]>();
+  const [data, setData] = useState<GetUserInfo[]>([]);
   const [loading, setLoading] = useState(true);
   // state that will be updated by search value typed into SearchBar component
   const [searchValue, setSearchValue] = useState('');
