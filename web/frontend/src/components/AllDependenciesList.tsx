@@ -15,6 +15,7 @@ import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
   Add as AddIcon,
 } from '@mui/icons-material';
+import { compareVersions } from 'compare-versions';
 import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
 import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
@@ -67,7 +68,7 @@ function AllDependenciesList({
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
-  const handleCheckbox = (
+  const handleAddDep = (
     index: number,
     dependencyName: string,
     repoNameAndDepVersion: NestedDependencies[]
@@ -89,9 +90,10 @@ function AllDependenciesList({
     });
   };
 
-  // TODO refactor TS and rest of page
   let parsedDependencies: (Dependencies[] | undefined)[] | null = null;
-  let nestedDependencies: null | NestedDependenciesResult = null;
+  // TODO refactor TS and rest of page
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let nestedDependencies: NestedDependenciesResult | any = null;
   if (allDependencies) {
     // eslint-disable-next-line consistent-return, array-callback-return
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
@@ -159,10 +161,9 @@ function AllDependenciesList({
                         <IconButton
                           color="secondary"
                           onClick={() =>
-                            handleCheckbox(
+                            handleAddDep(
                               index,
                               depRow,
-                              //  TODO need to refactor TS
                               nestedDependencies[depRow]
                             )
                           }
@@ -180,37 +181,45 @@ function AllDependenciesList({
                   unmountOnExit
                 >
                   {nestedDependencies ? (
-                    nestedDependencies[depRow].map((repo, i) => (
-                      <Table key={(i + index).toString()}>
-                        <TableBody key={i}>
-                          <TableRow
-                            key={(i + index).toString()}
-                            sx={{
-                              backgroundColor: theme.palette.primary.light,
-                            }}
-                          >
-                            <TableCell
-                              key={Object.keys(repo)[0]}
-                              width="70%"
-                              align="right"
+                    nestedDependencies[depRow]
+                      .sort(
+                        (depA: NestedDependencies, depB: NestedDependencies) =>
+                          compareVersions(
+                            Object.values(depB)[0],
+                            Object.values(depA)[0]
+                          )
+                      )
+                      .map((repo: NestedDependencies, i: number) => (
+                        <Table key={(i + index).toString()}>
+                          <TableBody key={i}>
+                            <TableRow
+                              key={(i + index).toString()}
+                              sx={{
+                                backgroundColor: theme.palette.primary.light,
+                              }}
                             >
-                              <Typography variant="caption">
-                                {Object.keys(repo)}
-                              </Typography>
-                            </TableCell>
+                              <TableCell
+                                key={Object.keys(repo)[0]}
+                                width="70%"
+                                align="right"
+                              >
+                                <Typography variant="caption">
+                                  {Object.keys(repo)}
+                                </Typography>
+                              </TableCell>
 
-                            <TableCell
-                              key={Object.values(repo)[0]}
-                              align="left"
-                            >
-                              <Typography variant="caption">
-                                {Object.values(repo)}
-                              </Typography>
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    ))
+                              <TableCell
+                                key={Object.values(repo)[0]}
+                                align="left"
+                              >
+                                <Typography variant="caption">
+                                  {Object.values(repo)}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      ))
                   ) : (
                     <TableCell />
                   )}
@@ -227,7 +236,6 @@ function AllDependenciesList({
             </TableBody>
           </Table>
         )}
-        {/* </Table> */}
       </TableContainer>
     </div>
   );
