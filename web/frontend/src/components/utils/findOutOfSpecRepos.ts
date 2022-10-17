@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import {
   AllDependenciesBuilds,
   TrackedDependencies,
@@ -18,14 +19,14 @@ const findOutOfSpecRepos = (
   const parsedDepPrefs = JSON.parse(preferredDependencies);
   const cacheOfReposOutOfDate: OutOfSpecRepos = {};
   if (Array.isArray(allDependencies)) {
-    if (!Array.isArray(allDependencies)) return;
+    if (!Array.isArray(allDependencies)) return cacheOfReposOutOfDate;
     allDependencies.forEach((repo) => {
       const parsedDepForRepo = jsonVerify(
         repo.builds[repo.builds.length - 1].deps
       );
-      if (!Array.isArray(parsedDepPrefs)) return;
+      if (!Array.isArray(parsedDepPrefs)) return cacheOfReposOutOfDate;
       parsedDepPrefs.forEach((preferredDep: TrackedDependencies) => {
-        if (!Array.isArray(parsedDepForRepo)) return;
+        if (!Array.isArray(parsedDepForRepo)) return cacheOfReposOutOfDate;
         parsedDepForRepo.forEach((dep: RepoDependencies) => {
           if (
             preferredDep.name === dep.name &&

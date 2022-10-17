@@ -31,7 +31,7 @@ export default function SearchBar({
     <Box className="search-bar-container">
       <StyledAutocomplete
         freeSolo
-        options={['Tanner', 'Eden', 'Justin', 'Michael']}
+        options={[]}
         style={{ width: 300 }}
         renderInput={(params) => {
           return (

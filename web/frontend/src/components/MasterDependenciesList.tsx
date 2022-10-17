@@ -12,7 +12,7 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import { AddedTrackedDependency } from '../types';
 
 interface MasterDependenciesListProps {
-  dependencyPrefs: AddedTrackedDependency[] | null;
+  dependencyPrefs: AddedTrackedDependency[];
   handleDeleteTrackedDependency: (depName: string) => void;
 }
 function MasterDependencies({
@@ -24,7 +24,7 @@ function MasterDependencies({
       <TableContainer>
         <Table>
           <TableBody>
-            {dependencyPrefs ? (
+            {dependencyPrefs.length > 0 ? (
               dependencyPrefs.map((depRow, index) => (
                 <TableRow key={index}>
                   <TableCell key={index} width="35%">
