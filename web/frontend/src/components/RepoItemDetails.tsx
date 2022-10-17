@@ -109,7 +109,7 @@ function RepoItemDetails({
             aria-labelledby="Delete alert"
             aria-describedby="Prompt users to confirm whether they would like to delete repo"
           >
-            <DialogTitle id="Delete Rpo Alert">
+            <DialogTitle id="Delete Repo Alert">
               Are you sure you would like to delete this repo?
             </DialogTitle>
             <DialogActions>
