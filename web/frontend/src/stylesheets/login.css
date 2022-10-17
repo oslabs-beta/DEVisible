@@ -6,6 +6,7 @@
 
 .loginFormBox {
   width: 25%;
+  min-width: 300px;
   height: 55%;
   display: grid;
   grid-template-rows: 1fr 3fr 15%;
@@ -18,7 +19,7 @@
 .logoContainer {
   height: 100%;
   width: 100%;
-  display: grid;
+  display: flex;
   justify-content: center;
   align-content: center;
 }
