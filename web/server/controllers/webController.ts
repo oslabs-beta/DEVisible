@@ -7,6 +7,7 @@ interface WebController {
   getUserDeps: (req: Request, res: Response, next: NextFunction) => void;
   postUserDepPrefs: (req: Request, res: Response, next: NextFunction) => void;
   deleteRepo: (req: Request, res: Response, next: NextFunction) => void;
+  deleteAccount: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const webController: WebController = {
@@ -20,7 +21,6 @@ const webController: WebController = {
         select: {
           id: true,
           name: true,
-          depPrefs: true,
           builds: {
             select: {
               id: true,
@@ -130,9 +130,30 @@ const webController: WebController = {
       return next();
     } catch (error) {
       return next({
-        log: `Error caught in webController.getUserInfo ${error}`,
+        log: `Error caught in webController.deleteRepo ${error}`,
         status: 400,
-        message: `Error has occured in webController.getUserInfo ERROR: ${error}`,
+        message: `Error has occured in webController.deleteRepo ERROR: ${error}`,
+      });
+    }
+  },
+  deleteAccount: async (req, res, next) => {
+    const userId: number = parseInt(req.params.userId, 10);
+    try {
+      // delete the user account associated with the user id passed in on req.params
+      const deleteUser = await prisma.user.delete({
+        where: {
+          id: userId,
+        },
+      });
+      // combine both queries into one transaction (all queries must succeed)
+      res.locals.data = deleteUser;
+      console.log(deleteUser);
+      return next();
+    } catch (error) {
+      return next({
+        log: `Error caught in webController.deleteAccount ${error}`,
+        status: 400,
+        message: `Error has occured in webController.deleteAccount ERROR: ${error}`,
       });
     }
   },
