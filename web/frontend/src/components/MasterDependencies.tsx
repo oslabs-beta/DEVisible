@@ -9,8 +9,8 @@ import Loader from './Loader';
 
 function MasterDependencies() {
   const [dependencyPrefs, setDependencyPrefs] = useState<
-    AddedTrackedDependency[]
-  >([]);
+    AddedTrackedDependency[] | null
+  >(null);
   const [allDependencies, setAllDependencies] = useState<
     null | AllDependenciesBuilds[]
   >(null);

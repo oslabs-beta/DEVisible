@@ -7,12 +7,13 @@ import {
   TableBody,
   TableCell,
   IconButton,
+  TextField,
 } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { AddedTrackedDependency } from '../types';
 
 interface MasterDependenciesListProps {
-  dependencyPrefs: AddedTrackedDependency[];
+  dependencyPrefs: AddedTrackedDependency[] | null;
   handleDeleteTrackedDependency: (depName: string) => void;
 }
 function MasterDependencies({
@@ -24,14 +25,14 @@ function MasterDependencies({
       <TableContainer>
         <Table>
           <TableBody>
-            {dependencyPrefs.length > 0 ? (
+            {dependencyPrefs ? (
               dependencyPrefs.map((depRow, index) => (
                 <TableRow key={index}>
                   <TableCell key={index} width="35%">
                     {depRow.name}
                   </TableCell>
                   <TableCell key={(index + 1) * -1} align="left" width="60%">
-                    {depRow.version}
+                    <TextField variant="outlined" label={depRow.version} />
                   </TableCell>
 
                   <TableCell key={`-${index.toString()}`} align="center">

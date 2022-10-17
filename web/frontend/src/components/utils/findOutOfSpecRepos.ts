@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+import { compareVersions } from 'compare-versions';
 import {
   AllDependenciesBuilds,
   TrackedDependencies,
@@ -30,8 +31,9 @@ const findOutOfSpecRepos = (
         parsedDepForRepo.forEach((dep: RepoDependencies) => {
           if (
             preferredDep.name === dep.name &&
-            parseFloat(preferredDep.version) > parseFloat(dep.version)
+            compareVersions(preferredDep.version, dep.version) === 1
           ) {
+            console.log(compareVersions(preferredDep.version, dep.version));
             if (cacheOfReposOutOfDate[repo.id])
               cacheOfReposOutOfDate[repo.id].push(dep.name);
             else cacheOfReposOutOfDate[repo.id] = [dep.name];

@@ -15,6 +15,7 @@ import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
   Add as AddIcon,
 } from '@mui/icons-material';
+import { compareVersions } from 'compare-versions';
 import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
 import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
@@ -67,7 +68,7 @@ function AllDependenciesList({
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
-  const handleCheckbox = (
+  const handleAddDep = (
     index: number,
     dependencyName: string,
     repoNameAndDepVersion: NestedDependencies[]
@@ -160,7 +161,7 @@ function AllDependenciesList({
                         <IconButton
                           color="secondary"
                           onClick={() =>
-                            handleCheckbox(
+                            handleAddDep(
                               index,
                               depRow,
                               nestedDependencies[depRow]
@@ -180,8 +181,15 @@ function AllDependenciesList({
                   unmountOnExit
                 >
                   {nestedDependencies ? (
-                    nestedDependencies[depRow].map(
-                      (repo: NestedDependencies, i: number) => (
+                    nestedDependencies[depRow]
+                      .sort(
+                        (depA: NestedDependencies, depB: NestedDependencies) =>
+                          compareVersions(
+                            Object.values(depB)[0],
+                            Object.values(depA)[0]
+                          )
+                      )
+                      .map((repo: NestedDependencies, i: number) => (
                         <Table key={(i + index).toString()}>
                           <TableBody key={i}>
                             <TableRow
@@ -211,8 +219,7 @@ function AllDependenciesList({
                             </TableRow>
                           </TableBody>
                         </Table>
-                      )
-                    )
+                      ))
                   ) : (
                     <TableCell />
                   )}
