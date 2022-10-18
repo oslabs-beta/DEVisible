@@ -4,7 +4,6 @@ import '../stylesheets/dashboard.css';
 import { Grid, Box, Divider, Typography } from '@mui/material';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { compareSync } from 'bcrypt';
 import RepoItem from './RepoItem';
 import Loader from './Loader';
 import { getUserDeps, getUserInfoApi } from './api/user';

@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { User } from '../types';
 import '../stylesheets/account.css';
@@ -16,12 +17,14 @@ import theme from '../theme';
 
 interface AccountProps {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-function Account({ user }: AccountProps): JSX.Element {
+function Account({ user, setUser }: AccountProps): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const getToken = () => {
     fetch('/userAPI/getToken')
@@ -43,7 +46,8 @@ function Account({ user }: AccountProps): JSX.Element {
       const uid = user.id;
       const res = await axios.delete(`/webAPI/account/${uid}`);
       if (res.status === 204) {
-        console.log(res);
+        setUser(null);
+        navigate('/');
       } else {
         console.log('error');
       }
