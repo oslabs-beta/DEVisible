@@ -52,6 +52,7 @@ router.delete(
   userController.verifyJwt,
   webController.deleteAccount,
   (req, res) => {
+    res.clearCookie('access_token');
     res.status(204).json('Success');
   }
 );
