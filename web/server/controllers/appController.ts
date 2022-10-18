@@ -13,6 +13,13 @@ const appController: AppController = {
     try {
       // destructure data from req.body
       const { repoName, apiKey } = req.body;
+      if (!repoName || !apiKey) {
+        return next({
+          log: `Error caught in appController.handleBuild`,
+          status: 400,
+          message: `Please include an API key and repo name on all requests`,
+        });
+      }
       // search for the repo to see if it already exists in the database
       const userInfo = await prisma.user.findFirst({
         where: {

@@ -1,5 +1,5 @@
 .container {
-  height: 100%;
+  height: 90%;
   width: 100%;
   display: grid;
 }
@@ -53,8 +53,8 @@
 }
 
 .qrContainer {
-  height: 50%;
-  width: 90%;
+  height: 65%;
+  width: 80%;
   padding: 15%;
   display: grid;
   padding-top: 5%;

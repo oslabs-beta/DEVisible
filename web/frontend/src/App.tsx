@@ -52,7 +52,10 @@ function App(): JSX.Element {
             element={<Login user={user} setUser={setUser} />}
           />
           <Route path="/home" element={<Dashboard user={user} />} />
-          <Route path="/account" element={<Account user={user} />} />
+          <Route
+            path="/account"
+            element={<Account user={user} setUser={setUser} />}
+          />
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/deps" element={<MasterDependencies />} />
           <Route path="/about" element={<AboutTheTeam />} />
