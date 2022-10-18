@@ -1,12 +1,19 @@
 {
   "name": "devisible",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "bin": "./dist/devisible.js",
   "description": "DEVisible is a tool for monitoring metadata related to your Github repositories. DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information.",
-  "keywords": ["CI/CD", "build time", "build size"],
+  "keywords": [
+    "CI/CD",
+    "build time",
+    "build size"
+  ],
   "author": "OSLabs",
   "license": "MIT",
-  "repository": {"type": "git", "url": "https://github.com/oslabs-beta/DEVisble.git"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oslabs-beta/DEVisble.git"
+  },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
     "@types/git-parse": "^2.1.2",
