@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/system';
 import CardMedia from '@mui/material/Card';
-import { Typography, Divider } from '@mui/material';
+import { Typography } from '@mui/material';
 import theme from '../theme';
 import '../stylesheets/abouttheteam.css';
 import Michael from '../assets/Michael.png';

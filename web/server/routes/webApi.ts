@@ -46,4 +46,15 @@ router.delete(
       );
   }
 );
+
+router.delete(
+  '/account/:userId',
+  userController.verifyJwt,
+  webController.deleteAccount,
+  (req, res) => {
+    res.clearCookie('access_token');
+    res.status(204).json('Success');
+  }
+);
+
 export default router;
