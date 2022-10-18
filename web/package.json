@@ -6,7 +6,7 @@
     "dev": "concurrently \"vite frontend/\" \"tsc -w\" \"node dist/server/server.js\"",
     "build": "tsc && vite build frontend/",
     "preview": "vite preview frontend/",
-    "test": "jest --watch"
+    "test": "jest --config jest.config.js --watch"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
@@ -16,6 +16,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^2.1.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
