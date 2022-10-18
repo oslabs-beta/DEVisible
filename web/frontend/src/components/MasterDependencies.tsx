@@ -34,6 +34,16 @@ function MasterDependencies() {
       );
     }
   };
+  const handleUpdateVersion = (dependencyName: string, newVersion: string) => {
+    if (dependencyPrefs) {
+      const copyDepPrefs = [...dependencyPrefs];
+      const updateIndex = copyDepPrefs.findIndex(
+        (dep) => dep.name === dependencyName
+      );
+      copyDepPrefs[updateIndex] = { name: dependencyName, version: newVersion };
+      setDependencyPrefs(copyDepPrefs);
+    }
+  };
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -72,6 +82,7 @@ function MasterDependencies() {
               <MasterDependenciesList
                 dependencyPrefs={dependencyPrefs}
                 handleDeleteTrackedDependency={handleDeleteTrackedDependency}
+                handleUpdateVersion={handleUpdateVersion}
               />
             </Box>
           </Box>

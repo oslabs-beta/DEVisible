@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TableContainer,
   Table,
@@ -15,25 +15,47 @@ import { AddedTrackedDependency } from '../types';
 interface MasterDependenciesListProps {
   dependencyPrefs: AddedTrackedDependency[] | null;
   handleDeleteTrackedDependency: (depName: string) => void;
+  handleUpdateVersion: (depName: string, newVersion: string) => void;
 }
 function MasterDependencies({
   dependencyPrefs,
   handleDeleteTrackedDependency,
+  handleUpdateVersion,
 }: MasterDependenciesListProps) {
-  const [alteredVersion, setAlteredVersion] = useState(dependencyPrefs);
-  const handleChangeVersion = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const alteredVersionCopy = [...alteredVersion];
-    alteredVersionCopy[parseInt(e.target.id, 10)].version = e.target.value;
-    setAlteredVersion(alteredVersionCopy);
+  const [versionChanged, setVersionChanged] = useState<object[]>();
+  const [newVersion, setNewVersion] = useState<string[]>();
+  // Array.isArray(dependencyPrefs)
+  //   ? Array(dependencyPrefs.length).fill(false)
+  //   : false
+  useEffect(() => {
+    if (Array.isArray(dependencyPrefs)) {
+      setVersionChanged(Array(dependencyPrefs.length).fill(false));
+      setNewVersion(Array(dependencyPrefs.length).fill(''));
+    }
+  }, [dependencyPrefs]);
+  const handleChangeVersion = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const copyArr = { ...versionChanged };
+    copyArr[index] = true;
+    const copyVersionList = { ...newVersion };
+    copyVersionList[index] = event.target.value;
+    setVersionChanged(copyArr);
+    setNewVersion(copyVersionList);
   };
-  console.log('alt', alteredVersion);
-  console.log('deps', dependencyPrefs);
+  // const alteredVersionCopy = [...alteredVersion];
+  // alteredVersionCopy[parseInt(e.target.id, 10)].version = e.target.value;
+  // setAlteredVersion(alteredVersionCopy);
+  // console.log('alt', alteredVersion);
+  console.log('versionChanged', versionChanged);
+  console.log('newVersion', newVersion);
   return (
     <div>
       <TableContainer>
         <Table>
           <TableBody>
-            {dependencyPrefs && alteredVersion ? (
+            {dependencyPrefs && newVersion ? (
               dependencyPrefs.map((depRow, index) => (
                 <TableRow key={index}>
                   <TableCell key={index} width="35%">
@@ -43,20 +65,17 @@ function MasterDependencies({
                     <TextField
                       size="small"
                       label="Version"
-                      id={index.toString()}
+                      id={depRow.name}
                       defaultValue={depRow.version}
                       sx={{ width: '50%' }}
-                      onChange={handleChangeVersion}
+                      onChange={(event) => handleChangeVersion(event, index)}
                     />
-                    {console.log(
-                      'depI',
-                      dependencyPrefs[index].version,
-                      'altI',
-                      alteredVersion[index].version
-                    )}
-                    {dependencyPrefs[index].version !==
-                    alteredVersion[index].version ? (
-                      <IconButton>
+                    {versionChanged[index] ? (
+                      <IconButton
+                        onClick={() =>
+                          handleUpdateVersion(depRow.name, newVersion[index])
+                        }
+                      >
                         <SaveIcon />
                       </IconButton>
                     ) : (
