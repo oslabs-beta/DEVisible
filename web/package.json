@@ -8,7 +8,8 @@
     "preview": "vite preview frontend/"
   },
   "jest": {
-    "globalSetup": "./__tests__/jest-setup.js"
+    "globalSetup": "./__tests__/jest-setup.js",
+    "globalTeardown": "./__tests__/jest-teardown.js"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
