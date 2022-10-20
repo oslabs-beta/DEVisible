@@ -37,6 +37,7 @@ const userController: UserController = {
       if (!username || !plainPassword || !email) {
         return next({
           log: null,
+          status: 400,
           message: 'Enter a valid username, email, and/or password',
         });
       }
