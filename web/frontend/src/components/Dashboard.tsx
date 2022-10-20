@@ -64,7 +64,6 @@ function Dashboard({ user }: Props): JSX.Element {
 
   // declare quoted command in a variable to avoid security vulnerability associated with someone potentially escaping the quotations
   const buildCommand = '"npm run build"';
-  console.log(data);
   if (!user) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (

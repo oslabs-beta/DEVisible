@@ -22,11 +22,8 @@ function MasterDependencies({
   handleDeleteTrackedDependency,
   handleUpdateVersion,
 }: MasterDependenciesListProps) {
-  const [versionChanged, setVersionChanged] = useState<object[]>();
-  const [newVersion, setNewVersion] = useState<string[]>();
-  // Array.isArray(dependencyPrefs)
-  //   ? Array(dependencyPrefs.length).fill(false)
-  //   : false
+  const [versionChanged, setVersionChanged] = useState<boolean[]>([]);
+  const [newVersion, setNewVersion] = useState<string[]>([]);
   useEffect(() => {
     if (Array.isArray(dependencyPrefs)) {
       setVersionChanged(Array(dependencyPrefs.length).fill(false));
@@ -34,22 +31,16 @@ function MasterDependencies({
     }
   }, [dependencyPrefs]);
   const handleChangeVersion = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     index: number
   ) => {
-    const copyArr = { ...versionChanged };
+    const copyArr = [...versionChanged];
     copyArr[index] = true;
-    const copyVersionList = { ...newVersion };
+    const copyVersionList = [...newVersion];
     copyVersionList[index] = event.target.value;
     setVersionChanged(copyArr);
     setNewVersion(copyVersionList);
   };
-  // const alteredVersionCopy = [...alteredVersion];
-  // alteredVersionCopy[parseInt(e.target.id, 10)].version = e.target.value;
-  // setAlteredVersion(alteredVersionCopy);
-  // console.log('alt', alteredVersion);
-  console.log('versionChanged', versionChanged);
-  console.log('newVersion', newVersion);
   return (
     <div>
       <TableContainer>
@@ -57,8 +48,8 @@ function MasterDependencies({
           <TableBody>
             {dependencyPrefs && newVersion ? (
               dependencyPrefs.map((depRow, index) => (
-                <TableRow key={index}>
-                  <TableCell key={index} width="35%">
+                <TableRow key={depRow.name}>
+                  <TableCell key={depRow.version} width="35%">
                     {depRow.name}
                   </TableCell>
                   <TableCell key={(index + 1) * -1} align="left" width="60%">
@@ -72,6 +63,7 @@ function MasterDependencies({
                     />
                     {versionChanged[index] ? (
                       <IconButton
+                        color="secondary"
                         onClick={() =>
                           handleUpdateVersion(depRow.name, newVersion[index])
                         }
