@@ -2,12 +2,7 @@ import React from 'react';
 import { Link } from 'react-scroll';
 import { Box } from '@mui/material';
 import '../stylesheets/landing.css';
-import {
-  GetStarted,
-  Installation,
-  HowToUse,
-  ContactUs,
-} from './landingSubPages/Exporter';
+import { GetStarted, Installation, HowToUse } from './landingSubPages/Exporter';
 
 function Landing() {
   return (
