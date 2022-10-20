@@ -1,7 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import * as dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config();
+const url =
+  process.env.NODE_ENV === 'TEST'
+    ? process.env.TEST_DATABASE_URL
+    : process.env.DATABASE_URL;
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url,
+    },
+  },
+});
 interface WebController {
   getUserInfo: (req: Request, res: Response, next: NextFunction) => void;
   getUserDeps: (req: Request, res: Response, next: NextFunction) => void;
