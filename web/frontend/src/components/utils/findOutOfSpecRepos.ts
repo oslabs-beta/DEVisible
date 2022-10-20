@@ -33,7 +33,6 @@ const findOutOfSpecRepos = (
             preferredDep.name === dep.name &&
             compareVersions(preferredDep.version, dep.version) === 1
           ) {
-            console.log(compareVersions(preferredDep.version, dep.version));
             if (cacheOfReposOutOfDate[repo.id])
               cacheOfReposOutOfDate[repo.id].push(dep.name);
             else cacheOfReposOutOfDate[repo.id] = [dep.name];
