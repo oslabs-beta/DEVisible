@@ -24,7 +24,6 @@ describe('User functionality', () => {
         plainPassword: 'test1',
         email: 'test@test.com',
       };
-      console.log(process.env);
       return supertest(server)
         .post('/userAPI/signup')
         .send(body)
