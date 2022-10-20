@@ -17,7 +17,7 @@ interface MasterDependenciesListProps {
   handleDeleteTrackedDependency: (depName: string) => void;
   handleUpdateVersion: (depName: string, newVersion: string) => void;
 }
-function MasterDependencies({
+function MasterDependenciesList({
   dependencyPrefs,
   handleDeleteTrackedDependency,
   handleUpdateVersion,
@@ -97,4 +97,4 @@ function MasterDependencies({
     </div>
   );
 }
-export default MasterDependencies;
+export default MasterDependenciesList;
