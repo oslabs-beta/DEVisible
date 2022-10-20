@@ -237,11 +237,11 @@ const commandArr = command.split(' ');
 const buildProc = spawn(commandArr[0], commandArr.slice(1));
 
 buildProc.stdout.on('data', (data) => {
-  console.log(data);
+  console.log(data.toString());
 });
 
 buildProc.stderr.on('data', (data) => {
-  console.log({ data });
+  console.log(data.toString());
 });
 
 buildProc.on('close', (code) => {
