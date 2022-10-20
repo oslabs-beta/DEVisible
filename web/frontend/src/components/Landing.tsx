@@ -15,7 +15,6 @@ function Landing() {
       <GetStarted />
       <Installation />
       <HowToUse />
-      <ContactUs />
       <div id="sidebar">
         <ul id="sidebarActive">
           <li className="sidebarItem">

@@ -34,11 +34,13 @@ function Installation() {
         <Grid
           style={{
             color: `${theme.palette.secondary.main}`,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
           }}
           container
           spacing={{ xs: 2, md: 4 }}
           columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
-          marginLeft="15%"
         >
           <Grid xs={2} sm={3}>
             <GridItem className="instruction">
@@ -109,15 +111,14 @@ function Installation() {
               </Box>
             </GridItem>
           </Grid>
-          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: theme.palette.primary.main }}
-            >
-              Next Steps
-            </Button>
-          </Scroller>
+          <Scroller to="howToUse" spy smooth offset={0} duration={500} />
         </Grid>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: theme.palette.primary.main, marginTop: '2%' }}
+        >
+          Next Steps
+        </Button>
       </div>
     </div>
   );

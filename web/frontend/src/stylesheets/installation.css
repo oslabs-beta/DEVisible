@@ -1,9 +1,9 @@
 .installation {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 .installContainer {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
 }
 
 .instructions {
-  width: 80vw;
+  width: 80%;
   height: 100vh;
 }
 
