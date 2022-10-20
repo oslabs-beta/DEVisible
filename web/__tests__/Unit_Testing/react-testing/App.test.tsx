@@ -16,10 +16,12 @@ const renderWithRouter = (ui: JSX.Element, { route = '/' } = {}) => {
     ...render(ui),
   };
 };
-let documentBody: RenderResult;
 
 describe('Unit testing App component', () => {
   describe('React-Router route testing', () => {
+    beforeEach(() => {
+      fetchMock.doMock();
+    });
     it('Renders landing page on start', () => {
       // Page content for default route
       const { user } = renderWithRouter(<App />);
