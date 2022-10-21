@@ -55,12 +55,12 @@ function GetStarted() {
           variant="contained"
           sx={{
             backgroundColor: theme.palette.primary.main,
-            marginTop: '2%',
             color: 'white',
             maxWidth: '30%',
             height: '30%',
             fontSize: '1.2vw',
             justifySelf: 'center',
+            alignSelf: 'start',
           }}
         >
           <Link to="installation" spy smooth offset={0} duration={500}>

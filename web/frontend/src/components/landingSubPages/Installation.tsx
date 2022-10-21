@@ -31,26 +31,29 @@ function Installation() {
       }}
     >
       <div className="installContainer">
-        <div
-          className="title"
-          style={{ color: `${theme.palette.primary.main}` }}
-        >
-          Installation
+        <div className="titleContainer">
+          <div
+            className="title"
+            style={{ color: `${theme.palette.primary.main}` }}
+          >
+            Installation
+          </div>
+          <Divider
+            sx={{
+              bgcolor: 'primary.dark',
+              width: '70%',
+              height: '1px',
+              justifySelf: 'center',
+            }}
+          />
         </div>
-        <Divider
-          sx={{
-            bgcolor: 'primary.dark',
-            marginBottom: '2%',
-            marginTop: '-2.8%',
-            width: '80%',
-          }}
-        />
         <Grid
           style={{
             color: 'white',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
+            alignSelf: 'start',
           }}
           container
           spacing={{ xs: 2, md: 4 }}
@@ -135,6 +138,7 @@ function Installation() {
         </Grid>
         <Button
           variant="contained"
+          id="nextSteps"
           sx={{ backgroundColor: theme.palette.primary.main, marginTop: '2%' }}
         >
           Next Steps
