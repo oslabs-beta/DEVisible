@@ -3,6 +3,7 @@ import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor, RenderResult } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
@@ -19,8 +20,17 @@ const renderWithRouter = (ui: JSX.Element, { route = '/' } = {}) => {
 
 describe('Unit testing App component', () => {
   describe('React-Router route testing', () => {
-    beforeEach(() => {
-      fetchMock.doMock();
+    beforeEach(async () => {
+      fetchMock.resetMocks();
+      await act(async () => {
+        fetchMock.mockResponseOnce(
+          JSON.stringify({
+            username: 'test user',
+            depPrefs: '',
+            id: 1,
+          })
+        );
+      });
     });
     it('Renders landing page on start', () => {
       // Page content for default route
