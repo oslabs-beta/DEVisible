@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const supertest = require('supertest');
-const { describe, it, beforeAll } = require('@jest/globals');
+const { describe, it, beforeAll, expect } = require('@jest/globals');
 const pg = require('pg');
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const db_url = process.env.TEST_DATABASE_URL;
@@ -18,6 +18,7 @@ describe('User functionality', () => {
     await pool.query('DELETE FROM "Repo";');
     await pool.query('DELETE FROM "User";');
   });
+
   describe('Registering a new user', () => {
     it('responds with a 200 status and creates a user', () => {
       const body = {
@@ -58,33 +59,46 @@ describe('User functionality', () => {
         .expect(400);
     });
   });
-});
 
-describe('Login functionality', () => {
-  it('responds with a 200 status and logs in a user', () => {
-    const body = {
-      email: 'test@test.com',
-      plainPassword: 'test1',
-    };
-    return supertest(server)
-      .post('/userAPI/login')
-      .send(body)
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-      .expect('Set-Cookie', /access_token/);
+  describe('Login functionality', () => {
+    it('responds with a 200 status and logs in a user', () => {
+      const body = {
+        email: 'test@test.com',
+        plainPassword: 'test1',
+      };
+      return supertest(server)
+        .post('/userAPI/login')
+        .send(body)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect('Set-Cookie', /access_token/);
+    });
+    it('responds with a 401 status if the username is incorrect', () => {
+      const body = {
+        email: 'a@test.com',
+        plainPassword: 'test1',
+      };
+      return supertest(server).post('/userAPI/login').send(body).expect(401);
+    });
+    it('responds with a 401 status if the password is incorrect', () => {
+      const body = {
+        email: 'test@test.com',
+        plainPassword: 'test2',
+      };
+      return supertest(server).post('/userAPI/login').send(body).expect(401);
+    });
   });
-  it('responds with a 401 status if the username is incorrect', () => {
-    const body = {
-      email: 'a@test.com',
-      plainPassword: 'test1',
-    };
-    return supertest(server).post('/userAPI/login').send(body).expect(401);
-  });
-  it('responds with a 401 status if the password is incorrect', () => {
-    const body = {
-      email: 'test@test.com',
-      plainPassword: 'test2',
-    };
-    return supertest(server).post('/userAPI/login').send(body).expect(401);
+
+  describe('Logout functionality', () => {
+    it('responds with a 204 status and logs out a user', () => {
+      return supertest(server)
+        .delete('/userAPI/login')
+        .expect(204)
+        .expect(
+          // it clears the cookie
+          'Set-Cookie',
+          /access_token=; Path=\/; Expires=Thu, 01 Jan 1970 00:00:00 GMT/
+        );
+    });
   });
 });
