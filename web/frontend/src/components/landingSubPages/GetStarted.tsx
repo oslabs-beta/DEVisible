@@ -52,14 +52,15 @@ function GetStarted() {
           Make tracking your microservice architecture a micro-hassle
         </div>
         <Button
-          style={{
-            backgroundColor: `${theme.palette.primary.main}`,
+          variant="contained"
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            marginTop: '2%',
             color: 'white',
-            top: '15%',
-            marginLeft: '44.5%',
-            width: '10%',
-            height: '10%',
-            fontSize: '1.3em',
+            maxWidth: '30%',
+            height: '30%',
+            fontSize: '1.2vw',
+            justifySelf: 'center',
           }}
         >
           <Link to="installation" spy smooth offset={0} duration={500}>
