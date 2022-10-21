@@ -1,19 +1,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const supertest = require('supertest');
-const { describe, it, beforeAll, expect } = require('@jest/globals');
+const { describe, it, beforeAll, expect, xdescribe } = require('@jest/globals');
 const pg = require('pg');
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const db_url = process.env.TEST_DATABASE_URL;
 
 const server = 'http://localhost:3000';
 
-describe('User functionality', () => {
+const pool = new pg.Pool({
+  connectionString: db_url,
+});
+
+// eslint-disable-next-line no-undef
+jest.setTimeout(15000);
+
+xdescribe('User functionality', () => {
   beforeAll(async () => {
     // wipe the database using pg manually
     // this is to be EXTRA SUPER DOUBLE CAREFUL that we don't accidently wipe the main db
-    const pool = new pg.Pool({
-      connectionString: db_url,
-    });
     await pool.query('DELETE FROM "Build";');
     await pool.query('DELETE FROM "Repo";');
     await pool.query('DELETE FROM "User";');
@@ -30,7 +34,11 @@ describe('User functionality', () => {
         .post('/userAPI/signup')
         .send(body)
         .expect(200)
-        .expect('Content-Type', /application\/json/);
+        .expect('Content-Type', /application\/json/)
+        .expect((res) => {
+          expect(res.body.username).toEqual('test');
+          expect(res.body.id).toBeDefined();
+        });
     });
     it('blocks a user being created with an existing username', () => {
       const body = {
@@ -141,5 +149,65 @@ describe('User functionality', () => {
     it('responds with a 403 status when not logged in', () => {
       return supertest(server).get('/userAPI/getToken').expect(403);
     });
+  });
+});
+
+describe('App functionality', () => {
+  let apiToken;
+  const agent = supertest.agent(server);
+  const body = {
+    username: 'test',
+    plainPassword: 'test1',
+    email: 'test@test.com',
+  };
+  beforeAll(async () => {
+    await pool.query('DELETE FROM "Build";');
+    await pool.query('DELETE FROM "Repo";');
+    await pool.query('DELETE FROM "User";');
+    await agent.post('/userAPI/signup').send(body);
+    const res = await agent.get('/userAPI/getToken');
+    apiToken = res.body;
+  });
+  it('creates a new repo when invoked with a valid api token and a new repo name', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 1000,
+      buildSize: 2000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D4',
+    };
+    return supertest(server)
+      .post('/app')
+      .send(appBody)
+      .expect(201)
+      .expect((res) => {
+        expect(res.body).toEqual('New repo test-repo was created in database');
+      });
+  });
+  it('adds a new build when invoked with a valid api token and an existing repo name', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server)
+      .post('/app')
+      .send(appBody)
+      .expect(201)
+      .expect((res) => {
+        expect(res.body).toEqual(
+          'Repo test-repo was updated with a new build (hash: A1B2C3D5)'
+        );
+      });
   });
 });
