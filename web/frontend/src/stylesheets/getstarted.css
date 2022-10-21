@@ -35,13 +35,12 @@ section {
   align-items: center;
 }
 .sectionTitle {
-  color: white;
   font-size: 2em;
   margin-top: 3%;
   margin-bottom: 2%;
+  font-weight: 600;
 }
 .sectionText {
-  text-shadow: none;
   text-align: center;
   font-size: 1.5em;
 }
@@ -50,4 +49,8 @@ section {
   display: flex;
   justify-content: center;
   margin-bottom: 2%;
+}
+
+span {
+  font-weight: 600;
 }

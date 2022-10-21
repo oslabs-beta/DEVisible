@@ -8,7 +8,7 @@ function HowToUse() {
       <div
         className="installation"
         style={{
-          backgroundColor: `${theme.palette.secondary.dark}`,
+          backgroundColor: `${theme.palette.primary.dark}`,
         }}
       >
         <div className="installContainer">
@@ -16,13 +16,13 @@ function HowToUse() {
           <div className="instructions">
             <ul
               style={{
-                color: `${theme.palette.primary.dark}`,
+                color: `${theme.palette.secondary.main}`,
               }}
             >
               <li className="instruction">
                 <Link
                   to="/login"
-                  style={{ color: `${theme.palette.primary.dark}` }}
+                  style={{ color: `${theme.palette.secondary.main}` }}
                 >
                   Sign in
                 </Link>

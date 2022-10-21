@@ -13,9 +13,10 @@
 .title {
   position: relative;
   margin-bottom: 7%;
-  top: 5%;
+  top: 8%;
   font-size: 3em;
-  color: white;
+  font-weight: 500;
+  text-shadow: 2px 1px 2px black;
 }
 
 .instructions {
@@ -69,4 +70,8 @@ li {
 
 img {
   width: 100%;
+}
+
+a:hover {
+  filter: brightness(150%);
 }

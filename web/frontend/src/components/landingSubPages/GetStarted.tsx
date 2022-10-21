@@ -11,7 +11,7 @@ function GetStarted() {
       <div
         className="getStartedContainer"
         style={{
-          backgroundColor: `${theme.palette.primary.dark}`,
+          backgroundColor: `${theme.palette.secondary.main}`,
         }}
       >
         <div className="textContainer">
@@ -27,7 +27,7 @@ function GetStarted() {
           >
             <span
               className="title1"
-              style={{ color: `${theme.palette.secondary.main}` }}
+              style={{ color: `${theme.palette.primary.main}` }}
             >
               DEV
             </span>
@@ -53,7 +53,7 @@ function GetStarted() {
         </div>
         <Button
           style={{
-            backgroundColor: `${theme.palette.secondary.dark}`,
+            backgroundColor: `${theme.palette.primary.main}`,
             color: 'white',
             top: '15%',
             marginLeft: '44.5%',
@@ -69,11 +69,11 @@ function GetStarted() {
       </div>
       <div
         id="quickGlance"
-        style={{ backgroundColor: `${theme.palette.secondary.dark}` }}
+        style={{ backgroundColor: `${theme.palette.primary.dark}` }}
       >
         <section>
-          <p className="sectionTitle">Built by Developers, for Developers</p>
-          <p className="sectionText">
+          <p className="sectionTitle" style={{ color: `${theme.palette.secondary.main}`}}>Built by Developers, for Developers</p>
+          <p className="sectionText" style={{ color: `${theme.palette.primary.light }`}}>
             As micro-frontend architectures rise to prominence so do the
             problems with tracking such complex systems. <br /> Introducing
             DEVisible, a monitoring tool that works alongside your testing,

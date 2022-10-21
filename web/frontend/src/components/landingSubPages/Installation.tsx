@@ -21,19 +21,20 @@ function Installation() {
     width: '100%',
     padding: '5%',
     boxShadow: '5px 5px 5px black',
+    backgroundColor: `${theme.palette.primary.main}`,
   }));
   return (
     <div
       className="installation"
       style={{
-        backgroundColor: `${theme.palette.primary.dark}`,
+        backgroundColor: `${theme.palette.secondary.main}`,
       }}
     >
       <div className="installContainer">
-        <div className="title">Installation</div>
+        <div className="title" style={{ color: `${theme.palette.primary.main }`}}>Installation</div>
         <Grid
           style={{
-            color: `${theme.palette.secondary.main}`,
+            color: 'white',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -47,7 +48,10 @@ function Installation() {
               <span>Step 1: </span>
               <Link
                 to="/signup"
-                style={{ color: `${theme.palette.secondary.main}` }}
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
               >
                 Make An Account
               </Link>
@@ -60,7 +64,10 @@ function Installation() {
               <span>Step 2: Navigate to your </span>
               <Link
                 to="/account"
-                style={{ color: `${theme.palette.secondary.main}` }}
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
               >
                 Account Page
               </Link>

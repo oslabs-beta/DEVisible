@@ -11,11 +11,12 @@
 
 #sidebar {
   position: fixed;
-  right: 5%;
+  right: 1%;
   top: 15%;
-  color: rgba(241, 235, 247, 0.85);
+  color: white;
   font-size: 1.2em;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .sidebarItem:not(:last-child) {
