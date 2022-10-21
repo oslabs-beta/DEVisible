@@ -4,7 +4,7 @@ DEVisible is an open source tool for monitoring metadata related to your Github 
 
 DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information. There are two components that make up the DEVisible application, which are detailed separately below.
 
-**Note:** in order to tap into the full potential of DEVisible either [Register](https://devisible.dev/signup) to receive an API Key and use our hosting or visit our [GitHub](https://github.com/oslabs-beta/DEVisible) to run the app locally and customize it to your needs.
+**Note:** in order to tap into the full potential of DEVisible either [Register](https://devisible.app/signup) to receive an API Key and use our hosting or visit our [GitHub](https://github.com/oslabs-beta/DEVisible) to run the app locally and customize it to your needs.
 
 ## Installation and Usage
 
@@ -40,4 +40,4 @@ Insert a new command into config.yaml file at the desired location
             node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"
 ```
 
-Navigate to [DEVisible](https://devisible.dev/) or run an instance of the [application](<[GitHub](https://github.com/oslabs-beta/DEVisible)>) locally and log in to view your updated repository information.
+Navigate to [DEVisible](https://devisible.app/) or run an instance of the [application](<[GitHub](https://github.com/oslabs-beta/DEVisible)>) locally and log in to view your updated repository information.
