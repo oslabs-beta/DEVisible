@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const supertest = require('supertest');
-const { expect, describe, it, beforeAll } = require('@jest/globals');
+const { describe, it, beforeAll } = require('@jest/globals');
 const pg = require('pg');
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const db_url = process.env.TEST_DATABASE_URL;
 
 const server = 'http://localhost:3000';
@@ -56,5 +57,34 @@ describe('User functionality', () => {
         .send({ username: 'bob', plainPassword: 'hunter2' })
         .expect(400);
     });
+  });
+});
+
+describe('Login functionality', () => {
+  it('responds with a 200 status and logs in a user', () => {
+    const body = {
+      email: 'test@test.com',
+      plainPassword: 'test1',
+    };
+    return supertest(server)
+      .post('/userAPI/login')
+      .send(body)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+      .expect('Set-Cookie', /access_token/);
+  });
+  it('responds with a 401 status if the username is incorrect', () => {
+    const body = {
+      email: 'a@test.com',
+      plainPassword: 'test1',
+    };
+    return supertest(server).post('/userAPI/login').send(body).expect(401);
+  });
+  it('responds with a 401 status if the password is incorrect', () => {
+    const body = {
+      email: 'test@test.com',
+      plainPassword: 'test2',
+    };
+    return supertest(server).post('/userAPI/login').send(body).expect(401);
   });
 });
