@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { Link } from 'react-scroll';
 import MovingText from 'react-moving-text';
 import theme from '../../theme';
@@ -72,8 +72,24 @@ function GetStarted() {
         style={{ backgroundColor: `${theme.palette.primary.dark}` }}
       >
         <section>
-          <p className="sectionTitle" style={{ color: `${theme.palette.secondary.main}`}}>Built by Developers, for Developers</p>
-          <p className="sectionText" style={{ color: `${theme.palette.primary.light }`}}>
+          <p
+            className="sectionTitle"
+            style={{ color: `${theme.palette.secondary.main}` }}
+          >
+            Built by Developers, for Developers
+          </p>
+          <Divider
+            sx={{
+              bgcolor: 'secondary.main',
+              marginBottom: '2%',
+              marginTop: '-1.8%',
+              width: '60%',
+            }}
+          />
+          <p
+            className="sectionText"
+            style={{ color: `${theme.palette.primary.light}` }}
+          >
             As micro-frontend architectures rise to prominence so do the
             problems with tracking such complex systems. <br /> Introducing
             DEVisible, a monitoring tool that works alongside your testing,

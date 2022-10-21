@@ -2,7 +2,7 @@
 import React from 'react';
 import '../../stylesheets/installation.css';
 import { Box } from '@mui/system';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
@@ -31,7 +31,20 @@ function Installation() {
       }}
     >
       <div className="installContainer">
-        <div className="title" style={{ color: `${theme.palette.primary.main }`}}>Installation</div>
+        <div
+          className="title"
+          style={{ color: `${theme.palette.primary.main}` }}
+        >
+          Installation
+        </div>
+        <Divider
+          sx={{
+            bgcolor: 'primary.dark',
+            marginBottom: '2%',
+            marginTop: '-2.8%',
+            width: '80%',
+          }}
+        />
         <Grid
           style={{
             color: 'white',

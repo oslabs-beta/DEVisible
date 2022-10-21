@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Divider } from '@mui/material';
 import theme from '../../theme';
+import '../../stylesheets/howtouse.css';
 
 function HowToUse() {
   return (
@@ -12,7 +14,19 @@ function HowToUse() {
         }}
       >
         <div className="installContainer">
-          <div className="title">How To Use Our Product</div>
+          <div
+            className="title"
+            style={{ color: `${theme.palette.secondary.main}` }}
+          >
+            How To Use Our Product
+          </div>
+          <Divider
+            sx={{
+              bgcolor: 'secondary.main',
+              marginTop: '-2.5%',
+              width: '60%',
+            }}
+          />
           <div className="instructions">
             <ul
               style={{

@@ -7,6 +7,7 @@
 .getStartedContainer {
   height: 50vh;
   width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
 .title1 {
@@ -27,12 +28,18 @@
 #quickGlance {
   height: 50vh;
   width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0.19);
+  position: relative;
+  z-index: 5;
 }
 
 section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
 }
 .sectionTitle {
   font-size: 2em;
