@@ -25,7 +25,7 @@ function HowToUse() {
 
   return (
     <div
-      className="installation"
+      className="howToUse"
       style={{
         backgroundColor: `${theme.palette.primary.main}`,
       }}

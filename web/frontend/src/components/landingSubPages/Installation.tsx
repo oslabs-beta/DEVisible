@@ -134,14 +134,15 @@ function Installation() {
               </Box>
             </GridItem>
           </Grid>
-          <Scroller to="howToUse" spy smooth offset={0} duration={500} />
         </Grid>
         <Button
           variant="contained"
           id="nextSteps"
           sx={{ backgroundColor: theme.palette.primary.main, marginTop: '2%' }}
         >
-          Next Steps
+          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
+            Next Steps
+          </Scroller>
         </Button>
       </div>
     </div>

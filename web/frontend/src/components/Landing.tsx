@@ -33,11 +33,6 @@ function Landing() {
             How To Use
           </Link>
         </div>
-        <div className="sidebarItem">
-          <Link to="contactUs" spy smooth offset={0} duration={500}>
-            Contact Us
-          </Link>
-        </div>
       </div>
     </Box>
   );
