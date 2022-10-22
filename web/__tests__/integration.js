@@ -238,4 +238,103 @@ describe('App functionality', () => {
         expect(res.body).toEqual('New repo test-repo was created in database');
       });
   });
+
+  it('responds with a 401 status if the api token is invalid', () => {
+    const appBody = {
+      apiKey: 'invalid',
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(401);
+  });
+
+  it('responds with a 400 status if the repo name is not included', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
+
+  it('responds with a 400 status if the commit hash is not included', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: '',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
+
+  it('responds with a 400 status if the dependencies are not included', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
+
+  it('responds with a 400 status if the dependencies are not an array', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: {
+        name: 'testdep',
+        version: '0.0.1',
+        isDevDependency: true,
+      },
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
+
+  it('responds with a 400 status if a build time is not included', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
+
+  it('responds with a 400 status if a build size is not included', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(400);
+  });
 });
