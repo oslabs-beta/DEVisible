@@ -37,6 +37,7 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
       onClick={() => navigate('/login')}
       color="inherit"
       sx={{ justifySelf: 'end' }}
+      className="loginButton"
     >
       Login
     </Button>
