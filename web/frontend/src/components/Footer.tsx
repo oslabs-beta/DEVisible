@@ -30,7 +30,7 @@ function Footer() {
             // opacity: 0.2,
           }}
         >
-          <Link to="/" id="getStarted">
+          <Link to="/" id="about">
             Get Started
           </Link>
           <Link to="/about" id="meetTheTeam">
