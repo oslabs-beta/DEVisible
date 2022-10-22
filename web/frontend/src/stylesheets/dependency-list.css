@@ -1,6 +1,6 @@
 .dependencies-page-container{
   width: 100%;
-  min-height: calc(100vh - 65px);
+  min-height: 86vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

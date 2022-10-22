@@ -3,14 +3,52 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: relative;
   bottom: 2.5%;
+  height: 7vh;
 }
 
 .footerBox {
-  width: 300px;
+  display: grid;
+  width: 25%;
+  color: #00000099;
+  font-size: 0.9em;
+  font-weight: 600;
 }
 
-.label:nth-child(-n + 2) {
-  flex: 40%;
+.footerBox a {
+  color: #00000099;
+  justify-self: center;
+}
+
+.footerBox a:hover {
+  color: white;
+}
+
+#copyright {
+  text-align: center;
+}
+
+.socials {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 5px;
+  justify-content: end;
+  align-items: center;
+  grid-area: 2/1/3/2;
+}
+
+.twitterLogo {
+  width: 25px;
+}
+
+.githubIcon {
+  width: 25px;
+}
+
+.LinkedInLogo {
+  width: 80px;
+  margin-top: 3px;
 }

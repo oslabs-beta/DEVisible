@@ -10,6 +10,7 @@ import Recovery from './components/Recovery';
 import Landing from './components/Landing';
 import AboutTheTeam from './components/AboutTheTeam';
 import MasterDependencies from './components/MasterDependencies';
+import Footer from './components/Footer';
 import { User } from './types';
 import NotFound from './components/NotFound';
 
@@ -34,11 +35,10 @@ function App(): JSX.Element {
 
   return (
     <Box
-      height="100vh"
       display="flex"
       flexDirection="column"
       bgcolor="primary.light"
-      width="100vw"
+      width="100%"
     >
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} />
@@ -62,6 +62,7 @@ function App(): JSX.Element {
           <Route path="/deps" element={<MasterDependencies />} />
           <Route path="/about" element={<AboutTheTeam />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </Box>
   );
