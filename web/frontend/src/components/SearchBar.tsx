@@ -7,15 +7,15 @@ const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   '& .MuiFormControl-root': {
     borderRadius: '100px',
   },
-  '& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)': {
-    // transform: 'translate(34px, 20px) scale(1);',
-  },
   '& .MuiAutocomplete-inputRoot': {
     color: theme.palette.primary.main,
     borderRadius: '100px',
     backgroundColor: theme.palette.secondary.main,
+    '&:hover fieldset': {
+      border: 'none',
+    },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.secondary.main,
+      border: 'none',
     },
   },
 }));
@@ -27,6 +27,17 @@ interface SearchBarProps {
 export default function SearchBar({
   setSearchValue,
 }: SearchBarProps): JSX.Element {
+  setTimeout(() => {
+    const close = document.getElementsByClassName(
+      'MuiAutocomplete-clearIndicator'
+    )[0];
+    if (close) {
+      close.addEventListener('click', () => {
+        console.log('test');
+      });
+    }
+  }, 100);
+
   return (
     <Box className="search-bar-container">
       <StyledAutocomplete

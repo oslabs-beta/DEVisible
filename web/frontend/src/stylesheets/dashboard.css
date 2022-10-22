@@ -34,10 +34,7 @@
   align-items: center;
   min-height: 100%;
 }
-.repo-item-title {
-  /* margin-top: 30px;
-  margin-bottom: 3px; */
-}
+
 .repo-tiles-grid {
   margin-bottom: 3px;
   /* border: solid 1px gray; */
@@ -81,7 +78,7 @@ height: 50%
   display: grid;
   justify-content: center;
   margin-top: 20px;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 }
 
 .emptyRepoContainer {

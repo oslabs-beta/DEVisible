@@ -29,7 +29,6 @@ function Footer() {
             alignItems: 'center',
             // opacity: 0.2,
           }}
-          showLabels
         >
           <Link to="/" id="getStarted">
             Get Started
