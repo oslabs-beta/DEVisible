@@ -16,6 +16,12 @@ function MasterDependencies() {
   >(null);
 
   const [loading, setLoading] = useState<boolean>();
+
+  /**
+   * function to add dependencies to the tracked dependencies list
+   * @param dependencyToAdd - dependency to add to tracked dependencies list
+   * @returns void
+   */
   const handleAddToTrackedDependencies = (
     dependencyToAdd: AddedTrackedDependency
   ) => {
@@ -27,6 +33,12 @@ function MasterDependencies() {
       setDependencyPrefs([...dependencyPrefs, dependencyToAdd]);
     }
   };
+
+  /**
+   * function to delete dependencies from the tracked dependencies list
+   * @param dependencyName - dependency to delete
+   * @returns void
+   */
   const handleDeleteTrackedDependency = (dependencyName: string) => {
     if (dependencyPrefs) {
       setDependencyPrefs(
@@ -34,6 +46,12 @@ function MasterDependencies() {
       );
     }
   };
+
+  /**
+   * function to update the version of the dependency to track
+   * @param dependencyName - string that indicates the name of dependency
+   * @param newVersion - string that indicates the version of the dependency to update to
+   */
   const handleUpdateVersion = (dependencyName: string, newVersion: string) => {
     if (dependencyPrefs) {
       const copyDepPrefs = [...dependencyPrefs];
@@ -44,6 +62,7 @@ function MasterDependencies() {
       setDependencyPrefs(copyDepPrefs);
     }
   };
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -55,6 +74,7 @@ function MasterDependencies() {
       setLoading(false);
     })();
   }, []);
+
   useEffect(() => {
     (async () => {
       if (dependencyPrefs) {
@@ -62,6 +82,7 @@ function MasterDependencies() {
       }
     })();
   }, [dependencyPrefs]);
+
   return (
     <Box bgcolor="primary.light" className="dependencies-page-container">
       {loading ? (

@@ -15,11 +15,20 @@ import { User } from '../types';
 import '../stylesheets/account.css';
 import theme from '../theme';
 
+/**
+ * @typeParam user - either {@link User} or null if not logged in
+ * @typeParam setUser - setUser method changes user state
+ */
 interface AccountProps {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
+/**
+ * Renders the Account page allowing users to view their api token or delete their account
+ * @param AccountProps - {@link AccountProps}
+ * @returns HTML
+ */
 function Account({ user, setUser }: AccountProps): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
