@@ -13,10 +13,15 @@ import MasterDependencies from './components/MasterDependencies';
 import { User } from './types';
 import NotFound from './components/NotFound';
 
+/**
+ * Renders the App component and redirects via React Router to other components accordingly
+ * @returns jSX.Element
+ */
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
   const [user, setUser] = useState<User | null>(null);
 
+  // assert user login status
   useEffect(() => {
     fetch('/userAPI/login')
       .then((res) => res.json())
