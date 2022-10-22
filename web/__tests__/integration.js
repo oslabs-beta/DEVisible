@@ -210,4 +210,32 @@ describe('App functionality', () => {
         );
       });
   });
+  it("adds a new repo (not a build) when invoked with another user's account and an existing repo name", async () => {
+    const newCreds = {
+      username: 'test2',
+      plainPassword: 'test1',
+      email: 'test2@test.com',
+    };
+    await agent.post('/userAPI/signup').send(newCreds);
+    const signupRes = await agent.get('/userAPI/getToken');
+    const secondToken = signupRes.body;
+    const appBody = {
+      apiKey: secondToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server)
+      .post('/app')
+      .send(appBody)
+      .expect(201)
+      .expect((res) => {
+        expect(res.body).toEqual('New repo test-repo was created in database');
+      });
+  });
 });
