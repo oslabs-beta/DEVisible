@@ -12,6 +12,7 @@ import AboutTheTeam from './components/AboutTheTeam';
 import MasterDependencies from './components/MasterDependencies';
 import Footer from './components/Footer';
 import { User } from './types';
+import NotFound from './components/NotFound';
 
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
@@ -42,6 +43,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} />
         <Routes>
+          <Route path="*" element={<NotFound user={user} />} />
           <Route path="/" element={<Landing />} />
           <Route
             path="/signup"
