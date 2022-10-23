@@ -20,6 +20,7 @@ function Installation() {
     height: '100%',
     width: '100%',
     padding: '5%',
+    fontWeight: '600',
     boxShadow: '5px 5px 5px black',
     backgroundColor: `${theme.palette.primary.main}`,
   }));
