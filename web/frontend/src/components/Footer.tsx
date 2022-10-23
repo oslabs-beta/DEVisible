@@ -12,7 +12,7 @@ function Footer() {
   return (
     <div className="footerContainer">
       <Box className="footerBox">
-        <BottomNavigation
+        <div
           style={{
             backgroundColor: theme.palette.primary.light,
             borderTopLeftRadius: '30px',
@@ -62,7 +62,7 @@ function Footer() {
               <TwitterIcon />
             </a>
           </div>
-        </BottomNavigation>
+        </div>
       </Box>
     </div>
   );
