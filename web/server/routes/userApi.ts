@@ -3,7 +3,7 @@ import userController from '../controllers/userController';
 
 const router = express.Router();
 
-//* signup route works
+// signup route
 router.post(
   '/signup',
   userController.createUser,
@@ -13,7 +13,7 @@ router.post(
   }
 );
 
-//* login route works
+// login route
 router.post(
   '/login',
   userController.verifyUser,
@@ -23,17 +23,18 @@ router.post(
   }
 );
 
-//* verifying logged in <= for frontend use
+// get route for verifying log in
 router.get('/login', userController.verifyJwt, (req, res) => {
   res.status(200).json(res.locals.jwt);
 });
 
+// delete route to log user out
 router.delete('/login', (req, res) => {
   res.clearCookie('access_token');
   res.sendStatus(204);
 });
 
-//* get API Token
+// get API Token route
 router.get(
   '/getToken',
   userController.verifyJwt,

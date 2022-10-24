@@ -9,15 +9,31 @@ import {
 } from '@mui/material';
 import jsonVerify from './utils/jsonVerify';
 
+/**
+ * @typeParam outOfSpecDeps - array of strings that indicate out of spec dependencies
+ * @typeParam dependencies - string consisting of dependencies
+ */
 interface RepoItemDependenciesProps {
   outOfSpecDeps: string[];
   dependencies: string;
 }
+
+/**
+ * @typeParam name - string that indicates name of dependency
+ * @typeParam version - string that indicates the version of the dependency
+ * @typeParam isDevDependency - boolean that indicates whether a dependency is a dev dependency or not
+ */
 interface ParsedDependencies {
   name: string;
   version: string;
   isDevDependency: boolean;
 }
+
+/**
+ * function that renders container of repositories' dependencies
+ * @param props - take in {@link RepoItemDependenciesProps}
+ * @returns JSX.Element
+ */
 function RepoItemDependencies({
   outOfSpecDeps,
   dependencies,
@@ -26,6 +42,7 @@ function RepoItemDependencies({
   const parsedDependencies = Array.isArray(jsonVerify(dependencies))
     ? jsonVerify(dependencies)
     : [{ name: 'No Dependencies' }];
+
   return (
     <div>
       <TableContainer>
