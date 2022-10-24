@@ -26,7 +26,7 @@ function Register({ user, setUser }: Props): JSX.Element {
   const errorNotification = !error ? null : (
     <Box
       bgcolor="primary.main"
-      style={{ border: `3px solid ${theme.palette.secondary.main}` }}
+      style={{ border: `3px solid ${theme.palette.primary.light}` }}
       className="error"
     >
       {error}
@@ -59,13 +59,13 @@ function Register({ user, setUser }: Props): JSX.Element {
   if (user) return <Navigate to="/home" />;
 
   return (
-    <>
-      {errorNotification}
-      <div className="container">
-        <Box bgcolor="secondary.main" className="formBox">
-          <div className="logoContainer">
-            <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
-          </div>
+    <div className="container">
+      <Box bgcolor="secondary.main" className="formBox">
+        <div className="logoContainer">
+          <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
+        </div>
+        <div className="registerFormContainer">
+          {errorNotification}
           <form
             className="registerForm"
             onSubmit={(e) => {
@@ -105,13 +105,13 @@ function Register({ user, setUser }: Props): JSX.Element {
               </Button>
             </div>
           </form>
-          <div className="loginRedirect">
-            <p>Already have an account?</p>
-            <Link to="/login">Log In</Link>
-          </div>
-        </Box>
-      </div>
-    </>
+        </div>
+        <div className="loginRedirect">
+          <p>Already have an account?</p>
+          <Link to="/login">Log In</Link>
+        </div>
+      </Box>
+    </div>
   );
 }
 
