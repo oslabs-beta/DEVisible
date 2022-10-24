@@ -1,6 +1,6 @@
 {
   "name": "devisible",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "bin": "./dist/devisible.js",
   "description": "DEVisible is a tool for monitoring metadata related to your Github repositories. DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information.",
   "keywords": [
