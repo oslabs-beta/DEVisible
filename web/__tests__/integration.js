@@ -441,4 +441,16 @@ describe('Web API functionality', () => {
     const response = await agent2.get('/webAPI/user');
     return agent.delete(`/webAPI/repo/${response.body[0].id}`).expect(403);
   });
+  it('prevents a user from deleting another user account by DELETEing /webAPI/account/:userId', async () => {
+    const response = await agent2.get('/userAPI/login');
+    return agent
+      .delete(`/webAPI/account/${response.body.username.id}`)
+      .expect(403);
+  });
+  it('allows the user to delete their account by DELETEing /webAPI/account/:userId', async () => {
+    const response = await agent.get('/userAPI/login');
+    return agent
+      .delete(`/webAPI/account/${response.body.username.id}`)
+      .expect(204);
+  });
 });
