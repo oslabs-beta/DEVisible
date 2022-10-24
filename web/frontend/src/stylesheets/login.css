@@ -16,15 +16,15 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
-.logoContainer {
+#loginLogoContainer {
   height: 100%;
   width: 100%;
-  display: flex;
+  display: grid;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
-.logo {
+#loginLogo {
   width: 80%;
   height: 80%;
   align-self: center;
@@ -32,19 +32,18 @@
 }
 
 .formContainer {
-  display: grid;
-  justify-content: center;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
   width: 100%;
 }
 
 .loginForm {
-  display: flex;
+  display: grid;
   justify-self: center;
-  flex-direction: column;
-  height: 50%;
-  width: 130%;
   padding: 3%;
+  width: 65%;
   gap: 20px;
 }
 
@@ -52,6 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 #loginBtn {
@@ -114,19 +114,17 @@
   filter: brightness(150%);
 }
 
-.error {
+#error {
   display: grid;
-  position: absolute;
-  height: fit-content !important;
-  width: 25%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1%;
+  position: relative;
+  width: 80%;
+  height: 100%;
   border-radius: 5px;
-  text-align: center;
   font-weight: 600;
   color: white;
   align-items: center;
+  justify-self: center;
+  font-size: 0.8vw;
+  margin-top: -4%;
+  margin-bottom: 3%;
 }
