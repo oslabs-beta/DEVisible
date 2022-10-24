@@ -9,51 +9,55 @@
   min-width: 300px;
   height: 55%;
   display: grid;
-  grid-template-rows: 1fr 3fr 15%;
+  grid-template-rows: 1fr 1.5fr 15%;
   justify-self: center;
   align-self: center;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
-.logoContainer {
+#loginLogoContainer {
   height: 100%;
   width: 100%;
-  display: flex;
+  display: grid;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
-.logo {
+#loginLogo {
   width: 80%;
   height: 80%;
   align-self: center;
   justify-self: center;
 }
 
-.loginForm {
+.formContainer {
   display: flex;
-  justify-self: center;
-  align-self: center;
   flex-direction: column;
-  height: 100%;
-  width: 70%;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+}
+
+.loginForm {
+  display: grid;
+  justify-self: center;
   padding: 3%;
+  width: 65%;
   gap: 20px;
 }
 
-.buttonContainer {
-  width: 100%;
-  height: 25%;
-  display: grid;
+#buttonContainer {
+  display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 #loginBtn {
-  height: 45%;
-  width: 120%;
   justify-self: center;
+  width: 50%;
+  height: 85%;
 }
 
 #loginBtn:hover {
@@ -110,19 +114,18 @@
   filter: brightness(150%);
 }
 
-.error {
+#error {
   display: grid;
-  position: absolute;
-  height: fit-content !important;
-  width: 25%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1%;
+  position: relative;
+  height: 100%;
   border-radius: 5px;
-  text-align: center;
   font-weight: 600;
   color: white;
   align-items: center;
+  justify-self: center;
+  font-size: 0.8vw;
+  margin-top: -4%;
+  margin-bottom: 3%;
+  max-width: 80%;
+  padding: 2%;
 }

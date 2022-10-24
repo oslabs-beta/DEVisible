@@ -1,21 +1,22 @@
 import React from 'react';
 import { Box, Autocomplete, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { GetUserInfo } from '../types';
 
 const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   color: theme.palette.primary.main,
   '& .MuiFormControl-root': {
     borderRadius: '100px',
   },
-  '& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)': {
-    // transform: 'translate(34px, 20px) scale(1);',
-  },
   '& .MuiAutocomplete-inputRoot': {
     color: theme.palette.primary.main,
     borderRadius: '100px',
     backgroundColor: theme.palette.secondary.main,
+    '&:hover fieldset': {
+      border: 'none',
+    },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.secondary.main,
+      border: 'none',
     },
   },
 }));
@@ -27,6 +28,17 @@ interface SearchBarProps {
 export default function SearchBar({
   setSearchValue,
 }: SearchBarProps): JSX.Element {
+  setTimeout(() => {
+    const close = document.getElementsByClassName(
+      'MuiAutocomplete-clearIndicator'
+    )[0];
+    if (close) {
+      close.addEventListener('click', () => {
+        setSearchValue('');
+      });
+    }
+  }, 100);
+
   return (
     <Box className="search-bar-container">
       <StyledAutocomplete

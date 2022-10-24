@@ -24,7 +24,7 @@ function Login({ user, setUser }: Props) {
     <Box
       bgcolor="primary.main"
       style={{ border: `3px solid ${theme.palette.secondary.main}` }}
-      className="error"
+      id="error"
     >
       {error}
     </Box>
@@ -47,18 +47,24 @@ function Login({ user, setUser }: Props) {
       })
       .catch((err) => {
         console.log(err);
-        setError(`status: ${err.response.status} , ${err.response.data}`);
+        if (err.response.status === 400) {
+          setError(
+            'Error: Invalid email address and/or password. Please try again.'
+          );
+        } else {
+          setError(`status: ${err.response.status} , ${err.response.data}`);
+        }
       });
   }
 
   return (
-    <>
-      {errorNotification}
-      <div className="container">
-        <Box bgcolor="primary.main" className="loginFormBox">
-          <div className="logoContainer">
-            <img className="logo" src={OrangeD} alt="DEVisible Icon Orange" />
-          </div>
+    <div className="container">
+      <Box bgcolor="primary.main" className="loginFormBox">
+        <div id="loginLogoContainer">
+          <img id="loginLogo" src={OrangeD} alt="DEVisible Icon Orange" />
+        </div>
+        <div className="formContainer">
+          {errorNotification}
           <form
             className="loginForm"
             onSubmit={(e) => {
@@ -72,10 +78,14 @@ function Login({ user, setUser }: Props) {
                   color: theme.palette.secondary.main,
                 }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: theme.palette.secondary.main },
+                  '& > fieldset': {
+                    borderColor: theme.palette.secondary.main,
+                  },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: theme.palette.secondary.main },
+                  '& > fieldset': {
+                    borderColor: theme.palette.secondary.main,
+                  },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
                   '& > fieldset': { color: 'white' },
@@ -95,10 +105,14 @@ function Login({ user, setUser }: Props) {
                   color: theme.palette.secondary.main,
                 }, //  styles the label
                 '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: theme.palette.secondary.main },
+                  '& > fieldset': {
+                    borderColor: theme.palette.secondary.main,
+                  },
                 },
                 '& .MuiOutlinedInput-root:hover': {
-                  '& > fieldset': { borderColor: theme.palette.secondary.main },
+                  '& > fieldset': {
+                    borderColor: theme.palette.secondary.main,
+                  },
                 },
                 '& .MuiOutlinedInput-root:onfocus': {
                   '& > fieldset': { color: theme.palette.secondary.main },
@@ -111,7 +125,7 @@ function Login({ user, setUser }: Props) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <div className="buttonContainer">
+            <div id="buttonContainer">
               <Button
                 id="loginBtn"
                 type="submit"
@@ -125,29 +139,29 @@ function Login({ user, setUser }: Props) {
               </Button>
             </div>
           </form>
-          <div className="linkContainer">
-            <div className="signupRedirect">
-              <p>Don&apos;t have an account yet?</p>
-              <Link
-                to="/signup"
-                style={{ color: `${theme.palette.secondary.main}` }}
-              >
-                Sign Up
-              </Link>
-            </div>
-            <div className="recoveryRedirect">
-              <p>Forgot your password?</p>
-              <Link
-                to="/recovery"
-                style={{ color: `${theme.palette.secondary.main}` }}
-              >
-                Help Me DEVs!
-              </Link>
-            </div>
+        </div>
+        <div className="linkContainer">
+          <div className="signupRedirect">
+            <p>Don&apos;t have an account yet?</p>
+            <Link
+              to="/signup"
+              style={{ color: `${theme.palette.secondary.main}` }}
+            >
+              Sign Up
+            </Link>
           </div>
-        </Box>
-      </div>
-    </>
+          <div className="recoveryRedirect">
+            <p>Forgot your password?</p>
+            <Link
+              to="/recovery"
+              style={{ color: `${theme.palette.secondary.main}` }}
+            >
+              Help Me DEVs!
+            </Link>
+          </div>
+        </div>
+      </Box>
+    </div>
   );
 }
 

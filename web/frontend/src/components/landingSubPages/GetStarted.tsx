@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Divider } from '@mui/material';
 import { Link } from 'react-scroll';
-import MovingText from 'react-moving-text';
 import theme from '../../theme';
+import Demo from '../../assets/Demo.png';
+import RepoTile from '../../assets/RepoTile.png';
 import '../../stylesheets/getstarted.css';
 
 function GetStarted() {
@@ -15,41 +16,18 @@ function GetStarted() {
         }}
       >
         <div className="textContainer">
-          <MovingText
-            type="fadeInFromLeft"
-            duration="1000ms"
-            delay="0s"
-            direction="normal"
-            timing="ease"
-            iteration="1"
-            fillMode="none"
-            className="title1"
-          >
-            <span
-              className="title1"
-              style={{ color: `${theme.palette.primary.main}` }}
-            >
+          <div id="title">
+            <p id="first" style={{ color: theme.palette.primary.main }}>
               DEV
-            </span>
-          </MovingText>
-
-          <MovingText
-            type="fadeInFromRight"
-            duration="1500ms"
-            delay="0s"
-            direction="normal"
-            timing="ease"
-            iteration="1"
-            fillMode="none"
-            className="title2"
-          >
-            <span className="title2" style={{ color: 'white' }}>
-              isible
-            </span>
-          </MovingText>
+            </p>
+            <p id="second">isible</p>
+          </div>
+          <div id="text">
+            <p>Make tracking your microservice architecture a micro-hassle</p>
+          </div>
         </div>
-        <div id="devisible">
-          Make tracking your microservice architecture a micro-hassle
+        <div className="imgContainer">
+          <img src={RepoTile} className="demo" alt="DEVisible Chart Example" />
         </div>
         <Button
           variant="contained"
@@ -60,7 +38,7 @@ function GetStarted() {
             height: '30%',
             fontSize: '1.2vw',
             justifySelf: 'center',
-            alignSelf: 'start',
+            alignSelf: 'center',
           }}
         >
           <Link to="installation" spy smooth offset={0} duration={500}>

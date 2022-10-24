@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
 import '../stylesheets/footer.css';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import theme from '../theme';
-import Twitter from '../assets/Twitter Icons/Twitter social icons - rounded square - blue.png';
-import GithubIcon from '../assets/GitHub-Mark-120px-plus.png';
-import GithubLogo from '../assets/GitHub_Logo.png';
-import LinkedIn from '../assets/LI-Logo.png';
 
 function Footer() {
   return (
     <div className="footerContainer">
       <Box className="footerBox">
-        <BottomNavigation
+        <div
           style={{
             backgroundColor: theme.palette.primary.light,
             borderTopLeftRadius: '30px',
@@ -30,9 +28,8 @@ function Footer() {
             alignItems: 'center',
             // opacity: 0.2,
           }}
-          showLabels
         >
-          <Link to="/" id="getStarted">
+          <Link to="/" id="about">
             Get Started
           </Link>
           <Link to="/about" id="meetTheTeam">
@@ -42,34 +39,29 @@ function Footer() {
             <p>DEVisible © 2022</p>
           </div>
           <div className="socials">
-            Socials:
             <a
               href="https://github.com/oslabs-beta/DEVisible"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="githubIcon" src={GithubIcon} alt="Github Icon" />
+              <GitHubIcon />
             </a>
             <a
               href="https://www.linkedin.com/company/devisible/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
-                className="LinkedInLogo"
-                src={LinkedIn}
-                alt="LinkedIn Logo"
-              />
+              <LinkedInIcon />
             </a>
             <a
               href="https://twitter.com/DEVisible_app"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="twitterLogo" src={Twitter} alt="Twitter Logo" />
+              <TwitterIcon />
             </a>
           </div>
-        </BottomNavigation>
+        </div>
       </Box>
     </div>
   );
