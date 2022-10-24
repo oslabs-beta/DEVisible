@@ -1,7 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import * as dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config();
+const url =
+  process.env.NODE_ENV === 'test'
+    ? process.env.TEST_DATABASE_URL
+    : process.env.DATABASE_URL;
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url,
+    },
+  },
+});
 interface WebController {
   getUserInfo: (req: Request, res: Response, next: NextFunction) => void;
   getUserDeps: (req: Request, res: Response, next: NextFunction) => void;
@@ -120,8 +133,20 @@ const webController: WebController = {
     }
   },
   deleteRepo: async (req, res, next) => {
-    const repoId: number = parseInt(req.params.repoId, 10);
     try {
+      const repoId: number = parseInt(req.params.repoId, 10);
+      const repo = await prisma.repo.findUnique({
+        where: {
+          id: repoId,
+        },
+      });
+      if (repo?.userId !== res.locals.jwt.id) {
+        return next({
+          log: null,
+          status: 403,
+          message: 'You do not have permission to delete this repo',
+        });
+      }
       // delete all builds associated with repo that is passed in on req.params from the front end
       const deleteBuilds = prisma.build.deleteMany({
         where: {
@@ -148,6 +173,13 @@ const webController: WebController = {
   },
   deleteAccount: async (req, res, next) => {
     const userId: number = parseInt(req.params.userId, 10);
+    if (userId !== res.locals.jwt.id) {
+      return next({
+        log: null,
+        status: 403,
+        message: 'You cannot delete accounts that are not your own',
+      });
+    }
     try {
       // delete the user account associated with the user id passed in on req.params
       const deleteUser = await prisma.user.delete({

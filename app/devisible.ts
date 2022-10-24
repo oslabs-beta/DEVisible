@@ -52,7 +52,7 @@ let { apiKey, url, buildPath, command, gitRoot, packageFile } =
         type: String,
         alias: 'u',
         optional: true,
-        defaultValue: 'http://localhost:3000',
+        defaultValue: 'https://devisible.app',
       },
       buildPath: { type: String, alias: 'b' },
       command: { type: String, alias: 'c' },

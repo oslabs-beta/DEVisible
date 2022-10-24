@@ -16,4 +16,6 @@ module.exports = {
   ],
   setupFiles: ['./setupTests'],
   verbose: true,
+  globalSetup: '<rootDir>/__tests__/jest-setup.js',
+  globalTeardown: '<rootDir>/__tests__/jest-teardown.js',
 };

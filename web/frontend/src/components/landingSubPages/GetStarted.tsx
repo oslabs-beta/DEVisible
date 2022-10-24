@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Divider } from '@mui/material';
 import { Link } from 'react-scroll';
 import theme from '../../theme';
-import Demo from '../../assets/Demo.png';
 import RepoTile from '../../assets/RepoTile.png';
 import '../../stylesheets/getstarted.css';
 
