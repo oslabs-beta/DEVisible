@@ -33,10 +33,24 @@ function Register({ user, setUser }: Props): JSX.Element {
     </Box>
   );
 
+  // function to test whether user-supplied password contains special characters
+  function containsSpecialChars(str: string) {
+    const specialChars = /[!@#$%^&*()_+-={};':"|,.<>?~]/;
+    return specialChars.test(str);
+  }
+
   function signMeUP(e: React.SyntheticEvent) {
     e.preventDefault();
     if (password !== confirmedPassword) {
       setError('Error: Passwords do not match. Please try again.');
+    } else if (password.length < 8) {
+      setError(
+        'Error: Password length must be at least 8 characters. Please try again.'
+      );
+    } else if (containsSpecialChars(password) === false) {
+      setError(
+        `Error: Password must contain at least one of the following special characters: "!@#$%^&*()_+-={};':"|,.<>?~". Please try again.`
+      );
     } else {
       axios
         .post('/userAPI/signup', {
