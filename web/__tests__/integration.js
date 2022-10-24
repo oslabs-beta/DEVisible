@@ -146,13 +146,13 @@ xdescribe('User functionality', () => {
     it("responds with the user's API token if requested with a valid cookie", () => {
       return agent.get('/userAPI/getToken').expect(200);
     });
-    it('responds with a 403 status when not logged in', () => {
-      return supertest(server).get('/userAPI/getToken').expect(403);
+    it('responds with a 401 status when not logged in', () => {
+      return supertest(server).get('/userAPI/getToken').expect(401);
     });
   });
 });
 
-xdescribe('App functionality', () => {
+describe('App functionality', () => {
   let apiToken;
   const agent = supertest.agent(server);
   const body = {
@@ -239,6 +239,21 @@ xdescribe('App functionality', () => {
       });
   });
 
+  it('responds with a 409 status if a build with the same commit hash already exists', () => {
+    const appBody = {
+      apiKey: apiToken,
+      buildTime: 2000,
+      buildSize: 3000,
+      repoName: 'test-repo',
+      dependencies: [
+        { name: 'testdep', version: '0.0.1', isDevDependency: true },
+        { name: 'testdep2', version: '0.0.2', isDevDependency: false },
+      ],
+      commitHash: 'A1B2C3D5',
+    };
+    return supertest(server).post('/app').send(appBody).expect(409);
+  });
+
   it('responds with a 401 status if the api token is invalid', () => {
     const appBody = {
       apiKey: 'invalid',
@@ -289,23 +304,7 @@ xdescribe('App functionality', () => {
       buildTime: 2000,
       buildSize: 3000,
       repoName: 'test-repo',
-      commitHash: 'A1B2C3D5',
-    };
-    return supertest(server).post('/app').send(appBody).expect(400);
-  });
-
-  it('responds with a 400 status if the dependencies are not an array', () => {
-    const appBody = {
-      apiKey: apiToken,
-      buildTime: 2000,
-      buildSize: 3000,
-      repoName: 'test-repo',
-      dependencies: {
-        name: 'testdep',
-        version: '0.0.1',
-        isDevDependency: true,
-      },
-      commitHash: 'A1B2C3D5',
+      commitHash: 'A1B2C3D6',
     };
     return supertest(server).post('/app').send(appBody).expect(400);
   });
@@ -319,7 +318,7 @@ xdescribe('App functionality', () => {
         { name: 'testdep', version: '0.0.1', isDevDependency: true },
         { name: 'testdep2', version: '0.0.2', isDevDependency: false },
       ],
-      commitHash: 'A1B2C3D5',
+      commitHash: 'A1B2C3D7',
     };
     return supertest(server).post('/app').send(appBody).expect(400);
   });
@@ -333,13 +332,13 @@ xdescribe('App functionality', () => {
         { name: 'testdep', version: '0.0.1', isDevDependency: true },
         { name: 'testdep2', version: '0.0.2', isDevDependency: false },
       ],
-      commitHash: 'A1B2C3D5',
+      commitHash: 'A1B2C3D8',
     };
     return supertest(server).post('/app').send(appBody).expect(400);
   });
 });
 
-describe('Web API functionality', () => {
+xdescribe('Web API functionality', () => {
   const agent = supertest.agent(server);
   const agent2 = supertest.agent(server);
   const body = {
