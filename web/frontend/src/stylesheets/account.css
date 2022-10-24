@@ -1,6 +1,7 @@
-.container {
-    min-height: 86vh;
+.accountContainer {
+    height: 86vh;
     display: flex;
+    justify-content: center;
 }
 
 .accountInfo {
@@ -12,11 +13,22 @@
     height: 40%;
     margin-top: 3%;
     min-width: 40%;
+    max-width: 80%;
     border-radius: 10px;
     padding: 1%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
+#tokenButtonContainer {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    margin-top: 2%;
+}
+
+#tokenButtonContainer button {
+    width: 70%
+}
 .tokenInfo {
     margin-top: 1%;
 }
