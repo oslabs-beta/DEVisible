@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const supertest = require('supertest');
 const { describe, it, beforeAll, expect, xdescribe } = require('@jest/globals');
