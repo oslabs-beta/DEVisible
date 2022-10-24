@@ -9,7 +9,18 @@ import crypto from 'crypto';
 dotenv.config();
 const { JWT_SECRET } = process.env;
 
-const prisma = new PrismaClient();
+const url =
+  process.env.NODE_ENV === 'test'
+    ? process.env.TEST_DATABASE_URL
+    : process.env.DATABASE_URL;
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url,
+    },
+  },
+});
 interface UserController {
   createUser: (req: Request, res: Response, next: NextFunction) => void;
   verifyUser: (req: Request, res: Response, next: NextFunction) => void;
@@ -26,6 +37,7 @@ const userController: UserController = {
       if (!username || !plainPassword || !email) {
         return next({
           log: null,
+          status: 400,
           message: 'Enter a valid username, email, and/or password',
         });
       }
@@ -42,7 +54,8 @@ const userController: UserController = {
         },
       });
 
-      res.locals.user = newUser;
+      res.locals.user = newUser.username;
+      res.locals.userId = newUser.id;
 
       return next();
     } catch (error) {
@@ -63,12 +76,20 @@ const userController: UserController = {
           message: 'Please enter your email and/or password',
         });
       }
-
-      const loggedInUser = await prisma.user.findFirstOrThrow({
-        where: {
-          email,
-        },
-      });
+      let loggedInUser;
+      try {
+        loggedInUser = await prisma.user.findFirstOrThrow({
+          where: {
+            email,
+          },
+        });
+      } catch {
+        return next({
+          log: null,
+          status: 401,
+          message: 'Invalid email or password',
+        });
+      }
 
       const validPassword = await bcrypt.compare(
         plainPassword,
@@ -100,7 +121,6 @@ const userController: UserController = {
       {
         username: res.locals.user,
         id: res.locals.userId,
-        depPrefs: res.locals.depPrefs,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }
@@ -114,7 +134,7 @@ const userController: UserController = {
 
     if (!token) {
       return next({
-        status: 403,
+        status: 401,
         message: 'Unauthorized request',
       });
     }
