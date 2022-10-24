@@ -1,0 +1,43 @@
+.container {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  z-index: 2;
+  color: white;
+}
+
+#text1 {
+  position: relative;
+  bottom: 5%;
+  left: 10%;
+}
+
+#text2 {
+  position: relative;
+  bottom: 25%;
+  left: 15%;
+}
+
+h1 {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+}
+
+.takeMeBack {
+  z-index: 2;
+  text-decoration: none;
+  position: relative;
+  right: 15%;
+}
+
+#notFoundImg {
+  width: 50%;
+  position: absolute;
+  border-radius: 2%;
+}

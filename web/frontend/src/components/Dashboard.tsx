@@ -10,7 +10,6 @@ import { getUserDeps, getUserInfoApi } from './api/user';
 import { GetUserInfo, OutOfSpecRepos, OutOfSpecDeps, User } from '../types';
 import SearchBar from './SearchBar';
 import theme from '../theme';
-import Footer from './Footer';
 import findOutOfSpecRepos from './utils/findOutOfSpecRepos';
 
 interface Props {
@@ -107,44 +106,41 @@ function Dashboard({ user }: Props): JSX.Element {
     );
 
   return (
-    <>
-      <Box overflow="auto" className="dashboard-container" flex={1}>
-        {loading ? (
-          <Box className="loader-container">
-            <Loader color="orange" />
-          </Box>
-        ) : (
-          <Box overflow="auto" className="repo-tiles-grid">
-            <div className="search">{searchbar}</div>
-            <Grid justifyContent="center" container>
-              {handleSearch().map((repo: GetUserInfo) => {
-                if (outOfSpecRepos[repo.id]) {
-                  repoOutOfSpecStatus = {
-                    status: true,
-                    depsOutOfSpec: outOfSpecRepos[repo.id],
-                  };
-                } else {
-                  repoOutOfSpecStatus = {
-                    status: false,
-                    depsOutOfSpec: [],
-                  };
-                }
-                return (
-                  <RepoItem
-                    repoOutOfSpecInfo={repoOutOfSpecStatus}
-                    repoName={repo.name}
-                    builds={repo.builds}
-                    key={repo.id}
-                    deleteRepo={deleteRepo}
-                  />
-                );
-              })}
-            </Grid>
-          </Box>
-        )}
-      </Box>
-      <Footer />
-    </>
+    <Box overflow="auto" className="dashboard-container" flex={1}>
+      {loading ? (
+        <Box className="loader-container">
+          <Loader color="orange" />
+        </Box>
+      ) : (
+        <Box overflow="auto" className="repo-tiles-grid">
+          <div className="search">{searchbar}</div>
+          <Grid justifyContent="center" container>
+            {handleSearch().map((repo: GetUserInfo) => {
+              if (outOfSpecRepos[repo.id]) {
+                repoOutOfSpecStatus = {
+                  status: true,
+                  depsOutOfSpec: outOfSpecRepos[repo.id],
+                };
+              } else {
+                repoOutOfSpecStatus = {
+                  status: false,
+                  depsOutOfSpec: [],
+                };
+              }
+              return (
+                <RepoItem
+                  repoOutOfSpecInfo={repoOutOfSpecStatus}
+                  repoName={repo.name}
+                  builds={repo.builds}
+                  key={repo.id}
+                  deleteRepo={deleteRepo}
+                />
+              );
+            })}
+          </Grid>
+        </Box>
+      )}
+    </Box>
   );
 }
 

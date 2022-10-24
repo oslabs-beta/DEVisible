@@ -37,6 +37,7 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
       onClick={() => navigate('/login')}
       color="inherit"
       sx={{ justifySelf: 'end' }}
+      className="loginButton"
     >
       Login
     </Button>
@@ -48,7 +49,7 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
 
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="static" style={{ height: '7vh' }}>
         <Toolbar sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
           <Box>
             {user && (
