@@ -54,7 +54,8 @@ const userController: UserController = {
         },
       });
 
-      res.locals.user = newUser;
+      res.locals.user = newUser.username;
+      res.locals.userId = newUser.id;
 
       return next();
     } catch (error) {
@@ -120,7 +121,6 @@ const userController: UserController = {
       {
         username: res.locals.user,
         id: res.locals.userId,
-        depPrefs: res.locals.depPrefs,
       },
       JWT_SECRET as string,
       { expiresIn: '7d' }
