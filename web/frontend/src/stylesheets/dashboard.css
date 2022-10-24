@@ -87,11 +87,15 @@ height: 50%
   display: grid;
   overflow: contain;
   justify-content: center;
+  height: 86vh;
 }
 
 .emptyRepoContent {
   width: 35%;
+  min-width: 350px;
+  display: grid;
   height: 20%;
+  min-height: 200px;
   justify-self: center;
   border-radius: 10px;
   margin-top: 5%;
@@ -105,26 +109,29 @@ height: 50%
   margin-top: 2%;
 }
 
-.bottomContainer {
+.repoBottomContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
   height: 100%;
-  display: flex;
-  overflow: hidden;
-  margin: 0;
 }
 
 .code {
   padding: 3%;
+  height: 100%;
+  width: 100%;
 }
 
-.instructions {
+.repoInstructions {
   padding: 5%;
+  height: 100%;
 }
 
-.instructions a {
+.repoInstructions a {
   font-weight: 600;
 }
 
-.instructions a:hover {
+.repoInstructions a:hover {
   filter: brightness(115%);
 }
 
