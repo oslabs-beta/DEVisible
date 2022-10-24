@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Footer from './Footer';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
@@ -35,12 +34,22 @@ function Register({ user, setUser }: Props): JSX.Element {
   const errorNotification = !error ? null : (
     <Box
       bgcolor="primary.main"
-      style={{ border: `3px solid ${theme.palette.secondary.main}` }}
+      style={{ border: `3px solid ${theme.palette.primary.light}` }}
       className="error"
     >
       {error}
     </Box>
   );
+
+  /**
+   * function to test whether user-supplied password contains special characters
+   * @param str - string that is the entered
+   * @returns boolean - string contains or does not contain special characters
+   */
+  function containsSpecialChars(str: string) {
+    const specialChars = /[!@#$%^&*()_+-={};':"|,.<>?~]/;
+    return specialChars.test(str);
+  }
 
   /**
    * function to handle signing up logic
@@ -50,6 +59,14 @@ function Register({ user, setUser }: Props): JSX.Element {
     e.preventDefault();
     if (password !== confirmedPassword) {
       setError('Error: Passwords do not match. Please try again.');
+    } else if (password.length < 8) {
+      setError(
+        'Error: Password length must be at least 8 characters. Please try again.'
+      );
+    } else if (containsSpecialChars(password) === false) {
+      setError(
+        `Error: Password must contain at least one of the following special characters: "!@#$%^&*()_+-={};':"|,.<>?~". Please try again.`
+      );
     } else {
       axios
         .post('/userAPI/signup', {
@@ -73,13 +90,13 @@ function Register({ user, setUser }: Props): JSX.Element {
   if (user) return <Navigate to="/home" />;
 
   return (
-    <>
-      {errorNotification}
-      <div className="container">
-        <Box bgcolor="secondary.main" className="formBox">
-          <div className="logoContainer">
-            <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
-          </div>
+    <div className="container">
+      <Box bgcolor="secondary.main" className="formBox">
+        <div className="logoContainer">
+          <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
+        </div>
+        <div className="registerFormContainer">
+          {errorNotification}
           <form
             className="registerForm"
             onSubmit={(e) => {
@@ -119,14 +136,13 @@ function Register({ user, setUser }: Props): JSX.Element {
               </Button>
             </div>
           </form>
-          <div className="loginRedirect">
-            <p>Already have an account?</p>
-            <Link to="/login">Log In</Link>
-          </div>
-        </Box>
-      </div>
-      <Footer />
-    </>
+        </div>
+        <div className="loginRedirect">
+          <p>Already have an account?</p>
+          <Link to="/login">Log In</Link>
+        </div>
+      </Box>
+    </div>
   );
 }
 

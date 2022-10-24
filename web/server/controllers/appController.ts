@@ -1,7 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response, NextFunction } from 'express';
+import * as dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config();
+
+const url =
+  process.env.NODE_ENV === 'test'
+    ? process.env.TEST_DATABASE_URL
+    : process.env.DATABASE_URL;
+
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url,
+    },
+  },
+});
 
 interface AppController {
   checkRepo: (req: Request, res: Response, next: NextFunction) => void;
@@ -12,23 +26,36 @@ const appController: AppController = {
   checkRepo: async (req, res, next) => {
     try {
       // destructure data from req.body
-      const { repoName, apiKey } = req.body;
-      if (!repoName || !apiKey) {
+      const { repoName, apiKey, commitHash } = req.body;
+      if (!repoName || !apiKey || !commitHash) {
         return next({
           log: `Error caught in appController.handleBuild`,
           status: 400,
-          message: `Please include an API key and repo name on all requests`,
+          message: `Malformed request body.`,
         });
       }
       // search for the repo to see if it already exists in the database
-      const userInfo = await prisma.user.findFirst({
-        where: {
-          APIToken: apiKey,
-        },
-        include: {
-          repos: true,
-        },
-      });
+      let userInfo;
+      try {
+        userInfo = await prisma.user.findFirstOrThrow({
+          where: {
+            APIToken: apiKey,
+          },
+          include: {
+            repos: {
+              include: {
+                builds: true,
+              },
+            },
+          },
+        });
+      } catch {
+        return next({
+          log: null,
+          status: 401,
+          message: 'Invalid API key',
+        });
+      }
       // if userInfo is not truthy, that means the API key that was entered is not valid (there is no user that matches that key)
       if (!userInfo) {
         console.log('That repo does not exist');
@@ -46,6 +73,14 @@ const appController: AppController = {
       for (const repo of userRepos) {
         if (repo.name === repoName) {
           // create a flag on res.locals that will inform next middleware function whether to update an existing repo vs. add a new repo
+          if (repo.builds.find((build) => build.hash === commitHash)) {
+            return next({
+              log: null,
+              status: 409,
+              message:
+                'A build with this commit hash has already been sent to DEVisible',
+            });
+          }
           res.locals.repoToUpdate = repo.id;
         }
       }
@@ -78,6 +113,7 @@ const appController: AppController = {
             buildSize: Number(buildSize),
             buildTime: Number(buildTime),
             deps: JSON.stringify(dependencies),
+            hash: commitHash,
           },
         });
         res.locals.message = `Repo ${repoName} was updated with a new build (hash: ${commitHash})`;
@@ -97,6 +133,7 @@ const appController: AppController = {
                 deps: JSON.stringify(dependencies),
                 buildTime: Number(buildTime),
                 buildSize: Number(buildSize),
+                hash: commitHash,
               },
             ],
           },

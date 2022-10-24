@@ -9,7 +9,7 @@ router.post(
   userController.createUser,
   userController.assignJwt,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ username: res.locals.user, id: res.locals.userId });
   }
 );
 
