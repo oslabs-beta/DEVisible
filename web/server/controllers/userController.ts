@@ -75,12 +75,20 @@ const userController: UserController = {
           message: 'Please enter your email and/or password',
         });
       }
-
-      const loggedInUser = await prisma.user.findFirstOrThrow({
-        where: {
-          email,
-        },
-      });
+      let loggedInUser;
+      try {
+        loggedInUser = await prisma.user.findFirstOrThrow({
+          where: {
+            email,
+          },
+        });
+      } catch {
+        return next({
+          log: null,
+          status: 401,
+          message: 'Invalid email or password',
+        });
+      }
 
       const validPassword = await bcrypt.compare(
         plainPassword,
@@ -126,7 +134,7 @@ const userController: UserController = {
 
     if (!token) {
       return next({
-        status: 403,
+        status: 401,
         message: 'Unauthorized request',
       });
     }
