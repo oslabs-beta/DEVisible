@@ -6,7 +6,7 @@
     "dev": "concurrently \"vite frontend/\" \"tsc -w\" \"node dist/server/server.js\"",
     "build": "tsc && vite build frontend/",
     "preview": "vite preview frontend/",
-    "test": "jest --config jest.config.js --watch"
+    "test": "jest --config jest.config.js"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
