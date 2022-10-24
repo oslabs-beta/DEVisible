@@ -42,7 +42,6 @@ export const getUserDeps = async (): Promise<
     return error;
   }
 };
-//  TODO add TS for promise type
 
 /**
  * function to let user set dependencies to track

@@ -17,6 +17,10 @@ const prisma = new PrismaClient({
   },
 });
 
+/**
+ * @typeParam checkRepo - method to check if repository exists
+ * @typeParam addOrUpdateRepo - method to add repository if it doesnt exist, or update it if it does
+ */
 interface AppController {
   checkRepo: (req: Request, res: Response, next: NextFunction) => void;
   addOrUpdateRepo: (req: Request, res: Response, next: NextFunction) => void;
@@ -25,7 +29,6 @@ interface AppController {
 const appController: AppController = {
   checkRepo: async (req, res, next) => {
     try {
-      // destructure data from req.body
       const { repoName, apiKey, commitHash } = req.body;
       if (!repoName || !apiKey || !commitHash) {
         return next({
