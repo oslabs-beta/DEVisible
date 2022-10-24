@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/system';
-import { Button, Divider } from '@mui/material';
+import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
@@ -116,7 +116,7 @@ function HowToUse() {
               >
                 <code>
                   node devisible.js --apiKey api_key_goes_here --buildPath
-                  dist/--command "npm run build"
+                  dist/--command &quot;npm run build&quot;
                 </code>
               </Box>
             </GridItem>

@@ -60,14 +60,14 @@ export type TrackedDependencies = {
 };
 
 /**
- * @typeParam key - key value pair of strings that indicates the dependency added
+ * @typeParam object - key value pair of strings that indicates the dependency added
  */
 export type AddedTrackedDependency = {
   [key: string]: string;
 };
 
 /**
- * @typeParam key - key value pair where the value is an array of strings of out of spec dependencies
+ * @typeParam object - key value pair where the value is an array of strings of out of spec dependencies
  */
 export type OutOfSpecRepos = {
   [key: string]: string[];

@@ -63,6 +63,7 @@ function MasterDependencies() {
     }
   };
 
+  // check if user has dependencies to render
   useEffect(() => {
     (async () => {
       setLoading(true);
