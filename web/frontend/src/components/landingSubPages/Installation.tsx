@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import '../../stylesheets/installation.css';
-import { Box } from '@mui/system';
-import { Button, Divider } from '@mui/material';
+import { Button, Divider, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';

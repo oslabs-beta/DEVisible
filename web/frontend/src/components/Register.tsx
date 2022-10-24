@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Footer from './Footer';
 import '../stylesheets/register.css';
 import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
