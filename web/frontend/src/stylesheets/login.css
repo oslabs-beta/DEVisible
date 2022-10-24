@@ -9,7 +9,7 @@
   min-width: 300px;
   height: 55%;
   display: grid;
-  grid-template-rows: 1fr 3fr 15%;
+  grid-template-rows: 1fr 1.5fr 15%;
   justify-self: center;
   align-self: center;
   border-radius: 5px;
@@ -31,29 +31,33 @@
   justify-self: center;
 }
 
+.formContainer {
+  display: grid;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+}
+
 .loginForm {
   display: flex;
   justify-self: center;
-  align-self: center;
   flex-direction: column;
-  height: 100%;
-  width: 70%;
+  height: 50%;
+  width: 130%;
   padding: 3%;
   gap: 20px;
 }
 
-.buttonContainer {
-  width: 100%;
-  height: 25%;
-  display: grid;
+#buttonContainer {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #loginBtn {
-  height: 45%;
-  width: 120%;
   justify-self: center;
+  width: 50%;
+  height: 85%;
 }
 
 #loginBtn:hover {

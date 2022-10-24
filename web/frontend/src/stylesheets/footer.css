@@ -31,6 +31,10 @@
   text-align: center;
 }
 
+#copyright p {
+  color: #00000099;
+}
+
 .socials {
   display: flex;
   height: 100%;

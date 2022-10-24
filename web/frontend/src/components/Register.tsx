@@ -111,7 +111,6 @@ function Register({ user, setUser }: Props): JSX.Element {
           </div>
         </Box>
       </div>
-      <Footer />
     </>
   );
 }
