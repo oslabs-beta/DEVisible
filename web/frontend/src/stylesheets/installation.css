@@ -1,25 +1,30 @@
 .installation {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px -4px 3px rgba(33, 33, 33, 0.75);
 }
 .installContainer {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
   flex-direction: column;
   align-items: center;
 }
 
 .title {
-  position: relative;
-  margin-bottom: 7%;
-  top: 5%;
   font-size: 3em;
-  color: white;
+  font-weight: 500;
+  text-shadow: 2px 1px 2px black;
+  width: 90vw;
+  text-align: center;
+  align-self: end;
 }
 
 .instructions {
-  width: 80vw;
+  width: 80%;
   height: 100vh;
 }
 
@@ -69,4 +74,23 @@ li {
 
 img {
   width: 100%;
+}
+
+a:hover {
+  filter: brightness(150%);
+}
+
+.titleContainer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+#nextSteps {
+  width: 10%;
+  justify-self: center;
+  align-self: start;
 }

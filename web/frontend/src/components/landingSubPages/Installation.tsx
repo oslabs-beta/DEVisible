@@ -2,7 +2,7 @@
 import React from 'react';
 import '../../stylesheets/installation.css';
 import { Box } from '@mui/system';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
@@ -21,31 +21,53 @@ function Installation() {
     width: '100%',
     padding: '5%',
     boxShadow: '5px 5px 5px black',
+    backgroundColor: `${theme.palette.primary.main}`,
   }));
   return (
     <div
       className="installation"
       style={{
-        backgroundColor: `${theme.palette.primary.dark}`,
+        backgroundColor: `${theme.palette.secondary.main}`,
       }}
     >
       <div className="installContainer">
-        <div className="title">Installation</div>
+        <div className="titleContainer">
+          <div
+            className="title"
+            style={{ color: `${theme.palette.primary.main}` }}
+          >
+            Installation
+          </div>
+          <Divider
+            sx={{
+              bgcolor: 'primary.dark',
+              width: '70%',
+              height: '1px',
+              justifySelf: 'center',
+            }}
+          />
+        </div>
         <Grid
           style={{
-            color: `${theme.palette.secondary.main}`,
+            color: 'white',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignSelf: 'start',
           }}
           container
           spacing={{ xs: 2, md: 4 }}
           columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
-          marginLeft="15%"
         >
           <Grid xs={2} sm={3}>
             <GridItem className="instruction">
               <span>Step 1: </span>
               <Link
                 to="/signup"
-                style={{ color: `${theme.palette.secondary.main}` }}
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
               >
                 Make An Account
               </Link>
@@ -58,7 +80,10 @@ function Installation() {
               <span>Step 2: Navigate to your </span>
               <Link
                 to="/account"
-                style={{ color: `${theme.palette.secondary.main}` }}
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
               >
                 Account Page
               </Link>
@@ -109,15 +134,16 @@ function Installation() {
               </Box>
             </GridItem>
           </Grid>
-          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: theme.palette.primary.main }}
-            >
-              Next Steps
-            </Button>
-          </Scroller>
         </Grid>
+        <Button
+          variant="contained"
+          id="nextSteps"
+          sx={{ backgroundColor: theme.palette.primary.main, marginTop: '2%' }}
+        >
+          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
+            Next Steps
+          </Scroller>
+        </Button>
       </div>
     </div>
   );

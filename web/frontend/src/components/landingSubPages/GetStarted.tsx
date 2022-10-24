@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import { Link } from 'react-scroll';
 import MovingText from 'react-moving-text';
 import theme from '../../theme';
@@ -11,7 +11,7 @@ function GetStarted() {
       <div
         className="getStartedContainer"
         style={{
-          backgroundColor: `${theme.palette.primary.dark}`,
+          backgroundColor: `${theme.palette.secondary.main}`,
         }}
       >
         <div className="textContainer">
@@ -27,7 +27,7 @@ function GetStarted() {
           >
             <span
               className="title1"
-              style={{ color: `${theme.palette.secondary.main}` }}
+              style={{ color: `${theme.palette.primary.main}` }}
             >
               DEV
             </span>
@@ -52,14 +52,15 @@ function GetStarted() {
           Make tracking your microservice architecture a micro-hassle
         </div>
         <Button
-          style={{
-            backgroundColor: `${theme.palette.secondary.dark}`,
+          variant="contained"
+          sx={{
+            backgroundColor: theme.palette.primary.main,
             color: 'white',
-            top: '15%',
-            marginLeft: '44.5%',
-            width: '10%',
-            height: '10%',
-            fontSize: '1.3em',
+            maxWidth: '30%',
+            height: '30%',
+            fontSize: '1.2vw',
+            justifySelf: 'center',
+            alignSelf: 'start',
           }}
         >
           <Link to="installation" spy smooth offset={0} duration={500}>
@@ -69,11 +70,27 @@ function GetStarted() {
       </div>
       <div
         id="quickGlance"
-        style={{ backgroundColor: `${theme.palette.secondary.dark}` }}
+        style={{ backgroundColor: `${theme.palette.primary.dark}` }}
       >
         <section>
-          <p className="sectionTitle">Built by Developers, for Developers</p>
-          <p className="sectionText">
+          <p
+            className="sectionTitle"
+            style={{ color: `${theme.palette.secondary.main}` }}
+          >
+            Built by Developers, for Developers
+          </p>
+          <Divider
+            sx={{
+              bgcolor: 'secondary.main',
+              marginBottom: '2%',
+              marginTop: '-1.8%',
+              width: '60%',
+            }}
+          />
+          <p
+            className="sectionText"
+            style={{ color: `${theme.palette.primary.light}` }}
+          >
             As micro-frontend architectures rise to prominence so do the
             problems with tracking such complex systems. <br /> Introducing
             DEVisible, a monitoring tool that works alongside your testing,
