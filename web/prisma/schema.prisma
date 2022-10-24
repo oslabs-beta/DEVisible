@@ -21,11 +21,11 @@ model User {
 }
 
 model Repo {
-  id       Int     @id @default(autoincrement())
-  userId   Int
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name     String
-  builds   Build[]
+  id     Int     @id @default(autoincrement())
+  userId Int
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name   String
+  builds Build[]
 }
 
 model Build {
@@ -35,5 +35,6 @@ model Build {
   createdAt DateTime @default(now())
   buildTime Int
   buildSize Int
+  hash      String
   deps      Json
 }

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Build" ALTER COLUMN "hash" DROP DEFAULT;

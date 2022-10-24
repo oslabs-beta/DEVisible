@@ -35,5 +35,6 @@ model Build {
   createdAt DateTime @default(now())
   buildTime Int
   buildSize Int
+  hash      String
   deps      Json
 }
