@@ -5,6 +5,10 @@ import '../stylesheets/landing.css';
 import { GetStarted, Installation, HowToUse } from './landingSubPages/Exporter';
 import theme from '../theme';
 
+/**
+ * function to render landing page and all of its components
+ * @returns JSX.Element
+ */
 function Landing() {
   return (
     <Box id="landingContainer" bgcolor="white">

@@ -7,6 +7,10 @@ import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 import { getUserDeps, postUserDepPrefs } from './api/user';
 import Loader from './Loader';
 
+/**
+ * parent component function to render {@link AllDependenciesList} and {@link MasterDependenciesList}
+ * @returns JSX.Element
+ */
 function MasterDependencies() {
   const [dependencyPrefs, setDependencyPrefs] = useState<
     AddedTrackedDependency[] | null
@@ -76,6 +80,7 @@ function MasterDependencies() {
     })();
   }, []);
 
+  // update dependency tracking
   useEffect(() => {
     (async () => {
       if (dependencyPrefs) {

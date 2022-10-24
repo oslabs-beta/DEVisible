@@ -60,7 +60,7 @@ export type TrackedDependencies = {
 };
 
 /**
- * @typeParam object - key value pair of strings that indicates the dependency added
+ * @typeParam object - key value pair of strings that indicates the dependency added and its version
  */
 export type AddedTrackedDependency = {
   [key: string]: string;

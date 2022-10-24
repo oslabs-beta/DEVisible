@@ -25,8 +25,8 @@ interface AccountProps {
 
 /**
  * Renders the Account page allowing users to view their api token or delete their account
- * @param AccountProps - {@link AccountProps}
- * @returns HTML
+ * @param props - takes in {@link AccountProps}
+ * @returns JSX.Element
  */
 function Account({ user, setUser }: AccountProps): JSX.Element {
   const [token, setToken] = useState<string | null>(null);

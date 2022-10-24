@@ -8,11 +8,20 @@ import theme from '../theme';
 import BlueD from '../assets/BlueD.svg';
 import { User } from '../types';
 
+/**
+ * @typeParam user - current user or null if not logged in
+ * @typeParam setUser - method to change user state
+ */
 interface Props {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
+/**
+ * function to render register component and handle signing up logic
+ * @param props - takes in {@link Props}
+ * @returns JSX.Element
+ */
 function Register({ user, setUser }: Props): JSX.Element {
   // state to hold information from all register fields
   const [username, setUsername] = useState('');
@@ -33,6 +42,10 @@ function Register({ user, setUser }: Props): JSX.Element {
     </Box>
   );
 
+  /**
+   * function to handle signing up logic
+   * @param e - {@link https://developer.mozilla.org/en-US/docs/Web/Events | event type}
+   */
   function signMeUP(e: React.SyntheticEvent) {
     e.preventDefault();
     if (password !== confirmedPassword) {
@@ -56,6 +69,7 @@ function Register({ user, setUser }: Props): JSX.Element {
         });
     }
   }
+
   if (user) return <Navigate to="/home" />;
 
   return (

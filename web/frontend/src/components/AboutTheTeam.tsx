@@ -15,7 +15,7 @@ import TannerQR from '../assets/TannerQR.svg';
 
 /**
  * Renders the contact information for project team members
- * @returns HTML
+ * @returns JSX.Element
  */
 
 function AboutTheTeam() {

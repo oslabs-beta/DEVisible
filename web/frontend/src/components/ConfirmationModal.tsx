@@ -16,7 +16,7 @@ interface ConfirmationModalProps<Type> {
 
 /**
  * function to open an interactive dialog box to either confirm or cancel an action
- * @param props - object containing {@link ConfirmationModalProps} methods
+ * @param props - takes in {@link ConfirmationModalProps} methods
  * @returns JSX.Element
  */
 export default function ConfirmationModal<Type>({

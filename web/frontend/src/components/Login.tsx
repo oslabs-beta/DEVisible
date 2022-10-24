@@ -7,11 +7,20 @@ import theme from '../theme';
 import OrangeD from '../assets/OrangeD.svg';
 import { User } from '../types';
 
+/**
+ * @typeParam user - current user or null if not logged in
+ * @typeParam setUser - method to change user state
+ */
 interface Props {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
+/**
+ * function to render Login component and handle login logic
+ * @param props - takes in {@link Props}
+ * @returns JSX.Element
+ */
 function Login({ user, setUser }: Props) {
   // state to hold information from login fields
   const [email, setEmail] = useState('');
@@ -32,6 +41,11 @@ function Login({ user, setUser }: Props) {
 
   // don't show the login page to users who are already logged in
   if (user) return <Navigate to="/home" />;
+
+  /**
+   * function to log user in
+   * @param e - {@link https://developer.mozilla.org/en-US/docs/Web/Events | event type}
+   */
   function logMeIn(e: React.SyntheticEvent) {
     e.preventDefault();
     axios

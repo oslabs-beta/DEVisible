@@ -8,11 +8,20 @@ import TransparentOrange from '../assets/Transparent_Orange.svg';
 import { User } from '../types';
 import DropMenu from './DropMenu';
 
+/**
+ * @typeParam user - current user or null if not logged in
+ * @typeParam setUser - method to change user state
+ */
 interface NavProps {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
+/**
+ * function to render the navigation bar
+ * @param props - takes in {@link NavProps}
+ * @returns JSX.Element
+ */
 function Navbar({ user, setUser }: NavProps): JSX.Element {
   const navigate = useNavigate();
   const handleLogout = async () => {

@@ -87,8 +87,8 @@ const groupReposOnDependencies = (
 
 /**
  * function to render the user's dependency list and handle tracking dependencies
- * @param allDependencies - an object of {@link AllDependenciesBuilds} or null if no builds for current user
- * @returns HTML
+ * @param props - takes in {@link AllDependenciesListProps}
+ * @returns JSX.Element
  */
 function AllDependenciesList({
   allDependencies,

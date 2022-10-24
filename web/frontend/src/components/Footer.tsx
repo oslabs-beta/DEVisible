@@ -9,6 +9,10 @@ import GithubIcon from '../assets/GitHub-Mark-120px-plus.png';
 import GithubLogo from '../assets/GitHub_Logo.png';
 import LinkedIn from '../assets/LI-Logo.png';
 
+/**
+ * function to render footer
+ * @returns JSX.Element
+ */
 function Footer() {
   return (
     <div className="footerContainer">
