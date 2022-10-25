@@ -64,7 +64,7 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
 
   if (!user) return <div>Loading...</div>;
   return (
-    <Box className="container">
+    <Box className="accountContainer">
       <Box className="accountInfo" sx={{ backgroundColor: 'primary.main' }}>
         <h2 style={{ color: `${theme.palette.primary.light}` }}>
           Hello {user.username}!
@@ -77,7 +77,7 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
           >
             <strong>API Token: </strong>
             {token}
-            <div style={{ display: 'flex', flexFlow: 'column wrap' }}>
+            <div id="tokenButtonContainer">
               <Button
                 variant="contained"
                 color="secondary"

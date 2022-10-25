@@ -12,8 +12,9 @@
 .footerBox {
   display: grid;
   width: 25%;
+  min-width: 250px;
   color: #00000099;
-  font-size: 0.75vw;
+  font-size: max(0.75vw, 12px);
   font-weight: 600;
   font-family: Roboto, system-ui, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }

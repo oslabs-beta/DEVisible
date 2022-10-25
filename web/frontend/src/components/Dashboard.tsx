@@ -82,12 +82,14 @@ function Dashboard({ user }: Props): JSX.Element {
     return (
       <div className="emptyRepoContainer">
         <Box className="emptyRepoContent" bgcolor="primary.main">
-          <Typography id="header" color="white">
-            No repos have been added yet!
-          </Typography>
-          <Divider sx={{ bgcolor: 'secondary.light' }} />
-          <div className="bottomContainer">
-            <div className="instructions">
+          <div id="emptyRepoHeaderContainer">
+            <Typography id="header" color="white">
+              No repos have been added yet!
+            </Typography>
+            <Divider sx={{ bgcolor: 'secondary.light', height: '1px' }} />
+          </div>
+          <div className="repoBottomContainer">
+            <div className="repoInstructions">
               <Typography color="secondary.light">
                 To add a repo, grab your API key from the{' '}
                 <Link

@@ -90,13 +90,13 @@ function Register({ user, setUser }: Props): JSX.Element {
   if (user) return <Navigate to="/home" />;
 
   return (
-    <div className="container">
+    <div className="registerContainer">
       <Box bgcolor="secondary.main" className="formBox">
         <div className="logoContainer">
           <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
         </div>
+        {errorNotification}
         <div className="registerFormContainer">
-          {errorNotification}
           <form
             className="registerForm"
             onSubmit={(e) => {
