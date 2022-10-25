@@ -58,7 +58,7 @@ function Login({ user, setUser }: Props) {
   }
 
   return (
-    <div className="container">
+    <div className="loginContainer">
       <Box bgcolor="primary.main" className="loginFormBox">
         <div id="loginLogoContainer">
           <img id="loginLogo" src={OrangeD} alt="DEVisible Icon Orange" />
