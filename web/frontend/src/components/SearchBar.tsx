@@ -21,10 +21,19 @@ const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 }));
 const shadow = '0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19)';
+
+/**
+ * @typeParam setSearchValue - method to change search value state
+ */
 interface SearchBarProps {
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
+/**
+ * function to render search bar and update it according to user input
+ * @param props - takes in {@link SearchBarProps}
+ * @returns JSX.Element
+ */
 export default function SearchBar({
   setSearchValue,
 }: SearchBarProps): JSX.Element {

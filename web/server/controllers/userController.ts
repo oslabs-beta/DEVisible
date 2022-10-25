@@ -21,6 +21,13 @@ const prisma = new PrismaClient({
     },
   },
 });
+/**
+ * @typeParam createUser - method that creates a user in the database
+ * @typeParam verifyUser - method that logs user in
+ * @typeParam assignJwt- method to create a jwt for the user
+ * @typeParam verifyJwt - method to verify user login by jwt
+ * @typeParam getToken - method to get the user's API token
+ */
 interface UserController {
   createUser: (req: Request, res: Response, next: NextFunction) => void;
   verifyUser: (req: Request, res: Response, next: NextFunction) => void;
