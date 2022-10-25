@@ -77,8 +77,8 @@ function Register({ user, setUser }: Props): JSX.Element {
         <div className="logoContainer">
           <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
         </div>
+        {errorNotification}
         <div className="registerFormContainer">
-          {errorNotification}
           <form
             className="registerForm"
             onSubmit={(e) => {
