@@ -22,8 +22,7 @@ app.use('/userAPI', userApiRouter);
 app.use('/webAPI', webApiRouter);
 app.use('/app', appRouter);
 
-// serve frontend
-app.get('/', (req, res): void => {
+app.get('*', (req, res): void => {
   res.status(200).sendFile(path.resolve('./frontend/dist/index.html'));
 });
 
