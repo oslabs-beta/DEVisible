@@ -16,6 +16,14 @@ import LineChart from './charts/LineChart';
 import { BuildInfo } from '../types';
 import RepoItemDependencies from './RepoItemDependencies';
 
+/**
+ * @typeParam outOfSpecDeps - array of strings that indicates dependencies out of spec
+ * @typeParam repoName - string that indicates the name of the repository
+ * @typeParam open - boolean that indicates whether expanded box is open or not
+ * @typeParam handleClose - method to close expanded box
+ * @typeParam buildsInfo - object that follows {@link BuildInfo}
+ * @typeParam deleteRepo - method to delete repository from monitoring
+ */
 interface RepoItemDetailsProps {
   outOfSpecDeps: string[];
   repoName: string;
@@ -25,6 +33,11 @@ interface RepoItemDetailsProps {
   deleteRepo: (repoId: number) => void;
 }
 
+/**
+ * function that renders the chart details of selected repo
+ * @param props - takes in {@link RepoItemDetailsProps}
+ * @returns JSX.Element
+ */
 function RepoItemDetails({
   outOfSpecDeps,
   repoName,
@@ -40,11 +53,9 @@ function RepoItemDetails({
   const dependencies = buildsInfo[buildsInfo.length - 1].deps; // list of dependencies from most recent build
   // find the current repo's ID by accessing the first build in the builds array (every repo will by definition have at least one build)
   const { repoId } = buildsInfo[0];
-  // tracks the state of whether the delete repo confirmation dialog is open
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
-    // swap diaglog open status to the opposite of whatever it currently is -> toggles back and forth between open and closed
     setDialogOpen(true);
   };
 
@@ -52,8 +63,10 @@ function RepoItemDetails({
     setDialogOpen(false);
   };
 
-  // helper function that is invoked by confirmation of delete repo alert dialog
-  // closes the dialog and invokes the deleteRepo function, passing in the current Repo ID
+  /**
+   * helper function that is invoked by confirmation of delete repo alert dialog
+   * @returns void
+   */
   const closeAndDeleteRepo = () => {
     handleDialogClose();
     handleClose();
@@ -73,13 +86,13 @@ function RepoItemDetails({
         <DialogTitle>{repoName}</DialogTitle>
         <Divider />
         <Box className="chart-title">
-          <Typography>
-            {!dependencyView ? <strong>Charts</strong> : 'Charts'}{' '}
+          <Typography sx={{ color: 'black' }}>
+            {!dependencyView ? <strong>Charts</strong> : 'Charts'}
           </Typography>
 
           <Switch onChange={handleSlider} />
-          <Typography>
-            {dependencyView ? <strong>Dependencies</strong> : 'Dependencies'}{' '}
+          <Typography sx={{ color: 'black' }}>
+            {dependencyView ? <strong>Dependencies</strong> : 'Dependencies'}
           </Typography>
         </Box>
         <DialogContent>
@@ -95,7 +108,6 @@ function RepoItemDetails({
         </DialogContent>
 
         <DialogActions sx={{ justifyContent: 'space-between' }}>
-          {/* TODO implement delete repo functionality */}
           <IconButton
             onClick={handleDialogOpen}
             sx={{ ml: '3px', mb: '0px' }}

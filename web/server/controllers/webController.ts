@@ -15,6 +15,14 @@ const prisma = new PrismaClient({
     },
   },
 });
+
+/**
+ * @typeParam getUserInfo - method to get specific user's repositories information
+ * @typeParam getUserDeps - method to get all of the user's dependencies
+ * @typeParam postUserDepPrefs - method to update tracked dependencies
+ * @typeParam deleteRepo - method to delete a repository from being tracked
+ * @typeParam deleteAccount - method to delete the account from database
+ */
 interface WebController {
   getUserInfo: (req: Request, res: Response, next: NextFunction) => void;
   getUserDeps: (req: Request, res: Response, next: NextFunction) => void;

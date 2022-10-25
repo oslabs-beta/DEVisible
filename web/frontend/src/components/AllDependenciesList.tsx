@@ -20,37 +20,61 @@ import theme from '../theme';
 import jsonVerify from './utils/jsonVerify';
 import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 
+/**
+ * @typeParam allDependencies - {@link AllDependenciesBuilds} or null if no dependencies exist
+ * @typeParam handleAddToTrackedDependencies - function to add dependency to track
+ */
 interface AllDependenciesListProps {
   allDependencies: AllDependenciesBuilds[] | null;
   handleAddToTrackedDependencies: (arg: AddedTrackedDependency) => void;
 }
+
+/**
+ * @typeParam name - string that indicates the name of the dependency
+ * @typeParam version - string that indicates the version of the dependency
+ * @typeParam repoName - string that indicates the repository which the dependency comes from
+ * @typeParam isDevDependency - an optional parameter that is a boolean value of whether or not a dependency is a dev dependency or not
+ */
 interface Dependencies {
   name: string;
   version: string;
   repoName: string;
   isDevDependency?: boolean;
 }
+
+/**
+ * @typeParam key - key value pair of strings that indicate a nested dependency
+ */
 type NestedDependencies = {
   [key: string]: string;
 };
-interface NestedDependenciesResult {
+
+/**
+ * @typeParam key - key value pair whose value is an array of {@link NestedDependencies}
+ */
+interface DependencyObject {
   [key: string]: NestedDependencies[];
 }
-// TODO refactor TS
-const nestDependencies = (
+
+/**
+ * function to group repositories based on dependencies with shared versions
+ * @param dependencies - {@link Dependencies}, can be undefined in a case of no dependencies or null in case of no nested dependency
+ * @returns dependencyObj {@link DependencyObject}
+ */
+const groupReposOnDependencies = (
   dependencies: (Dependencies | undefined)[] | null
 ) => {
-  const nestedDependencies: NestedDependenciesResult = {};
+  const dependencyObj: DependencyObject = {};
   if (dependencies) {
     dependencies.forEach((dependency) => {
       if (dependency) {
-        if (!nestedDependencies[dependency.name])
-          nestedDependencies[dependency.name] = [
+        if (!dependencyObj[dependency.name])
+          dependencyObj[dependency.name] = [
             { [dependency.repoName]: dependency.version },
           ];
         else {
-          nestedDependencies[dependency.name] = [
-            ...nestedDependencies[dependency.name],
+          dependencyObj[dependency.name] = [
+            ...dependencyObj[dependency.name],
             { [dependency.repoName]: dependency.version },
           ];
         }
@@ -58,18 +82,31 @@ const nestDependencies = (
     });
   }
 
-  return nestedDependencies;
+  return dependencyObj;
 };
+
+/**
+ * function to render the user's dependency list and handle tracking dependencies
+ * @param props - takes in {@link AllDependenciesListProps}
+ * @returns JSX.Element
+ */
 function AllDependenciesList({
   allDependencies,
   handleAddToTrackedDependencies,
 }: AllDependenciesListProps) {
   const [open, setOpen] = useState(-1);
+
   const handleExpandRow = (index: number) => {
     setOpen(open === index ? -1 : index);
   };
+
+  /**
+   * function to parse {@link repoNameAndDepVersion} and add a dependency and its version to tracked dependencies
+   * @param dependencyName - string that indicates the name of the dependency
+   * @param repoNameAndDepVersion - object containing repository name and the selected dependency version
+   * @returns void
+   */
   const handleAddDep = (
-    index: number,
     dependencyName: string,
     repoNameAndDepVersion: NestedDependencies[]
   ) => {
@@ -78,12 +115,14 @@ function AllDependenciesList({
       versionList.push(...Object.values(repo))
     );
     let dependencyVersion: string | string[] = versionList[0];
+
     if (versionList.length > 1) {
       const sortedVersionList = versionList.sort(
         (a: string, b: string) => parseFloat(b) - parseFloat(a)
       );
       [dependencyVersion] = sortedVersionList;
     }
+
     handleAddToTrackedDependencies({
       name: dependencyName,
       version: dependencyVersion,
@@ -91,9 +130,10 @@ function AllDependenciesList({
   };
 
   let parsedDependencies: (Dependencies[] | undefined)[] | null = null;
-  // TODO refactor TS and rest of page
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let nestedDependencies: NestedDependenciesResult | any = null;
+  let nestedDependencies: DependencyObject | any = null;
+
+  // parse the dependency information
   if (allDependencies) {
     // eslint-disable-next-line consistent-return, array-callback-return
     parsedDependencies = allDependencies?.map((repo: AllDependenciesBuilds) => {
@@ -107,9 +147,10 @@ function AllDependenciesList({
         }); // append repo name to each object of array
       }
     });
+
     if (parsedDependencies) {
       const flatDependencies = parsedDependencies.flat(); //  combine list of all deps to single list
-      nestedDependencies = nestDependencies(flatDependencies);
+      nestedDependencies = groupReposOnDependencies(flatDependencies);
     }
   }
   return (
@@ -161,11 +202,7 @@ function AllDependenciesList({
                         <IconButton
                           color="secondary"
                           onClick={() =>
-                            handleAddDep(
-                              index,
-                              depRow,
-                              nestedDependencies[depRow]
-                            )
+                            handleAddDep(depRow, nestedDependencies[depRow])
                           }
                         >
                           <AddIcon key={index} />

@@ -7,6 +7,10 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import theme from '../theme';
 
+/**
+ * function to render footer
+ * @returns JSX.Element
+ */
 function Footer() {
   return (
     <div className="footerContainer">

@@ -16,6 +16,12 @@ const Item = styled(Paper)(() => ({
   color: theme.palette.primary.contrastText,
 }));
 
+/**
+ * @typeParam repoOutOfSpecInfo - object according to {@link OutOfSpecDeps}
+ * @typeParam repoName - string that indicates the repostiory's name
+ * @typeParam builds - object according to {@link BuildInfo}
+ * @typeParam deleteRepo - method to delete repostiory to monitor
+ */
 interface RepoItemProps {
   repoOutOfSpecInfo: OutOfSpecDeps;
   repoName: string;
@@ -26,6 +32,11 @@ const percentChange = (current: number, previous: number) => {
   return `${((100 * (current - previous)) / Math.abs(previous)).toFixed(2)} %`;
 };
 
+/**
+ * function to render the container of the individual repository information
+ * @param props - takes in {@link RepoItemProps}
+ * @returns JSX.Element
+ */
 function RepoItem({
   repoOutOfSpecInfo,
   repoName,
@@ -40,9 +51,11 @@ function RepoItem({
         builds[builds.length - 2].buildSize
       )
     : 'N/A';
+  // opens box that displays more info about repo
   const handleOpenRepoModal = () => {
     setOpenRepoModal(true);
   };
+  // closes box that displays more info about repo
   const handleCloseRepoModal = () => {
     setOpenRepoModal(false);
   };

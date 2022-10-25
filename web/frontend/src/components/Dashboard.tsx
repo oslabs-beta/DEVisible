@@ -16,6 +16,11 @@ interface Props {
   user: User | null;
 }
 
+/**
+ * function to render the Dashboard component
+ * @param props - takes in {@link Props}
+ * @returns JSX.Element
+ */
 function Dashboard({ user }: Props): JSX.Element {
   const [data, setData] = useState<GetUserInfo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,6 +32,7 @@ function Dashboard({ user }: Props): JSX.Element {
     status: false,
     depsOutOfSpec: [],
   };
+
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -37,7 +43,12 @@ function Dashboard({ user }: Props): JSX.Element {
       setLoading(false);
     })();
   }, [user]);
-  // function for handling click of delete button within individual repo components
+
+  /**
+   * function for deleting tracked repository from dashboard and database
+   * @param repoId - number that indicates the to be deleted repository's id
+   * @returns a promise that resolves to void
+   */
   const deleteRepo = async (repoId: number): Promise<void> => {
     // make axios delete request to server
     const deleteResponse = await axios.delete(`/webAPI/repo/${repoId}`);
@@ -51,13 +62,16 @@ function Dashboard({ user }: Props): JSX.Element {
     }
   };
 
+  /**
+   * function to filter repositories displayed on dashboard based on search input
+   * @returns repositories {@link GetUserInfo}
+   */
   const handleSearch = () => {
     if (data) {
       return data.filter((repo) =>
         repo.name.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
-    // otherwise if there is no data (it is falsy), need to specify return value for linting
     return [];
   };
 
