@@ -20,7 +20,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^2.1.0",
     "axios": "^0.27.2",
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "chart.js": "^3.9.1",
     "compare-versions": "^5.0.1",
     "cookie-parser": "^1.4.6",
