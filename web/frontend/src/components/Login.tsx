@@ -47,7 +47,7 @@ function Login({ user, setUser }: Props) {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 400) {
+        if (err.response.status === 401) {
           setError(
             'Error: Invalid email address and/or password. Please try again.'
           );
