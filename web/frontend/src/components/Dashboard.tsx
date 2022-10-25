@@ -34,7 +34,7 @@ function Dashboard({ user }: Props): JSX.Element {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (user === undefined) return;
     (async () => {
       const response = await getUserInfoApi();
       const [preferredDeps, allDependencies] = await getUserDeps();
@@ -77,7 +77,7 @@ function Dashboard({ user }: Props): JSX.Element {
 
   // declare quoted command in a variable to avoid security vulnerability associated with someone potentially escaping the quotations
   const buildCommand = '"npm run build"';
-  if (!user && !loading) return <Navigate to="/login" />;
+  if (user === null) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (
       <div className="emptyRepoContainer">
