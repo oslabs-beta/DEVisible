@@ -79,7 +79,7 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: end;
+  /* align-items: end; */
   font-size: 15px;
   gap: 5px;
   color: white;

@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Box, Divider } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import { BuildInfo } from 'frontend/src/types';
 import theme from '../../theme';
@@ -147,6 +148,10 @@ const FormatData = (
     },
 
     plugins: {
+      title: {
+        display: true,
+        text: 'Build Size',
+      },
       tooltip: {
         callbacks: {
           label(context: { dataIndex: number }): string {
@@ -182,6 +187,10 @@ const FormatData = (
     },
 
     plugins: {
+      title: {
+        display: true,
+        text: 'Build Time',
+      },
       tooltip: {
         callbacks: {
           label(context: { dataIndex: number }): string {
@@ -219,14 +228,23 @@ function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
   const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
     FormatData(buildSizeArray, createdAtArray, buildTimeArray);
   return (
-    <div>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        overflow: { xs: 'hidden', sm: 'auto' },
+      }}
+    >
       <Line className="line-chart" data={chartData} options={chartOptions} />
+      <Divider sx={{ color: 'primary.main', mt: '1.5vh', mb: '1.5vh' }} />
       <Line
         className="line-chart"
         data={buildTimeChartData}
         options={buildTimeChartOptions}
       />
-    </div>
+    </Box>
   );
 }
 

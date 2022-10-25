@@ -9,8 +9,8 @@ declare module '@mui/material/styles' {
     lg: true;
     xl: true;
     desktopfullhd: true;
-    dekstop2k: true;
-    dekstop4k: true;
+    desktop2k: true;
+    desktop4k: true;
   }
 }
 
@@ -43,8 +43,8 @@ const theme = createTheme({
       lg: 1200,
       xl: 1536,
       desktopfullhd: 1920,
-      dekstop2k: 2560,
-      dekstop4k: 3840,
+      desktop2k: 2560,
+      desktop4k: 3840,
     },
   },
 });

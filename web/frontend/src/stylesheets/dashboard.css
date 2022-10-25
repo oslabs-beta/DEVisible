@@ -64,7 +64,8 @@
 }
 
 .line-chart {
-  width: 100vw;
+  /* width: 50vw; */
+  /* overflow-y: hidden; */
 }
 .chart-title {
   display: flex;

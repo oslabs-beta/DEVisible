@@ -15,8 +15,15 @@ function GetStarted() {
     [theme.breakpoints.between('sm', 'md')]: {
       marginTop: '10%',
     },
-    [theme.breakpoints.between('md', 'xl')]: {
+    [theme.breakpoints.between('md', 'desktop4k')]: {
       marginTop: '5%',
+    },
+    [theme.breakpoints.only('desktop2k')]: {
+      fontSize: '1.2em',
+    },
+    [theme.breakpoints.only('desktop4k')]: {
+      fontSize: '1.3em',
+      marginTop: '2%',
     },
   });
 
@@ -26,9 +33,18 @@ function GetStarted() {
       fontSize: '1.5em',
       fontWeight: 500,
     },
-    [theme.breakpoints.between('lg', 'xl')]: {
+    [theme.breakpoints.between('lg', 'desktop2k')]: {
       fontSize: '1.2em',
       marginTop: '1%',
+    },
+    [theme.breakpoints.only('desktopfullhd')]: {
+      fontSize: '1.1em',
+    },
+    [theme.breakpoints.only('desktop2k')]: {
+      fontSize: '0.9em',
+    },
+    [theme.breakpoints.only('desktop4k')]: {
+      fontSize: '1em',
     },
   });
 
@@ -44,10 +60,17 @@ function GetStarted() {
       marginTop: '5%',
       marginBottom: '0.5%',
     },
-    [theme.breakpoints.between('md', 'xl')]: {
+    [theme.breakpoints.between('md', 'desktop2k')]: {
       fontSize: '3.5em',
       marginTop: '2%',
       marginBottom: '0.75%',
+    },
+    [theme.breakpoints.only('desktop2k')]: {
+      marginTop: '2%',
+    },
+    [theme.breakpoints.only('desktop4k')]: {
+      fontSize: '3em',
+      marginTop: '2%',
     },
   });
 
@@ -76,6 +99,11 @@ function GetStarted() {
       marginLeft: '25%',
       marginRight: '25%',
     },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '1.5em',
+      marginLeft: '14%',
+      marginRight: '14%',
+    },
   });
 
   const StyledButton = styled(Button)({
@@ -95,8 +123,13 @@ function GetStarted() {
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '1.75vw',
     },
-    [theme.breakpoints.up('xl')]: {
-      fontSize: '0.75vw',
+    [theme.breakpoints.between('lg', 'desktop4k')]: {
+      fontSize: '1.5vw',
+      padding: '2%',
+    },
+    [theme.breakpoints.only('desktop2k')]: {
+      padding: '3% 2%',
+      fontSize: '1.2vw',
     },
   });
 
@@ -157,6 +190,7 @@ function GetStarted() {
               bgcolor: 'secondary.main',
               marginBottom: '2%',
               width: '60%',
+              borderBottomWidth: { desktop4k: 3 },
             }}
           />
           <StyledParagraph className="sectionText">

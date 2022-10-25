@@ -164,6 +164,7 @@ function Login({ user, setUser }: Props) {
               Sign Up
             </Link>
           </div>
+          {/* DID NOT HAVE TIME TO IMPLEMENT FORGOT PASSWORD FUNCTIONALITY
           <div className="recoveryRedirect">
             <p>Forgot your password?</p>
             <Link
@@ -172,7 +173,7 @@ function Login({ user, setUser }: Props) {
             >
               Help Me DEVs!
             </Link>
-          </div>
+          </div> */}
         </div>
       </Box>
     </div>
