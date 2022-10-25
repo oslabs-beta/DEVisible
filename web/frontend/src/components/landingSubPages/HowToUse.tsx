@@ -5,7 +5,7 @@ import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
 import styled from '@mui/system/styled';
 import theme from '../../theme';
-import cicd from '../../assets/cicd.png';
+import dashboard from '../../assets/dashboard.png';
 import '../../stylesheets/howtouse.css';
 
 function HowToUse() {
@@ -35,7 +35,7 @@ function HowToUse() {
             className="title"
             style={{ color: `${theme.palette.secondary.main}` }}
           >
-            How To Use
+            Running in GitHub Actions
           </div>
           <Divider
             sx={{
@@ -92,43 +92,92 @@ function HowToUse() {
 
           <Grid xs={2} sm={3}>
             <GridItem className="instruction">
-              <span>Step 3: Install the DEVisible NPM package </span>
-              <Box
-                className="codeBlock"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-                display="inline"
-              >
-                npm install -g devisible
-              </Box>
+              <span>
+                Step 3: Create a YAML file in the .github/workflows directory of
+                your repo
+              </span>
             </GridItem>
           </Grid>
 
           <Grid xs={2} sm={4}>
             <GridItem className="instruction">
-              Step 4: Run from CLI:
+              <span>
+                Step 4: Set up your file to install DEVisible through NPM and
+                build your application.{' '}
+              </span>
+              The below example invokes DEVisible on pushes to the "main" branch
+              (your build process will likely be different).
               <Box
                 className="codeBlock2"
                 bgcolor={theme.palette.primary.light}
                 color="black"
               >
-                <code>
-                  node devisible.js --apiKey api_key_goes_here --buildPath
-                  dist/--command &quot;npm run build&quot;
-                </code>
+                <pre>{`on: 
+  push: 
+    branches:
+     - main
+ steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Install DEVisible package
+        run: npm i -g devisible
+      - name: Check for files
+        run: ls
+      - name: Run DEVisible NPM package
+        env:
+          API_KEY: \${{ secrets.devisibleKey }}
+        run: >
+          npx devisible --apiKey "$API_KEY" --buildPath client/dist 
+          --command "npm run build"`}</pre>
               </Box>
             </GridItem>
           </Grid>
 
           <Grid xs={2} sm={5}>
             <GridItem className="instruction">
-              Step 5: Run from GitHub Actions:
+              <span>
+                Step 5: Configure a{' '}
+                <a
+                  style={{
+                    color: `${theme.palette.secondary.dark}`,
+                    fontWeight: '600',
+                  }}
+                  href="https://docs.github.com/en/actions/security-guides/encrypted-secrets"
+                >
+                  Repository Secret
+                </a>{' '}
+                with the name API_KEY, and the value of your DEVisible API key
+                in the repos that you wish to track.
+              </span>
+              <hr />
+              <span>
+                Step 6: Navigate to the{' '}
+                <Link
+                  style={{
+                    color: `${theme.palette.secondary.dark}`,
+                    fontWeight: '600',
+                  }}
+                  to="/home"
+                >
+                  Dashboard
+                </Link>{' '}
+                to view your build statistics and manage your tracked
+                dependencies!
+              </span>
               <Box
-                className="codeBlock"
+                className="imageContainer"
                 color="black"
-                style={{ width: '100%' }}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
               >
-                <img src={cicd} alt="CICD installation instructions" />
+                <img src={dashboard} alt="DEVisible dashboard screenshot" />
               </Box>
             </GridItem>
           </Grid>
