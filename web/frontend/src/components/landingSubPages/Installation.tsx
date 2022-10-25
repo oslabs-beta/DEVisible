@@ -7,7 +7,7 @@ import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
 import styled from '@mui/system/styled';
 import theme from '../../theme';
-import cicd from '../../assets/cicd.png';
+import dashboard from '../../assets/dashboard.png';
 
 function Installation() {
   const Scroller = Scroll.Link;
@@ -36,7 +36,7 @@ function Installation() {
             className="title"
             style={{ color: `${theme.palette.primary.main}` }}
           >
-            Installation
+            Install Locally
           </div>
           <Divider
             sx={{
@@ -93,30 +93,37 @@ function Installation() {
 
           <Grid xs={2} sm={3}>
             <GridItem className="instruction">
-              <span>Step 3: run </span>
+              <span>Step 3: Install the DEVisible NPM package </span>
+              <hr />
               <Box
                 className="codeBlock"
                 bgcolor={theme.palette.primary.light}
                 color="black"
                 display="inline"
               >
-                npm install devisible
+                <code>npm install -g devisible</code>
               </Box>
-              <span> inside the root directory of your project/s</span>
             </GridItem>
           </Grid>
 
           <Grid xs={2} sm={4}>
             <GridItem className="instruction">
-              Step 4: Run from CLI:
+              Step 4: Set your build script to use DEVisible to run your build
+              process (e.g., in package.json)
+              <p className="subtext">
+                Specifying your API key, build path, and build command are
+                required. To see other options, run{' '}
+                <code>npx devisible -h</code>
+              </p>
+              <hr />
               <Box
                 className="codeBlock2"
                 bgcolor={theme.palette.primary.light}
                 color="black"
               >
                 <code>
-                  node devisible.js --apiKey api_key_goes_here --buildPath
-                  dist/--command "npm run build"
+                  npx devisible --apiKey <i>your-api-key</i> --buildPath
+                  <i> dist/</i> --command <i>"npm run build"</i>
                 </code>
               </Box>
             </GridItem>
@@ -124,13 +131,28 @@ function Installation() {
 
           <Grid xs={2} sm={5}>
             <GridItem className="instruction">
-              Step 5: Run from GitHub Actions:
-              <Box
-                className="codeBlock"
-                color="black"
-                style={{ width: '100%' }}
+              Step 5: Navigate to the{' '}
+              <Link
+                to="/home"
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
               >
-                <img src={cicd} alt="CICD installation instructions" />
+                Dashboard
+              </Link>{' '}
+              to view your build statistics and manage your tracked
+              dependencies!
+              <Box
+                className="imageContainer"
+                color="black"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <img src={dashboard} alt="DEVisible dashboard screenshot" />
               </Box>
             </GridItem>
           </Grid>
@@ -141,7 +163,7 @@ function Installation() {
           sx={{ backgroundColor: theme.palette.primary.main, marginTop: '2%' }}
         >
           <Scroller to="howToUse" spy smooth offset={0} duration={500}>
-            Next Steps
+            Run in GitHub Actions
           </Scroller>
         </Button>
       </div>
