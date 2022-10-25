@@ -5,26 +5,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 86vh;
+  min-height: 85vh;
 }
 
 .repo-item-container {
   animation-name: growOnLoad;
-  animation-duration: .3s;
+  animation-duration: 0.3s;
   animation-iteration-count: 1;
 }
 
 @keyframes growOnLoad {
   0% {
-    transform: scale(0.1,0.1);
+    transform: scale(0.1, 0.1);
   }
   100% {
-    transform: scale(1.0,1.0);
+    transform: scale(1, 1);
   }
 }
 
 .repo-item-container:hover {
-  transform: scale(1.05,1.05);
+  transform: scale(1.05, 1.05);
 }
 
 .repo-item-condensed {
@@ -59,12 +59,12 @@
   transform: translate(-50%, -50%); 
 } */
 .repo-details {
-width: 75%;
-height: 50%
+  width: 75%;
+  height: 50%;
 }
 
 .line-chart {
-  width: 100vw
+  width: 100vw;
 }
 .chart-title {
   display: flex;
@@ -99,7 +99,7 @@ height: 50%
   justify-self: center;
   border-radius: 10px;
   margin-top: 5%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
 .emptyRepoContent #header {
@@ -145,6 +145,3 @@ height: 50%
   position: relative;
   top: 20vh;
 }
-
-
-

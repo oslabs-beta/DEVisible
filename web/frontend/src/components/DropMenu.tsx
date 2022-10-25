@@ -47,7 +47,7 @@ export default function DropMenu({ handleLogout }: DropMenuProps) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{ mr: -3 }}
+        sx={{ mr: -2 }}
       >
         <MenuIcon />
       </Button>

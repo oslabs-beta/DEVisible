@@ -1,7 +1,10 @@
 * {
-  font-family: Roboto, system-ui, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: Roboto, system-ui, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
 }
-
+body {
+  overscroll-behavior: none;
+}
 :root {
   font-size: 16px;
   line-height: 24px;
@@ -24,24 +27,24 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   /* border: 1px solid #EF8354; */
-  background: #2D3142; 
+  background: #2d3142;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #242734; 
+  background: #242734;
 }
 
 .navbar-icon {
-  height: 100px;
-  margin-top: -20px;
-  margin-bottom: -30px;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
 }
