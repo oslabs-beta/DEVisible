@@ -91,13 +91,13 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
               >
                 {copied ? <>Copied!</> : <>Copy to Clipboard</>}
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="secondary"
                 sx={{ marginTop: '4px' }}
               >
                 Reset Token
-              </Button>
+              </Button> */}
             </div>
           </div>
         ) : (
