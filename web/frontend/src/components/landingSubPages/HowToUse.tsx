@@ -115,7 +115,7 @@ function HowToUse() {
               >
                 <code>
                   node devisible.js --apiKey api_key_goes_here --buildPath
-                  dist/--command "npm run build"
+                  dist/--command &quot;npm run build&quot;
                 </code>
               </Box>
             </GridItem>

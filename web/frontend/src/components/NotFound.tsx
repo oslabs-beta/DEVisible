@@ -5,10 +5,18 @@ import Always from '../assets/Always-Has-Been.png';
 import { User } from '../types';
 import '../stylesheets/notfound.css';
 
+/**
+ * @typeParam user - current user or null if not logged in
+ */
 interface NotFoundProps {
   user: User | null;
 }
 
+/**
+ * function to render 404 errors on front end and redirect to either landing page or dashboard depending on user state
+ * @param props - takes in {@link NotFoundProps}
+ * @returns JSX.Element
+ */
 function NotFound({ user }: NotFoundProps) {
   const route = user ? '/home' : '/';
   return (

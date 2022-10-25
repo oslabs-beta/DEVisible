@@ -13,6 +13,11 @@ import MichaelQR from '../assets/michaelQR.svg';
 import EdenQR from '../assets/EdenQR.svg';
 import TannerQR from '../assets/TannerQR.svg';
 
+/**
+ * Renders the contact information for project team members
+ * @returns JSX.Element
+ */
+
 function AboutTheTeam() {
   const CardStyle = styled(CardMedia)({
     display: 'flex',

@@ -13,6 +13,8 @@ module.exports = {
     '<rootDir>/__tests__/__mocks__',
     '<rootDir>/__tests__/config',
     '<rootDir>/dist',
+    '<rootDir>/__tests__/jest-setup.js',
+    '<rootDir>/__tests__/jest-teardown.js',
   ],
   setupFiles: ['./setupTests'],
   verbose: true,
