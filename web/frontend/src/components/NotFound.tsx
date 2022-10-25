@@ -9,7 +9,7 @@ import '../stylesheets/notfound.css';
  * @typeParam user - current user or null if not logged in
  */
 interface NotFoundProps {
-  user: User | null;
+  user: User | null | undefined;
 }
 
 /**

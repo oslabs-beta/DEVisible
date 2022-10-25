@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from '../types';
 import '../stylesheets/account.css';
 import theme from '../theme';
@@ -19,8 +19,8 @@ import theme from '../theme';
  * @typeParam setUser - setUser method changes user state
  */
 interface AccountProps {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**
@@ -62,7 +62,14 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
     }
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (user === undefined) return <div>Loading...</div>;
+  if (user === null)
+    return (
+      <div>
+        Please <Link to="/login">Log in</Link> or{' '}
+        <Link to="/signup">Sign up</Link> to access the account details page
+      </div>
+    );
   return (
     <Box className="accountContainer">
       <Box className="accountInfo" sx={{ backgroundColor: 'primary.main' }}>

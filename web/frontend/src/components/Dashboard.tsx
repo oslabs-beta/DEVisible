@@ -13,7 +13,7 @@ import theme from '../theme';
 import findOutOfSpecRepos from './utils/findOutOfSpecRepos';
 
 interface Props {
-  user: User | null;
+  user: User | null | undefined;
 }
 
 /**

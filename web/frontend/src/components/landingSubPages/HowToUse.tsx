@@ -92,16 +92,15 @@ function HowToUse() {
 
           <Grid xs={2} sm={3}>
             <GridItem className="instruction">
-              <span>Step 3: run </span>
+              <span>Step 3: Install the DEVisible NPM package </span>
               <Box
                 className="codeBlock"
                 bgcolor={theme.palette.primary.light}
                 color="black"
                 display="inline"
               >
-                npm install devisible
+                npm install -g devisible
               </Box>
-              <span> inside the root directory of your project/s</span>
             </GridItem>
           </Grid>
 

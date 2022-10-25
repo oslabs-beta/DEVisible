@@ -20,7 +20,7 @@ import NotFound from './components/NotFound';
  */
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   // assert user login status
   useEffect(() => {
