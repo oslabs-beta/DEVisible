@@ -38,9 +38,5 @@
 }
 
 .sidebarItem a:hover {
-  filter: brightness(250%)
-}
-
-.sidebarItem:not(:last-child) {
-  margin-bottom: 3%;
+  filter: brightness(250%);
 }

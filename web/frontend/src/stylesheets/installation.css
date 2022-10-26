@@ -11,15 +11,14 @@
   height: 100%;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-  flex-direction: column;
   align-items: center;
 }
 
 .title {
-  font-size: 3em;
+  font-size: 5em;
   font-weight: 500;
   text-shadow: 2px 1px 2px black;
-  width: 90vw;
+  width: 100vw;
   text-align: center;
   align-self: end;
 }
@@ -91,7 +90,6 @@ a:hover {
 }
 
 #nextSteps {
-  width: 10%;
   justify-self: center;
   align-self: start;
 }

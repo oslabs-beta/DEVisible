@@ -98,10 +98,7 @@ function MasterDependencies() {
       ) : (
         <Paper className="dependencies-list-parent-container" elevation={3}>
           <Box className="dependencies-child-container">
-            <Typography
-              // bgcolor="secondary.main"
-              className="dependencies-container-header"
-            >
+            <Typography color="black" className="dependencies-container-header">
               Tracked Dependencies
             </Typography>
             <Divider />
@@ -114,7 +111,7 @@ function MasterDependencies() {
             </Box>
           </Box>
           <Box className="dependencies-child-container">
-            <Typography className="dependencies-container-header">
+            <Typography color="black" className="dependencies-container-header">
               All Dependencies
             </Typography>
             <Divider />

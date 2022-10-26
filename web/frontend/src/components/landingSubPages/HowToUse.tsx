@@ -1,118 +1,111 @@
 import React from 'react';
-import { Button, Divider, Box } from '@mui/material';
+import { Divider, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
-import styled from '@mui/system/styled';
+import {
+  StyledHeader,
+  GridItem,
+  StyledGrid,
+} from '../styledComponents/StyledComponents';
 import theme from '../../theme';
 import dashboard from '../../assets/dashboard.png';
 import '../../stylesheets/howtouse.css';
 
 function HowToUse() {
   const Scroller = Scroll.Link;
-
-  const GridItem = styled('div')(() => ({
-    border: '1px solid',
-    borderColor: 'black',
-    borderRadius: '4px',
-    height: '100%',
-    width: '100%',
-    padding: '5%',
-    boxShadow: '5px 5px 5px black',
-    backgroundColor: `${theme.palette.primary.main}`,
-  }));
-
   return (
     <div
       className="howToUse"
       style={{
         backgroundColor: `${theme.palette.primary.main}`,
+        height: '93vh',
       }}
     >
       <div className="installContainer">
         <div className="titleContainer">
-          <div
+          <StyledHeader
             className="title"
             style={{ color: `${theme.palette.secondary.main}` }}
+            sx={{
+              [theme.breakpoints.down('sm')]: {
+                fontSize: '10em',
+                marginBottom: '0%',
+              },
+            }}
           >
             Running in GitHub Actions
-          </div>
-          <Divider
-            sx={{
-              bgcolor: 'secondary.main',
-              width: '70%',
-              height: '1px',
-              justifySelf: 'center',
-            }}
-          />
+          </StyledHeader>
         </div>
-        <Grid
-          style={{
-            color: 'white',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignSelf: 'start',
+        <Divider
+          sx={{
+            bgcolor: 'secondary.main',
+            width: '70%',
+            height: '1px',
+            justifySelf: 'center',
           }}
-          container
-          spacing={{ xs: 2, md: 4 }}
-          columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
-        >
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
-              <span>Step 1: </span>
-              <Link
-                to="/signup"
-                style={{
-                  color: `${theme.palette.secondary.dark}`,
-                  fontWeight: '600',
-                }}
-              >
-                Make An Account
-              </Link>
-              <span> to Receive an API Key</span>
-            </GridItem>
-          </Grid>
+        />
+      </div>
+      <StyledGrid
+        container
+        spacing={{ xs: 2, md: 4 }}
+        columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+      >
+        <Grid xs={12} sm={3}>
+          <GridItem>
+            <span>Step 1: </span>
+            <Link
+              to="/signup"
+              style={{
+                color: `${theme.palette.secondary.dark}`,
+                fontWeight: '600',
+              }}
+            >
+              Make An Account
+            </Link>
+            <span> to Receive an API Key</span>
+          </GridItem>
+        </Grid>
 
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
-              <span>Step 2: Navigate to your </span>
-              <Link
-                to="/account"
-                style={{
-                  color: `${theme.palette.secondary.dark}`,
-                  fontWeight: '600',
-                }}
-              >
-                Account Page
-              </Link>
-              <span> to view your API Key</span>
-            </GridItem>
-          </Grid>
+        <Grid xs={12} sm={3}>
+          <GridItem>
+            <span>Step 2: Navigate to your </span>
+            <Link
+              to="/account"
+              style={{
+                color: `${theme.palette.secondary.dark}`,
+                fontWeight: '600',
+              }}
+            >
+              Account Page
+            </Link>
+            <span> to view your API Key</span>
+          </GridItem>
+        </Grid>
 
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
-              <span>
-                Step 3: Create a YAML file in the .github/workflows directory of
-                your repo
-              </span>
-            </GridItem>
-          </Grid>
+        <Grid xs={2} sm={3}>
+          <GridItem className="instruction">
+            <span>
+              Step 3: Create a YAML file in the .github/workflows directory of
+              your repo
+            </span>
+          </GridItem>
+        </Grid>
 
-          <Grid xs={2} sm={4}>
-            <GridItem className="instruction">
-              <span>
-                Step 4: Set up your file to install DEVisible through NPM and
-                build your application.{' '}
-              </span>
-              The below example invokes DEVisible on pushes to the "main" branch
-              (your build process will likely be different).
-              <Box
-                className="codeBlock2"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-              >
-                <pre>{`on: 
+        <Grid xs={2} sm={4}>
+          <GridItem className="instruction">
+            <span>
+              Step 4: Set up your file to install DEVisible through NPM and
+              build your application.{' '}
+            </span>
+            The below example invokes DEVisible on pushes to the "main" branch
+            (your build process will likely be different).
+            <Box
+              className="codeBlock2"
+              bgcolor={theme.palette.primary.light}
+              color="black"
+            >
+              <pre>{`on: 
   push: 
     branches:
      - main
@@ -133,57 +126,56 @@ function HowToUse() {
         run: >
           npx devisible --apiKey "$API_KEY" --buildPath client/dist 
           --command "npm run build"`}</pre>
-              </Box>
-            </GridItem>
-          </Grid>
-
-          <Grid xs={2} sm={5}>
-            <GridItem className="instruction">
-              <span>
-                Step 5: Configure a{' '}
-                <a
-                  style={{
-                    color: `${theme.palette.secondary.dark}`,
-                    fontWeight: '600',
-                  }}
-                  href="https://docs.github.com/en/actions/security-guides/encrypted-secrets"
-                >
-                  Repository Secret
-                </a>{' '}
-                with the name API_KEY, and the value of your DEVisible API key
-                in the repos that you wish to track.
-              </span>
-              <hr />
-              <span>
-                Step 6: Navigate to the{' '}
-                <Link
-                  style={{
-                    color: `${theme.palette.secondary.dark}`,
-                    fontWeight: '600',
-                  }}
-                  to="/home"
-                >
-                  Dashboard
-                </Link>{' '}
-                to view your build statistics and manage your tracked
-                dependencies!
-              </span>
-              <Box
-                className="imageContainer"
-                color="black"
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
-                <img src={dashboard} alt="DEVisible dashboard screenshot" />
-              </Box>
-            </GridItem>
-          </Grid>
-          <Scroller to="howToUse" spy smooth offset={0} duration={500} />
+            </Box>
+          </GridItem>
         </Grid>
-      </div>
+
+        <Grid xs={2} sm={5}>
+          <GridItem className="instruction">
+            <span>
+              Step 5: Configure a{' '}
+              <a
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
+                href="https://docs.github.com/en/actions/security-guides/encrypted-secrets"
+              >
+                Repository Secret
+              </a>{' '}
+              with the name API_KEY, and the value of your DEVisible API key in
+              the repos that you wish to track.
+            </span>
+            <hr />
+            <span>
+              Step 6: Navigate to the{' '}
+              <Link
+                style={{
+                  color: `${theme.palette.secondary.dark}`,
+                  fontWeight: '600',
+                }}
+                to="/home"
+              >
+                Dashboard
+              </Link>{' '}
+              to view your build statistics and manage your tracked
+              dependencies!
+            </span>
+            <Box
+              className="imageContainer"
+              color="black"
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <img src={dashboard} alt="DEVisible dashboard screenshot" />
+            </Box>
+          </GridItem>
+        </Grid>
+        <Scroller to="howToUse" spy smooth offset={0} duration={500} />
+      </StyledGrid>
     </div>
   );
 }
