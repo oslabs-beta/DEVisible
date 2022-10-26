@@ -7,8 +7,6 @@
   position: relative;
   bottom: 2.5%;
   height: 7vh;
-  /* background-color: green;
-  overflow-y: hidden; */
 }
 
 .footerBox {
@@ -17,7 +15,6 @@
   min-width: 250px;
   color: #00000099;
   height: 100%;
-  /* max-height: 8vh; */
   font-size: max(0.75vw, 12px);
   font-weight: 600;
   font-family: Roboto, system-ui, Oxygen, Ubuntu, Cantarell, 'Open Sans',

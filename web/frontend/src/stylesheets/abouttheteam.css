@@ -1,5 +1,5 @@
 .container {
-  height: 86vh;
+  height: 86vh !important;
   width: 100%;
   display: grid;
 }
@@ -11,10 +11,10 @@
   display: grid;
   grid-template-rows: 1fr 5fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  background-color: blue;
-  width: 70%;
+  max-width: 70%;
+  padding: 0 2%;
   height: 65%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
 #headerContainer {

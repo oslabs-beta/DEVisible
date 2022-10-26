@@ -1,42 +1,41 @@
 import React from 'react';
-import { Button, Divider, Box } from '@mui/material';
+import { Divider, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
-import styled from '@mui/system/styled';
+import {
+  StyledHeader,
+  GridItem,
+  StyledGrid,
+} from '../styledComponents/StyledComponents';
 import theme from '../../theme';
 import cicd from '../../assets/cicd.png';
 import '../../stylesheets/howtouse.css';
 
 function HowToUse() {
   const Scroller = Scroll.Link;
-
-  const GridItem = styled('div')(() => ({
-    border: '1px solid',
-    borderColor: 'black',
-    borderRadius: '4px',
-    height: '100%',
-    width: '100%',
-    padding: '5%',
-    boxShadow: '5px 5px 5px black',
-    backgroundColor: `${theme.palette.primary.main}`,
-  }));
-
   return (
     <div
       className="howToUse"
       style={{
         backgroundColor: `${theme.palette.primary.main}`,
+        height: '93vh',
       }}
     >
       <div className="installContainer">
         <div className="titleContainer">
-          <div
+          <StyledHeader
             className="title"
             style={{ color: `${theme.palette.secondary.main}` }}
+            sx={{
+              [theme.breakpoints.down('sm')]: {
+                fontSize: '10em',
+                marginBottom: '0%',
+              },
+            }}
           >
             How To Use
-          </div>
+          </StyledHeader>
           <Divider
             sx={{
               bgcolor: 'secondary.main',
@@ -46,20 +45,13 @@ function HowToUse() {
             }}
           />
         </div>
-        <Grid
-          style={{
-            color: 'white',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignSelf: 'start',
-          }}
+        <StyledGrid
           container
           spacing={{ xs: 2, md: 4 }}
           columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
         >
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
+          <Grid xs={12} sm={3}>
+            <GridItem>
               <span>Step 1: </span>
               <Link
                 to="/signup"
@@ -74,8 +66,8 @@ function HowToUse() {
             </GridItem>
           </Grid>
 
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
+          <Grid xs={12} sm={3}>
+            <GridItem>
               <span>Step 2: Navigate to your </span>
               <Link
                 to="/account"
@@ -90,8 +82,8 @@ function HowToUse() {
             </GridItem>
           </Grid>
 
-          <Grid xs={2} sm={3}>
-            <GridItem className="instruction">
+          <Grid xs={12} sm={3}>
+            <GridItem>
               <span>Step 3: run </span>
               <Box
                 className="codeBlock"
@@ -105,8 +97,8 @@ function HowToUse() {
             </GridItem>
           </Grid>
 
-          <Grid xs={2} sm={4}>
-            <GridItem className="instruction">
+          <Grid xs={12} sm={4}>
+            <GridItem>
               Step 4: Run from CLI:
               <Box
                 className="codeBlock2"
@@ -121,8 +113,8 @@ function HowToUse() {
             </GridItem>
           </Grid>
 
-          <Grid xs={2} sm={5}>
-            <GridItem className="instruction">
+          <Grid xs={12} sm={5}>
+            <GridItem>
               Step 5: Run from GitHub Actions:
               <Box
                 className="codeBlock"
@@ -134,7 +126,7 @@ function HowToUse() {
             </GridItem>
           </Grid>
           <Scroller to="howToUse" spy smooth offset={0} duration={500} />
-        </Grid>
+        </StyledGrid>
       </div>
     </div>
   );
