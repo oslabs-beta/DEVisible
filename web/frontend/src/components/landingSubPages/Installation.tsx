@@ -52,6 +52,11 @@ function Installation() {
           container
           spacing={{ xs: 2, sm: 4, md: 4 }}
           columns={{ xs: 4, sm: 6, md: 12, lg: 12 }}
+          sx={{
+            [theme.breakpoints.down('sm')]: {
+              gap: '11px',
+            },
+          }}
         >
           <Grid xs={12} sm={3}>
             <GridItem className="instruction">
@@ -93,10 +98,14 @@ function Installation() {
                 bgcolor={theme.palette.primary.light}
                 color="black"
                 display="inline"
+                style={{
+                  fontFamily:
+                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
+                }}
               >
                 npm install devisible
               </Box>
-              <span> inside the root directory of your project/s</span>
+              <span> inside the root directory of your project(s)</span>
             </GridItem>
           </Grid>
 
@@ -107,11 +116,14 @@ function Installation() {
                 className="codeBlock2"
                 bgcolor={theme.palette.primary.light}
                 color="black"
+                style={{
+                  fontFamily:
+                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
+                  fontSize: '1em',
+                }}
               >
-                <code>
-                  node devisible.js --apiKey api_key_goes_here --buildPath
-                  dist/--command "npm run build"
-                </code>
+                node devisible.js --apiKey api_key_goes_here --buildPath
+                dist/--command "npm run build"
               </Box>
             </GridItem>
           </Grid>
@@ -142,6 +154,11 @@ function Installation() {
               marginTop: '5%',
               fontSize: '1.5em',
               padding: '1.5% 1%',
+            },
+            [theme.breakpoints.down('sm')]: {
+              width: '150px',
+              height: '40%',
+              marginTop: '8%',
             },
           }}
         >

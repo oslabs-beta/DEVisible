@@ -9,7 +9,7 @@ import {
 } from '../styledComponents/StyledComponents';
 import theme from '../../theme';
 import dashboard from '../../assets/dashboard.png';
-import '../../stylesheets/howtouse.css';
+import '../../stylesheets/installation.css';
 
 function HowToUse() {
   return (
@@ -17,7 +17,7 @@ function HowToUse() {
       className="howToUse"
       style={{
         backgroundColor: `${theme.palette.primary.main}`,
-        height: '93vh',
+        minHeight: '100vh',
       }}
     >
       <div className="installContainer">
@@ -47,6 +47,11 @@ function HowToUse() {
           container
           spacing={{ xs: 2, md: 4 }}
           columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+          sx={{
+            [theme.breakpoints.down('sm')]: {
+              marginTop: '-25%',
+            },
+          }}
         >
           <Grid xs={12} sm={3}>
             <GridItem>
@@ -89,7 +94,7 @@ function HowToUse() {
             </GridItem>
           </Grid>
 
-          <Grid xs={12} sm={4}>
+          <Grid xs={12} sm={6}>
             <GridItem>
               Step 4: Set up your file to install DEVisible through NPM and
               build your application. The below example invokes DEVisible on
@@ -99,8 +104,17 @@ function HowToUse() {
                 className="codeBlock2"
                 bgcolor={theme.palette.primary.light}
                 color="black"
+                style={{
+                  fontFamily:
+                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
+                }}
               >
-                <pre>{`on: 
+                <pre
+                  style={{
+                    fontFamily:
+                      'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
+                  }}
+                >{`on: 
   push: 
     branches:
      - main

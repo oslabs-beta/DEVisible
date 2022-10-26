@@ -1,10 +1,14 @@
-.container {
-  height: 86vh !important;
-  width: 100%;
-  display: grid;
+.aboutUsContainer {
+  min-height: 86vh;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 20px 0;
 }
 
-.teamContainer {
+/* .teamContainer {
   border-radius: 10px;
   margin-top: 4%;
   justify-self: center;
@@ -68,4 +72,4 @@
 img {
   width: 80%;
   border-radius: 5px;
-}
+} */
