@@ -12,8 +12,8 @@ import { User } from '../types';
  * @typeParam setUser - method to change user state
  */
 interface Props {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**

@@ -13,8 +13,8 @@ import DropMenu from './DropMenu';
  * @typeParam setUser - method to change user state
  */
 interface NavProps {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**
