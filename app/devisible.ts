@@ -93,20 +93,6 @@ const sendData = async (buildTime: number) => {
   const buildSize = await calculateBuildSize();
   const { name, dependencies } = await parsePackageJson();
   const { hash } = await parseGitRepo();
-  console.log(
-    JSON.stringify(
-      {
-        apiKey,
-        buildTime,
-        buildSize,
-        dependencies,
-        repoName: name,
-        lastCommitHash: hash,
-      },
-      null,
-      2
-    )
-  );
 
   const res = await fetch(`${url}/app`, {
     method: 'POST',
@@ -121,7 +107,6 @@ const sendData = async (buildTime: number) => {
     }),
   });
 
-  console.log(res);
   if (res.status === 200 || res.status === 201) {
     const data = await res.json();
     console.log(data);
