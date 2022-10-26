@@ -10,6 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Delete as DeleteIcon, Save as SaveIcon } from '@mui/icons-material';
+
 import { AddedTrackedDependency } from '../types';
 
 /**
@@ -69,7 +70,10 @@ function MasterDependenciesList({
             {dependencyPrefs && newVersion ? (
               dependencyPrefs.map((depRow, index) => (
                 <TableRow key={depRow.name}>
-                  <TableCell key={depRow.version} width="35%">
+                  <TableCell
+                    key={depRow.version}
+                    sx={{ width: { sm: '25%', md: '35%' } }}
+                  >
                     {depRow.name}
                   </TableCell>
                   <TableCell key={(index + 1) * -1} align="left" width="60%">
@@ -78,7 +82,9 @@ function MasterDependenciesList({
                       label="Version"
                       id={depRow.name}
                       defaultValue={depRow.version}
-                      sx={{ width: '50%' }}
+                      sx={{
+                        width: { sm: '100%', md: '60%', lg: '40%', xl: '20%' },
+                      }}
                       onChange={(event) => handleChangeVersion(event, index)}
                     />
                     {versionChanged[index] ? (

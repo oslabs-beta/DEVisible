@@ -1,43 +1,45 @@
 .container {
-  height: 90%;
+  height: 86vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-p {
-  z-index: 2;
-  color: white;
-}
-
-#text1 {
-  position: relative;
-  bottom: 5%;
-  left: 10%;
-}
-
-#text2 {
-  position: relative;
-  bottom: 25%;
-  left: 15%;
-}
-
 h1 {
   position: absolute;
   z-index: 2;
   top: 15%;
+  font-size: 4vh;
 }
 
 .takeMeBack {
   z-index: 2;
   text-decoration: none;
   position: relative;
-  right: 15%;
+  margin-right: 25%;
+  width: 100px;
+  height: 100px;
 }
 
 #notFoundImg {
+  min-width: 355px;
   width: 50%;
   position: absolute;
   border-radius: 2%;
 }
+
+@media only screen and (max-width: 600px) {
+  #notFoundImg {
+    max-width: 100px;
+    max-height: 550px;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1505px) {
+  #notFoundImg {
+    width: 90%;
+  }
+}
+
+@me;

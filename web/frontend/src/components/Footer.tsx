@@ -26,6 +26,7 @@ function Footer() {
             border: '1px solid',
             display: 'grid',
             width: '100%',
+            height: '100%',
             gridTemplateRows: '1fr 1fr',
             gridTemplateColumns: '1fr 1fr',
             justifyContent: 'center',

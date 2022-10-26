@@ -20,7 +20,12 @@ import NotFound from './components/NotFound';
  */
 function App(): JSX.Element {
   // state to track whether user has been authenticated or not -> will be prop drilled to child components
-  const [user, setUser] = useState<User | null>(null);
+  // user state STARTS at undefined. The frontend sends a GET to /userAPI/login to determine if the user
+  // is currently logged in.
+  // The frontend will resolve to either the User object or null after this
+
+  // TL;DR: undefined means loading, null means not logged in, user means logged in
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   // assert user login status
   useEffect(() => {

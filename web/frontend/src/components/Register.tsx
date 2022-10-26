@@ -12,8 +12,8 @@ import { User } from '../types';
  * @typeParam setUser - method to change user state
  */
 interface Props {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**
@@ -50,7 +50,6 @@ function Register({ user, setUser }: Props): JSX.Element {
     const specialChars = /[!@#$%^&*()_+-={};':"|,.<>?~]/;
     return specialChars.test(str);
   }
-
   /**
    * function to handle signing up logic
    * @param e - {@link https://developer.mozilla.org/en-US/docs/Web/Events | event type}
@@ -91,7 +90,13 @@ function Register({ user, setUser }: Props): JSX.Element {
 
   return (
     <div className="registerContainer">
-      <Box bgcolor="secondary.main" className="formBox">
+      <Box
+        bgcolor="secondary.main"
+        className="formBox"
+        sx={{
+          [theme.breakpoints.down('sm')]: { width: '80%', minWidth: '300px' },
+        }}
+      >
         <div className="logoContainer">
           <img className="logo" src={BlueD} alt="DEVisible Icon Blue" />
         </div>
@@ -105,6 +110,7 @@ function Register({ user, setUser }: Props): JSX.Element {
           >
             <TextField
               label="Username"
+              className="textFields"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required

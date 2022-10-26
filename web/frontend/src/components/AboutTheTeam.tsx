@@ -1,117 +1,57 @@
-import React from 'react';
-import { styled } from '@mui/system';
-import CardMedia from '@mui/material/Card';
-import { Typography } from '@mui/material';
-import theme from '../theme';
-import '../stylesheets/abouttheteam.css';
-import Michael from '../assets/Michael.png';
-import Justin from '../assets/Justin.png';
-import Eden from '../assets/Eden.png';
-import Tanner from '../assets/Tanner.png';
-import JustinQR from '../assets/JustinQR.svg';
-import MichaelQR from '../assets/michaelQR.svg';
-import EdenQR from '../assets/EdenQR.svg';
-import TannerQR from '../assets/TannerQR.svg';
+// import React from 'react';
+// import { styled } from '@mui/system';
+// import CardMedia from '@mui/material/Card';
+// import { Typography } from '@mui/material';
 
-/**
- * Renders the contact information for project team members
- * @returns JSX.Element
- */
+import * as React from 'react';
+import { Box } from '@mui/material';
+import '../stylesheets/abouttheteam.css';
+import Michael from '../assets/Michael.jpeg';
+import Justin from '../assets/Justin.jpeg';
+import Eden from '../assets/Eden.jpeg';
+import Tanner from '../assets/Tanner.jpeg';
+// import JustinQR from '../assets/JustinQR.svg';
+// import MichaelQR from '../assets/michaelQR.svg';
+// import EdenQR from '../assets/EdenQR.svg';
+// import TannerQR from '../assets/TannerQR.svg';
+import TeamMemberCard from './TeamMemberCard';
+
+const teamMembers = [
+  {
+    image: Eden,
+    name: 'Eden Shirin',
+    gitHub: 'https://github.com/EdSheranaway',
+    linkedIn: 'https://www.linkedin.com/in/eden-shirin/',
+  },
+  {
+    image: Tanner,
+    name: 'Tanner Hesterman',
+    gitHub: 'https://github.com/billums123',
+    linkedIn: 'https://www.linkedin.com/in/tannerhesterman/',
+  },
+  {
+    image: Justin,
+    name: 'Justin Mendonca',
+    gitHub: 'https://github.com/JPMoregain',
+    linkedIn: 'https://www.linkedin.com/in/justin-mendonca-4bb9674b/',
+  },
+  {
+    image: Michael,
+    name: 'Michael Sarkisian',
+    gitHub: 'https://github.com/msarkisian',
+    linkedIn: 'https://www.linkedin.com/in/michaelsarkisian/',
+  },
+];
 
 function AboutTheTeam() {
-  const CardStyle = styled(CardMedia)({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '5% 0',
-    height: 'max-content',
-    backgroundColor: theme.palette.secondary.main,
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0.19)',
-  });
-  const NameStyled = styled('p')({
-    fontSize: '1.5em',
-    color: theme.palette.primary.dark,
-  });
-
-  const TitleStyled = styled('p')({
-    fontSize: '1em',
-    color: theme.palette.primary.main,
-    marginBottom: '1%',
-  });
-
-  const QuoteStyled = styled('p')({
-    fontSize: '0.75em',
-    color: theme.palette.primary.main,
-  });
-
-  return (
-    <div
-      className="container"
-      style={{
-        backgroundColor: `${theme.palette.primary.light}`,
-      }}
-    >
-      <div
-        className="teamContainer"
-        style={{
-          backgroundColor: theme.palette.primary.dark,
-        }}
-      >
-        <div
-          id="headerContainer"
-          style={{ borderBottom: `1px solid ${theme.palette.secondary.light}` }}
-        >
-          <Typography id="header" color="secondary.main">
-            Meet The Team
-          </Typography>
-        </div>
-        <div className="teamMember">
-          <CardStyle>
-            <img src={Michael} alt="Michael FanArt" />
-            <NameStyled>Michael Sarkisian</NameStyled>
-            <TitleStyled>Code Wizard</TitleStyled>
-            <QuoteStyled>日本語が読みますか 上手ですね！</QuoteStyled>
-          </CardStyle>
-          <div className="qrContainer">
-            <img src={MichaelQR} alt="Michael's LinkedIn" />
-          </div>
-        </div>
-        <div className="teamMember">
-          <CardStyle>
-            <img src={Justin} alt="Justin FanArt" />
-            <NameStyled>Justin Mendonca</NameStyled>
-            <TitleStyled>Michael Sarkisian Impersonator</TitleStyled>
-            <QuoteStyled>Touched grass this week</QuoteStyled>
-          </CardStyle>
-          <div className="qrContainer">
-            <img src={JustinQR} alt="Michael's LinkedIn" />
-          </div>
-        </div>
-        <div className="teamMember">
-          <CardStyle>
-            <img src={Eden} alt="Eden FanArt" />
-            <NameStyled>Eden Shirin</NameStyled>
-            <TitleStyled>Executive Hebrew Speaker</TitleStyled>
-            <QuoteStyled>Speaks Hebrew</QuoteStyled>
-          </CardStyle>
-          <div className="qrContainer">
-            <img src={EdenQR} alt="Michael's LinkedIn" />
-          </div>
-        </div>
-        <div className="teamMember">
-          <CardStyle>
-            <img src={Tanner} alt="Tanner FanArt" />
-            <NameStyled>Tanner Hesterman</NameStyled>
-            <TitleStyled>Average Human</TitleStyled>
-            <QuoteStyled>Scrum Lord</QuoteStyled>
-          </CardStyle>
-          <div className="qrContainer">
-            <img src={TannerQR} alt="Michael's LinkedIn" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const teamMemberCards = teamMembers.map((person) => (
+    <TeamMemberCard
+      image={person.image}
+      name={person.name}
+      gitHub={person.gitHub}
+      linkedIn={person.linkedIn}
+    />
+  ));
+  return <Box className="aboutUsContainer">{teamMemberCards}</Box>;
 }
-
 export default AboutTheTeam;

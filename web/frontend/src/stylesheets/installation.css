@@ -7,47 +7,20 @@
 }
 .installContainer {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  flex-direction: column;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  justify-content: center;
   align-items: center;
+  margin-bottom: 5vh;
 }
 
 .title {
-  font-size: 3em;
+  font-size: 5em;
   font-weight: 500;
   text-shadow: 2px 1px 2px black;
-  width: 90vw;
   text-align: center;
   align-self: end;
-}
-
-.instructions {
-  width: 80%;
-  height: 100vh;
-}
-
-ul {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%/1, max(280px, 100%/3)), 1fr)
-  );
-  list-style: none;
-}
-
-ul#team {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%/1, max(280px, 100%/4)), 1fr)
-  );
-  list-style: none;
-}
-
-li {
-  margin-bottom: 5%;
 }
 
 .codeBlock {
@@ -70,6 +43,7 @@ li {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-top: 3%;
+  justify-self: center;
 }
 
 img {
@@ -90,7 +64,27 @@ a:hover {
 }
 
 #nextSteps {
-  width: 10%;
   justify-self: center;
   align-self: start;
+}
+
+#gaCodeBlock {
+  font-size: 0.9em;
+}
+
+#registerGif {
+  margin-top: 2%;
+  height: 100%;
+  width: 100%;
+}
+
+#or {
+  width: 100%;
+  font-weight: 700;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#globalInstallDemo {
+  margin-top: 2%;
 }

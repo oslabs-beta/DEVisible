@@ -12,8 +12,8 @@ import { User } from '../types';
  * @typeParam setUser - method to change user state
  */
 interface Props {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**
@@ -162,15 +162,6 @@ function Login({ user, setUser }: Props) {
               style={{ color: `${theme.palette.secondary.main}` }}
             >
               Sign Up
-            </Link>
-          </div>
-          <div className="recoveryRedirect">
-            <p>Forgot your password?</p>
-            <Link
-              to="/recovery"
-              style={{ color: `${theme.palette.secondary.main}` }}
-            >
-              Help Me DEVs!
             </Link>
           </div>
         </div>

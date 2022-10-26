@@ -9,7 +9,8 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { styled } from '@mui/system';
 import { User } from '../types';
 import '../stylesheets/account.css';
 import theme from '../theme';
@@ -19,8 +20,8 @@ import theme from '../theme';
  * @typeParam setUser - setUser method changes user state
  */
 interface AccountProps {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 }
 
 /**
@@ -62,10 +63,38 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
     }
   };
 
-  if (!user) return <div>Loading...</div>;
+  const StyledBox = styled(Box)({
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.between('sm', 'xl')]: {
+      width: '70%',
+      fontSize: '1.5em',
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '50%',
+      fontSize: '1.5em',
+    },
+  });
+
+  if (user === undefined) return <div>Loading...</div>;
+  if (user === null)
+    return (
+      <div>
+        Please <Link to="/login">Log in</Link> or
+        <Link to="/signup">Sign up</Link> to access the account details page
+      </div>
+    );
   return (
     <Box className="accountContainer">
-      <Box className="accountInfo" sx={{ backgroundColor: 'primary.main' }}>
+      <StyledBox
+        className="accountInfo"
+        sx={{
+          backgroundColor: 'primary.main',
+          maxWidth: '600px',
+          maxHeight: '400px',
+        }}
+      >
         <h2 style={{ color: `${theme.palette.primary.light}` }}>
           Hello {user.username}!
         </h2>
@@ -73,7 +102,10 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
         {token ? (
           <div
             className="tokenInfo"
-            style={{ color: `${theme.palette.primary.light}` }}
+            style={{
+              marginTop: '2vh',
+              color: `${theme.palette.primary.light}`,
+            }}
           >
             <strong>API Token: </strong>
             {token}
@@ -91,18 +123,19 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
               >
                 {copied ? <>Copied!</> : <>Copy to Clipboard</>}
               </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{ marginTop: '4px' }}
-              >
-                Reset Token
-              </Button>
             </div>
           </div>
         ) : (
           <div className="reveal">
-            <Fab variant="extended" color="secondary" onClick={getToken}>
+            <Fab
+              variant="extended"
+              color="secondary"
+              sx={{
+                fontSize: '1.2em',
+                [theme.breakpoints.up('xl')]: { fontSize: '1.5em' },
+              }}
+              onClick={getToken}
+            >
               Reveal API Token
             </Fab>
           </div>
@@ -112,7 +145,12 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
             className="delete"
             variant="contained"
             color="secondary"
-            sx={{ fontSize: '0.7em', padding: 1, margin: 2 }}
+            sx={{
+              fontSize: '0.5em',
+              padding: '1% 3%',
+              margin: 2,
+              borderRadius: '50px',
+            }}
             onClick={handleDialogOpen}
           >
             Delete my account
@@ -135,7 +173,7 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
             </DialogActions>
           </Dialog>
         </div>
-      </Box>
+      </StyledBox>
     </Box>
   );
 }

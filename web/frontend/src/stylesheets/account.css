@@ -1,53 +1,52 @@
 .accountContainer {
-    height: 86vh;
-    display: flex;
-    justify-content: center;
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .accountInfo {
-    display: flex;
-    flex-direction: row;
-    justify-self: center;
-    flex-flow: column wrap;
-    align-items: center;
-    height: 40%;
-    margin-top: 3%;
-    min-width: 40%;
-    max-width: 80%;
-    border-radius: 10px;
-    padding: 1%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  height: 40%;
+  border-radius: 10px;
+  padding: 1%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0.19);
 }
 
 #tokenButtonContainer {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    margin-top: 2%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin-top: 2%;
 }
 
 #tokenButtonContainer button {
-    width: 70%
+  width: 70%;
 }
 .tokenInfo {
-    margin-top: 1%;
+  margin-top: 1%;
+  text-align: center;
 }
 
 .reveal {
-    margin-top: 1%;
+  margin-top: 5%;
 }
 
 .bottomContainer {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    justify-content: end;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .delete {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 #deleteAccount {
-    margin-bottom: 30%;
+  margin-bottom: 30%;
 }

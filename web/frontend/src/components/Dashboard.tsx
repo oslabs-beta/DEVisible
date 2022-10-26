@@ -13,7 +13,7 @@ import theme from '../theme';
 import findOutOfSpecRepos from './utils/findOutOfSpecRepos';
 
 interface Props {
-  user: User | null;
+  user: User | null | undefined;
 }
 
 /**
@@ -77,7 +77,7 @@ function Dashboard({ user }: Props): JSX.Element {
 
   // declare quoted command in a variable to avoid security vulnerability associated with someone potentially escaping the quotations
   const buildCommand = '"npm run build"';
-  if (!user && !loading) return <Navigate to="/login" />;
+  if (user === null) return <Navigate to="/login" />;
   if (!loading && data?.length === 0)
     return (
       <div className="emptyRepoContainer">

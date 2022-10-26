@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Box, Divider } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import { BuildInfo } from 'frontend/src/types';
 import theme from '../../theme';
@@ -26,9 +27,13 @@ ChartJS.register(
 );
 const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
+/**
+ * function to calculate the scale of the build size axis
+ * @param buildSizes - an array of numbers indicating the different build sizes of a particular repository
+ * @returns the array formatted, containing all the build sizes elements within its range
+ */
 const calculateSizeScale = (buildSizes: number[]) => {
   const k = 1024;
-
   const largestBuild = Math.max(...buildSizes);
 
   const buildScale = Math.floor(Math.log(largestBuild) / Math.log(k));
@@ -38,26 +43,42 @@ const calculateSizeScale = (buildSizes: number[]) => {
   return { buildScale, formattedBuilds };
 };
 
+/**
+ * a function to calculate the scale of the build time axis
+ * @param buildTimes - an array of numbers indicating the different build times of a particular repository
+ * @returns the array formatted, containing all the build times elements within its range
+ */
 const calculateTimeScale = (buildTimes: number[]) => {
   const longestBuild = Math.max(...buildTimes);
+
   if (longestBuild < 1000)
     return { timeScale: 'ms', formattedTimes: buildTimes };
+
   if (longestBuild < 1000 * 60)
     return {
       timeScale: 'sec',
       formattedTimes: buildTimes.map((time) => time / 1000),
     };
+
   if (longestBuild < 1000 * 60 * 60)
     return {
       timeScale: 'min',
       formattedTimes: buildTimes.map((time) => time / (60 * 1000)),
     };
+
   return {
     timeScale: 'hr',
     formattedTimes: buildTimes.map((time) => time / (60 * 1000 * 60)),
   };
 };
 
+/**
+ * function to format chart data
+ * @param buildSizeArray - an array of numbers indicating the different build sizes of a particular repository
+ * @param createdAtArray - an array of strings that indicate the time at which each build was created at of a particular repository
+ * @param buildTimeArray - an array of numbers indicating the different build times of a particular repository
+ * @returns chart data formatted
+ */
 const FormatData = (
   buildSizeArray: number[],
   createdAtArray: string[],
@@ -77,6 +98,7 @@ const FormatData = (
   });
   formattedBuilds.forEach((build) => dataPoints.push(build));
   formattedTimes.forEach((build) => buildTimeDataPoints.push(build));
+
   const chartData = {
     labels,
     datasets: [
@@ -91,6 +113,7 @@ const FormatData = (
       },
     ],
   };
+
   const buildTimeChartData = {
     labels,
     datasets: [
@@ -105,6 +128,7 @@ const FormatData = (
       },
     ],
   };
+
   const chartOptions = {
     scales: {
       x: {
@@ -122,9 +146,13 @@ const FormatData = (
         },
       },
     },
+
     plugins: {
+      title: {
+        display: true,
+        text: 'Build Size',
+      },
       tooltip: {
-        //  TODO on hover over data point, show date (needs TS support)
         callbacks: {
           label(context: { dataIndex: number }): string {
             const labelDataIndex = context.dataIndex;
@@ -139,6 +167,7 @@ const FormatData = (
       },
     },
   };
+
   const buildTimeChartOptions = {
     scales: {
       x: {
@@ -156,9 +185,13 @@ const FormatData = (
         },
       },
     },
+
     plugins: {
+      title: {
+        display: true,
+        text: 'Build Time',
+      },
       tooltip: {
-        //  TODO on hover over data point, show date (needs TS support)
         callbacks: {
           label(context: { dataIndex: number }): string {
             const labelDataIndex = context.dataIndex;
@@ -176,24 +209,42 @@ const FormatData = (
   return { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions };
 };
 
+/**
+ * @typeParam buildsInfo - object that follows {@link buildsInfo}
+ */
 interface LineChartProps {
   buildsInfo: BuildInfo[];
 }
+/**
+ * function to render the line chart
+ * @param props - takes in from {@link LineChartProps}
+ * @returns JSX.Element
+ */
 function LineChart({ buildsInfo }: LineChartProps): JSX.Element {
   const buildSizeArray = buildsInfo.map((build: BuildInfo) => build.buildSize);
   const createdAtArray = buildsInfo.map((build: BuildInfo) => build.createdAt);
   const buildTimeArray = buildsInfo.map((build: BuildInfo) => build.buildTime);
+
   const { chartData, chartOptions, buildTimeChartData, buildTimeChartOptions } =
     FormatData(buildSizeArray, createdAtArray, buildTimeArray);
   return (
-    <div>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        overflow: { xs: 'hidden', sm: 'auto' },
+      }}
+    >
       <Line className="line-chart" data={chartData} options={chartOptions} />
+      <Divider sx={{ color: 'primary.main', mt: '1.5vh', mb: '1.5vh' }} />
       <Line
         className="line-chart"
         data={buildTimeChartData}
         options={buildTimeChartOptions}
       />
-    </div>
+    </Box>
   );
 }
 
