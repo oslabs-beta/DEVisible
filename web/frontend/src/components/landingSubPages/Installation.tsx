@@ -134,6 +134,7 @@ function Installation() {
           id="nextSteps"
           sx={{
             backgroundColor: theme.palette.primary.main,
+            color: 'white',
             marginTop: '2%',
             width: '10%',
             [theme.breakpoints.between('sm', 'lg')]: {

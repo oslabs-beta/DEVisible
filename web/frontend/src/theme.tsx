@@ -33,6 +33,11 @@ const theme = createTheme({
       main: red.A400,
       // main: '#DB5461',
     },
+    action: {
+      // disabledBackground: '#BFC0C0',
+      // disabled: 'set color of text here',
+      // disabledOpacity: 0.1,
+    },
   },
   spacing: 4,
   breakpoints: {
