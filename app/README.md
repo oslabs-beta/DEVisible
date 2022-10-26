@@ -1,6 +1,6 @@
 # **DEVisible**
 
-DEVisible is an open source tool for monitoring metadata related to your Github repositories.
+[DEVisible](https://devisible.app/) is an open source tool for monitoring metadata related to your Github repositories.
 
 DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information. There are two components that make up the DEVisible application, which are detailed separately below.
 
@@ -8,36 +8,43 @@ DEVisible was designed with engineering managers and DevOps teams in mind with t
 
 ## Installation and Usage
 
-To install simply run the command `npm install devisible`
+Install the package globally using `npm install -g devisible`.
 
-### When using through the CLI:
+### When using in your local terminal:
 
-Run command to manually collect repo metadata (note: this will not necessarily reflect the data at the time of pushing to Github)
+Run command to manually collect repo metadata (note: this will not necessarily reflect the data at the time of pushing to Github).
 
-`node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"`
+`npx devisible --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"`
 
-**Note**: DEVisible assumes that it is being run from the project root directory, therefore please follow the following:
+**Note**: DEVisible assumes that it is being run from both the node package root as well as the Git repository root. If either of these are not the case, you must pass in the path to the Git root or the path to package.json manually.
 
-- devisible must either be run from the git root or passed in a valid git root as an cli argument
-- devisible must either be run from the npm package root or passed in a valid path to package.json
-- run devisible -h to see help for how to pass this info
+Run `npx devisible -h` to see help for how to pass this info.
 
-### When using through the GitHub Actions:
+### When using with GitHub Actions:
 
-Insert a new command into config.yaml file at the desired location
+Insert a `.yml` file in `.github/workflows` into your project's root. Make an account on the [DEVisible Website](https://devisible.app), copy your API Key from your account page, and add it as a [GitHub Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) on your repo.
+
+This is an example YAML file to run DEVisible on every push through GitHub Actions, your needs may vary.
 
 ```jobs:
-  build:
-    steps:
-      - checkout
-      - run:
-          name: Lint
-          command: |
-            eslint run
-      - run:
-          name: DEVisible
-          command: |
-            node devisible.js --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"
+on: push
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v3
+        - name: Setup Node
+          uses: actions/setup-node@v3
+        - name: Install dependencies
+          run: npm ci
+        - name: Install DEVisible package
+          run: npm i -g devisible
+        - name: Run DEVisible NPM package
+          env:
+            API_KEY: ${{ secrets.devisibleKey }}
+          run: |
+            npx devisible --apiKey "$API_KEY" --buildPath client/dist --command "npm run build"
 ```
 
-Navigate to [DEVisible](https://devisible.app/) or run an instance of the [application](<[GitHub](https://github.com/oslabs-beta/DEVisible)>) locally and log in to view your updated repository information.
+Navigate to [DEVisible](https://devisible.app/) and log in to view your updated repository information.
