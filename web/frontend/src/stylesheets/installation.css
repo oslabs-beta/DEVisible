@@ -43,6 +43,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-top: 3%;
+  justify-self: center;
 }
 
 img {
@@ -65,4 +66,25 @@ a:hover {
 #nextSteps {
   justify-self: center;
   align-self: start;
+}
+
+#gaCodeBlock {
+  font-size: 0.9em;
+}
+
+#registerGif {
+  margin-top: 2%;
+  height: 100%;
+  width: 100%;
+}
+
+#or {
+  width: 100%;
+  font-weight: 700;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#globalInstallDemo {
+  margin-top: 2%;
 }

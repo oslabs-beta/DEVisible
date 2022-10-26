@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Box, Divider, Paper, Typography, Switch } from '@mui/material';
 import '../stylesheets/dependency-list.css';
 import AllDependenciesList from './AllDependenciesList';
 import MasterDependenciesList from './MasterDependenciesList';
 import { AllDependenciesBuilds, AddedTrackedDependency } from '../types';
 import { getUserDeps, postUserDepPrefs } from './api/user';
+import theme from '../theme';
 import Loader from './Loader';
 
 /**
@@ -18,9 +19,13 @@ function MasterDependencies() {
   const [allDependencies, setAllDependencies] = useState<
     null | AllDependenciesBuilds[]
   >(null);
+  const [listView, setListView] = useState(false);
 
   const [loading, setLoading] = useState<boolean>();
-
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const handleSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setListView(event.target.checked);
+  };
   /**
    * function to add dependencies to the tracked dependencies list
    * @param dependencyToAdd - dependency to add to tracked dependencies list
@@ -67,6 +72,16 @@ function MasterDependencies() {
     }
   };
 
+  console.log('width', windowWidth, theme.breakpoints.values.md);
+  React.useEffect(() => {
+    const handleResizeWindow = () => setWindowWidth(window.innerWidth);
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      // unsubscribe "onComponentDestroy"
+      // window.removeEventListener('resize', handleResizeWindow);
+    };
+  }, []);
   // check if user has dependencies to render
   useEffect(() => {
     (async () => {
@@ -95,12 +110,60 @@ function MasterDependencies() {
         <Box sx={{ alignSelf: 'center' }}>
           <Loader color="blue" />
         </Box>
+      ) : windowWidth < 900 ? (
+        <Paper
+          className="dependencies-list-parent-container-mobile"
+          elevation={3}
+        >
+          <Box className="dependencies-container-header-mobile">
+            <Box className="header-item-mobile">
+              <Typography sx={{ color: 'black', textAlign: 'center' }}>
+                {!listView ? (
+                  <strong>Tracked Dependencies</strong>
+                ) : (
+                  'Tracked Dependencies'
+                )}
+              </Typography>
+            </Box>
+
+            <Box className="header-item-slider">
+              <Switch onChange={handleSlider} />
+            </Box>
+            <Box className="header-item-mobile">
+              <Typography sx={{ color: 'black', textAlign: 'center' }}>
+                {listView ? (
+                  <strong>All Dependencies</strong>
+                ) : (
+                  'All Dependencies'
+                )}
+              </Typography>
+            </Box>
+          </Box>
+          <Divider />
+          {!listView ? (
+            <Box className="list-of-tracked-dependencies">
+              <MasterDependenciesList
+                dependencyPrefs={dependencyPrefs}
+                handleDeleteTrackedDependency={handleDeleteTrackedDependency}
+                handleUpdateVersion={handleUpdateVersion}
+              />
+            </Box>
+          ) : (
+            <Box className="list-of-all-dependencies">
+              <AllDependenciesList
+                allDependencies={allDependencies}
+                handleAddToTrackedDependencies={handleAddToTrackedDependencies}
+              />
+            </Box>
+          )}
+        </Paper>
       ) : (
         <Paper className="dependencies-list-parent-container" elevation={3}>
           <Box className="dependencies-child-container">
-            <Typography color="black" className="dependencies-container-header">
-              Tracked Dependencies
-            </Typography>
+            <Box className="dependencies-container-header">
+              <Typography color="black">Tracked Dependencies</Typography>
+            </Box>
+
             <Divider />
             <Box className="list-of-tracked-dependencies">
               <MasterDependenciesList
@@ -111,9 +174,9 @@ function MasterDependencies() {
             </Box>
           </Box>
           <Box className="dependencies-child-container">
-            <Typography color="black" className="dependencies-container-header">
-              All Dependencies
-            </Typography>
+            <Box className="dependencies-container-header">
+              <Typography color="black">All Dependencies</Typography>
+            </Box>
             <Divider />
             <Box className="list-of-all-dependencies">
               <AllDependenciesList

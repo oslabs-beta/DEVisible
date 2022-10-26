@@ -89,7 +89,11 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
     <Box className="accountContainer">
       <StyledBox
         className="accountInfo"
-        sx={{ backgroundColor: 'primary.main' }}
+        sx={{
+          backgroundColor: 'primary.main',
+          maxWidth: '600px',
+          maxHeight: '400px',
+        }}
       >
         <h2 style={{ color: `${theme.palette.primary.light}` }}>
           Hello {user.username}!
@@ -98,7 +102,10 @@ function Account({ user, setUser }: AccountProps): JSX.Element {
         {token ? (
           <div
             className="tokenInfo"
-            style={{ color: `${theme.palette.primary.light}` }}
+            style={{
+              marginTop: '2vh',
+              color: `${theme.palette.primary.light}`,
+            }}
           >
             <strong>API Token: </strong>
             {token}

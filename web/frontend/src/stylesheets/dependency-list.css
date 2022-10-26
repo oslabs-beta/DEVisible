@@ -16,6 +16,16 @@
   animation-duration: 0.4s;
   animation-iteration-count: 1;
 }
+.dependencies-list-parent-container-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 90%;
+  height: 80%;
+  animation-name: growWidthOnLoad;
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+}
 
 @keyframes growWidthOnLoad {
   0% {
@@ -28,27 +38,60 @@
 
 .dependencies-child-container {
   width: 50%;
-  margin: 1%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* margin: 1%; */
+}
+.dependencies-child-mobile {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .dependencies-container-header {
+  /* background-color: green; */
+  margin: 1.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  /* width: 100%; */
+  min-height: 7%;
+}
+.dependencies-container-header-mobile {
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* min-: 7%; */
   width: 100%;
-  height: 7%;
+}
+.header-item-mobile {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+}
+.header-item-slider {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
 }
 
 .list-of-all-dependencies {
-  margin-top: 1%;
+  margin: 1% 0;
   width: 100%;
-  height: 90%;
   overflow: auto;
 }
 .list-of-tracked-dependencies {
-  margin-top: 1%;
+  margin: 1% 0;
   width: 100%;
-  height: 90%;
-  overflow: auto;
+  overflow-y: auto;
 }
 /* width */
 .list-of-tracked-dependencies::-webkit-scrollbar {

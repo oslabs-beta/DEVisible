@@ -4,7 +4,11 @@ import { Box } from '@mui/material';
 import '../stylesheets/landing.css';
 import { useInView } from 'react-intersection-observer';
 import { StyledSideBar } from './styledComponents/StyledComponents';
-import { GetStarted, Installation, HowToUse } from './landingSubPages/Exporter';
+import {
+  GetStarted,
+  CommandLineInstructions,
+  HowToUse,
+} from './landingSubPages/Exporter';
 import theme from '../theme';
 
 /**
@@ -17,7 +21,7 @@ function Landing() {
   return (
     <Box id="landingContainer" bgcolor="white">
       <GetStarted />
-      <Installation />
+      <CommandLineInstructions />
       <HowToUse />
       {!footerRefIsVisible && (
         <StyledSideBar

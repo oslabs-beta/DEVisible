@@ -164,16 +164,6 @@ function Login({ user, setUser }: Props) {
               Sign Up
             </Link>
           </div>
-          {/* DID NOT HAVE TIME TO IMPLEMENT FORGOT PASSWORD FUNCTIONALITY
-          <div className="recoveryRedirect">
-            <p>Forgot your password?</p>
-            <Link
-              to="/recovery"
-              style={{ color: `${theme.palette.secondary.main}` }}
-            >
-              Help Me DEVs!
-            </Link>
-          </div> */}
         </div>
       </Box>
     </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Always from '../assets/Always-Has-Been.png';
 import { User } from '../types';
+import theme from '../theme';
 import '../stylesheets/notfound.css';
 
 /**
@@ -22,13 +23,34 @@ function NotFound({ user }: NotFoundProps) {
   return (
     <div className="container">
       <h1>404 Page not Found</h1>
-      <p id="text1">Wait it&apos;s all a 404?</p>
-      <p id="text2">Always has been</p>
       <Link className="takeMeBack" to={route}>
         <Button
           sx={{
             padding: '30%',
             borderRadius: '50%',
+            [theme.breakpoints.down('sm')]: {
+              fontSize: '8px',
+              position: 'relative',
+              right: '35px',
+            },
+            [theme.breakpoints.up('sm')]: {
+              fontSize: '14px',
+              position: 'relative',
+              right: '95px',
+              bottom: '65px',
+              width: '200px',
+              height: '200px',
+            },
+            [theme.breakpoints.up('xl')]: {
+              right: '0px',
+            },
+            [theme.breakpoints.only('desktop4k')]: {
+              fontSize: '48px',
+              width: '500px',
+              height: '500px',
+              right: '125px',
+              bottom: '205px',
+            },
           }}
           className="takeMeBack"
           variant="contained"

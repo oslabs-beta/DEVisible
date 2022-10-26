@@ -10,6 +10,7 @@ import {
 import theme from '../../theme';
 import dashboard from '../../assets/dashboard.png';
 import '../../stylesheets/installation.css';
+import RegisterGif from '../../assets/RegisterGif.gif';
 
 function HowToUse() {
   return (
@@ -54,18 +55,25 @@ function HowToUse() {
           }}
         >
           <Grid xs={12} sm={3}>
-            <GridItem>
-              <span>Step 1: </span>
-              <Link
-                to="/signup"
-                style={{
-                  color: `${theme.palette.secondary.dark}`,
-                  fontWeight: '600',
-                }}
-              >
-                Make An Account
-              </Link>
-              <span> to Receive an API Key</span>
+            <GridItem className="instruction" style={{ display: 'grid' }}>
+              <div id="step1Container">
+                <span>Step 1: </span>
+                <Link
+                  to="/signup"
+                  style={{
+                    color: `${theme.palette.secondary.dark}`,
+                    fontWeight: '600',
+                  }}
+                >
+                  Make An Account
+                </Link>
+                <span> to Receive an API Key</span>
+              </div>
+              <img
+                src={RegisterGif}
+                id="registerGif"
+                alt="Gif Showing Users how to Create an Account"
+              />
             </GridItem>
           </Grid>
 
@@ -95,7 +103,12 @@ function HowToUse() {
           </Grid>
 
           <Grid xs={12} sm={6}>
-            <GridItem>
+            <GridItem
+              sx={{
+                display: 'grid',
+                justifyContent: 'center',
+              }}
+            >
               Step 4: Set up your file to install DEVisible through NPM and
               build your application. The below example invokes DEVisible on
               pushes to the &quot;main&quot; branch (your build process will
@@ -104,12 +117,9 @@ function HowToUse() {
                 className="codeBlock2"
                 bgcolor={theme.palette.primary.light}
                 color="black"
-                style={{
-                  fontFamily:
-                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
-                }}
               >
                 <pre
+                  id="gaCodeBlock"
                   style={{
                     fontFamily:
                       'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
@@ -141,7 +151,7 @@ function HowToUse() {
 
           <Grid xs={12} sm={5}>
             <GridItem>
-              Step 5: Configure a
+              Step 5: Configure a{' '}
               <a
                 style={{
                   color: `${theme.palette.secondary.dark}`,
@@ -151,8 +161,10 @@ function HowToUse() {
               >
                 Repository Secret
               </a>{' '}
-              with the name API_KEY, and the value of your DEVisible API key in
-              the repos that you wish to track.
+              with the name of your choice, and the value of your DEVisible API
+              key. This can be done in the global scope of your remote hosting
+              account, or as a repo-scoped secret in each of the repos that you
+              wish to track.
             </GridItem>
           </Grid>
           <Grid xs={12} sm={5}>
