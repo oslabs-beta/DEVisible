@@ -72,15 +72,10 @@ function MasterDependencies() {
     }
   };
 
-  console.log('width', windowWidth, theme.breakpoints.values.md);
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResizeWindow = () => setWindowWidth(window.innerWidth);
     // subscribe to window resize event "onComponentDidMount"
     window.addEventListener('resize', handleResizeWindow);
-    return () => {
-      // unsubscribe "onComponentDestroy"
-      // window.removeEventListener('resize', handleResizeWindow);
-    };
   }, []);
   // check if user has dependencies to render
   useEffect(() => {
@@ -110,7 +105,7 @@ function MasterDependencies() {
         <Box sx={{ alignSelf: 'center' }}>
           <Loader color="blue" />
         </Box>
-      ) : windowWidth < 900 ? (
+      ) : windowWidth < theme.breakpoints.values.md ? (
         <Paper
           className="dependencies-list-parent-container-mobile"
           elevation={3}
