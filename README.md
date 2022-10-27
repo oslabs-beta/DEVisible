@@ -54,15 +54,13 @@ Alternatively, you may clone the DEVisible repository from our GitHub to run the
 
 #### If Using Package in CI/CD Pipeline
 
-1. Add your API key as a [GitHub Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets). This can scoped to the account level, or you can add it to specific repos in which you wish to use DEVisible.
+1. Add your API key as a [GitHub Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets). This can be scoped to the account level, or you can add it to specific repos in which you wish to use DEVisible.
 
-2. Create a `github/workflows` directory in your project's root. If you already have CI/CD configured you can skip this step.
+2. Create a `.github/workflows` directory in your project's root directory. If you already have CI/CD functionality you can skip this step.
 
 3. Create a new `.yml` file in `.github/workflows`.
 
-4. Invoke DEVisible as desired during your build step: 
-
-This is an example YAML file to run DEVisible on every push through GitHub Actions, your needs may vary.
+4. Invoke DEVisible during your build step. This is an example YAML configuration that will run DEVisible on every push through GitHub Actions.
 
 ```jobs:
 on: push
