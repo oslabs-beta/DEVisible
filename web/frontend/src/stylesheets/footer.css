@@ -1,16 +1,14 @@
 .footerContainer {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   position: relative;
-  bottom: 2.5%;
   height: 7vh;
 }
 
 .footerBox {
   display: grid;
+  align-items: center;
   width: 25%;
   min-width: 250px;
   color: #00000099;
@@ -40,7 +38,7 @@
 
 .socials {
   display: flex;
-  height: 80%;
+  height: 100%;
   width: 100%;
   gap: 5px;
   justify-content: center;
@@ -48,16 +46,8 @@
   grid-area: 2/1/3/2;
 }
 
-.twitterLogo {
-  width: 18%;
-  min-width: 18px;
-}
-
-.githubIcon {
-  width: 25px;
-}
-
-.LinkedInLogo {
-  width: 80px;
-  margin-top: 3px;
+@media only screen and (max-width: 380px) {
+  .MuiSvgIcon-root {
+    height: 18px !important;
+  }
 }

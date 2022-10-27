@@ -25,7 +25,7 @@ function GetStarted() {
             DEV<span style={{ color: 'white' }}>isible</span>
           </StyledTitle>
           <StyledSubTitle color="white">
-            Make tracking your microservice architecture a micro-hassle
+            Make tracking your micro-frontend architecture a micro-hassle
           </StyledSubTitle>
         </Box>
         <Box

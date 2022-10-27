@@ -125,7 +125,7 @@ const StyledGrid = styled(Grid)({
     marginTop: '-15%',
   },
   [theme.breakpoints.down('md')]: {
-    marginTop: '-10%',
+    marginTop: '-5%',
   },
 });
 
@@ -134,7 +134,7 @@ const GridItem = styled('div')({
   borderColor: 'black',
   borderRadius: '4px',
   height: '100%',
-  width: '90%',
+  width: 'fit-content',
   padding: '5%',
   fontWeight: '600',
   boxShadow: '5px 5px 5px black',
@@ -177,7 +177,7 @@ const StyledSideBar = styled(Box)({
     height: '5%',
     flexDirection: 'row',
     position: 'fixed',
-    top: '92vh',
+    top: '87vh',
     left: '20vw',
   },
 });
