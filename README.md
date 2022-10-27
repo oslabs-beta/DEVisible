@@ -13,7 +13,9 @@ DEVisible is a tool for monitoring metadata related to your Github repositories.
 3. You will be automatically be logged in and redirected to the dashboard -- click on the hamburger icon in the top right corner of your screen
 4. Click 'Account' on the drop-down menu that appears
 5. Click 'Reveal API Token'
+
 ![API Token Location](web/frontend/src/assets/ApiToken.png)
+
 6. This API key will be used in conjunction with the NPM package (next section)
 
 Alternatively, you may clone the DEVisible repository from our GitHub to run the app locally and customize it to your needs.
