@@ -2,19 +2,18 @@
 
 ## Description
 
-DEVisible is a tool for monitoring metadata related to your Github repositories. DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information. DEVisible was designed to be used in tandem with the [public DEVisible Website](https://devisible.app), but as an Open Source project, you can also run a self-hosted web app.
+DEVisible is a tool for monitoring metadata related to your Github repositories. DEVisible was designed with engineering managers and DevOps teams in mind with the goal of improving efficiency by aggregating and visualizing relevant repository information. DEVisible was designed to be used in tandem with the public [DEVisible Website](https://devisible.app), but as an Open Source project, you can also run a self-hosted web app. Simply clone this repository and modify the code as you see fit.
 
 ## Web Component
 
 #### To begin using DEVisible, you will need an API key. The following steps detail the registration process:
 
-1. Navigate to [devisible.app](https://devisible.app) using your device/browser of choice
-2. Click on the register link that appears on the home page
-3. Enter the required information and click register
-4. You will be automatically be logged in and redirected to the dashboard -- click on the hamburger icon in the top right corner of your screen
-5. Click 'Account' on the drop-down menu that appears
-6. Click 'View API Key'
-7. This API key will be used in conjunction with the NPM package (next section)
+1. Navigate to [www.devisible.app/signup](https://devisible.app/signup) using your device/browser of choice
+2. Enter the required information and click register
+3. You will be automatically be logged in and redirected to the dashboard -- click on the hamburger icon in the top right corner of your screen
+4. Click 'Account' on the drop-down menu that appears
+5. Click 'View API Key'
+6. This API key will be used in conjunction with the NPM package (next section)
 
 #### Dashboard will be dynamically updated as new repos and builds are added using the NPM package
 
@@ -26,25 +25,40 @@ DEVisible is a tool for monitoring metadata related to your Github repositories.
 
 #### Installation steps
 
-1. Install the `devisible` package globally from the NPM Registry:  
+1. Install the `devisible` package from the NPM Registry. This can be done via either:  
 
+* Local Install:
+`npm install devisible`
+
+* Global Install:
 `npm install -g devisible`
 
 2. DEVisible assumes it is being called from the git root and project root, but allows escape hatches if either of those conditions are not the case. Run `npx devisible -h` to see help for how to pass this info.
 
-##### If Using Package Locally
+#### If Using Package From Terminal
 
-3. Pass your project's build command into the DEVisible command line parameter, along with your API key and the path of the build output. 
+1. Pass your project's build command into the DEVisible command line parameter, along with your API key and the path of the build output. **Note:** this will not necessarily reflect the data at the time of pushing to Github, since DEVisible is not being invoked at the time of pushing.
 
+* Local Install:
+`node ./node_modules/devisible --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"`
+
+* Global Install:
 `npx devisible --apiKey api_key_goes_here --buildPath dist/ --command "npm run build"`
 
-##### If Using Package in CI/CD Pipeline
+2. Navigate to the [Web App](www.devisible.app) and log in to view your updated repo information!
 
-3. Add your API key as a [GitHub Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets) on your repo.
+#### If Using Package in CI/CD Pipeline
 
-4. Insert a `.yml` file in `.github/workflows` into your project's root installing and invoking DEVisible as desired during your build step. 
+1. Add your API key as a [GitHub Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets). This can scoped to the account level, or you can add it to specific repos in which you wish to use DEVisible.
+
+2. Create a `github/workflows` directory in your project's root. If you already have CI/CD configured you can skip this step.
+
+3. Create a new `.yml` file in `.github/workflows`.
+
+4. Invoke DEVisible as desired during your build step: 
 
 This is an example YAML file to run DEVisible on every push through GitHub Actions, your needs may vary.
+
 ```jobs:
 on: push
   jobs:
@@ -66,4 +80,4 @@ on: push
             npx devisible --apiKey "$API_KEY" --buildPath client/dist --command "npm run build"
 ```
 
-- Navigate to www.devisible.com and log in to view your updated repo information!
+5. Navigate to the [Web App](www.devisible.app) and log in to view your updated repo information!
