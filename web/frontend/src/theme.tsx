@@ -1,5 +1,6 @@
 import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
+import RobotoBold from './assets/fonts/Roboto-Bold.ttf';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -46,6 +47,9 @@ const theme = createTheme({
       desktop2k: 2560,
       desktop4k: 3840,
     },
+  },
+  typography: {
+    // fontFamily: RobotoBold,
   },
 });
 

@@ -106,6 +106,25 @@
   }
 }
 
+@media only screen and (min-height: 760px) and (max-height: 1000px) {
+  .formBox {
+    max-height: none;
+    height: 600px;
+  }
+  .logo {
+    position: relative;
+    top: -18px;
+    margin-bottom: -15%;
+  }
+  .registerForm {
+    position: relative;
+    bottom: 50px;
+  }
+  .loginRedirect {
+    margin-bottom: 15px;
+  }
+}
+
 @media only screen and (max-height: 470px) {
   .formBox {
     margin-top: 25px;

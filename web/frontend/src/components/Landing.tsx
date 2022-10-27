@@ -37,12 +37,12 @@ function Landing() {
           </div>
           <div className="sidebarItem">
             <Link to="installation" spy smooth offset={0} duration={500}>
-              Installation
+              Running in CLI
             </Link>
           </div>
           <div className="sidebarItem">
             <Link to="howToUse" spy smooth offset={0} duration={500}>
-              How To Use
+              Running in CI/CD
             </Link>
           </div>
         </StyledSideBar>

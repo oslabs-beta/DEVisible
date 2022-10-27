@@ -1,9 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import '../../stylesheets/installation.css';
-import { Button, Divider, Box } from '@mui/material';
+import {
+  Divider,
+  Typography,
+  Box,
+  StepContent,
+  StepLabel,
+  Step,
+  Stepper,
+  Button,
+  Paper,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
-import * as Scroll from 'react-scroll';
+// import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
 import {
   StyledHeader,
@@ -13,8 +23,38 @@ import {
 import theme from '../../theme';
 import RegisterGif from '../../assets/RegisterGif.gif';
 
+const steps = [
+  {
+    label: 'Make an account to receive an API key',
+    // description: `For each ad campaign that you create, you can control how much
+    //           you're willing to spend on clicks and conversions, which networks
+    //           and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Navigate to your Account Page to view your API key',
+    // description:
+    //   'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Install DEVisible',
+    description: `Run npm install devisible inside the root directory of your project(s)`,
+  },
+];
+
 function Installation() {
-  const Scroller = Scroll.Link;
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
   return (
     <Box
@@ -23,6 +63,54 @@ function Installation() {
         backgroundColor: `${theme.palette.secondary.main}`,
       }}
     >
+      {/* <Box>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((step, index) => (
+            <Step key={step.label}>
+              <Button>Here</Button>
+              <StepLabel
+              // optional={
+              //   index === 2 ? (
+              //     <Typography variant="caption">Last step</Typography>
+              //   ) : null
+              // }
+              >
+                {step.label}
+              </StepLabel>
+              <StepContent>
+                <Typography>{step.description}</Typography>
+                <Box sx={{ mb: 2 }}>
+                  <div>
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                    </Button>
+                    <Button
+                      disabled={index === 0}
+                      onClick={handleBack}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      Back
+                    </Button>
+                  </div>
+                </Box>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length && (
+          <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>All steps completed - you&apos;re finished</Typography>
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+              Reset
+            </Button>
+          </Paper>
+        )}
+      </Box> */}
+
       <div className="installContainer">
         <div className="titleContainer">
           <StyledHeader
@@ -131,10 +219,25 @@ function Installation() {
               >
                 npm install -g devisible
               </Box>
+              <p>
+                <span>
+                  For more detailed information please visit our{' '}
+                  <a
+                    href="https://www.npmjs.com/package/devisible"
+                    style={{
+                      color: theme.palette.secondary.main,
+                      stroke: 'black',
+                    }}
+                  >
+                    npm
+                  </a>{' '}
+                  package page
+                </span>
+              </p>
             </GridItem>
           </Grid>
 
-          <Grid xs={12} sm={4}>
+          <Grid xs={12} sm={2}>
             <GridItem className="instruction">
               Step 4: Run from CLI:
               <Box
@@ -147,41 +250,13 @@ function Installation() {
                   fontSize: '1em',
                 }}
               >
-                node <b>PATH_TO_DEVISIBLE</b> --apiKey <b>API_KEY</b>{' '}
-                --buildPath <b>RELATIVE_PATH_TO_BUILD_FOLDER</b> --command{' '}
-                <b>BUILD_COMMAND</b>
-              </Box>
-              <Box
-                className="codeBlock2"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-                style={{
-                  fontFamily:
-                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
-                  fontSize: '1em',
-                }}
-              >
-                node <b>./node_modules/devisible</b> --apiKey <b>acbd_1234</b>{' '}
-                --buildPath <b>/dist</b> --command <b>"npm run build"</b>
-              </Box>
-              <p id="globalInstallDemo">For Global DEVisible Installation:</p>
-              <Box
-                className="codeBlock2"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-                style={{
-                  fontFamily:
-                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
-                  fontSize: '1em',
-                }}
-              >
-                npx <b>devisible</b> --apiKey <b>acbd_1234</b> --buildPath{' '}
-                <b>/dist</b> --command <b>"npm run build"</b>
+                npx devisible --apiKey <i>your-api-key</i> --buildPath{' '}
+                <i>/dist</i> --command <i>"npm run build"</i>
               </Box>
             </GridItem>
           </Grid>
         </StyledGrid>
-        <Button
+        {/* <Button
           variant="contained"
           id="nextSteps"
           sx={{
@@ -205,7 +280,7 @@ function Installation() {
           <Scroller to="howToUse" spy smooth offset={0} duration={500}>
             Next Steps
           </Scroller>
-        </Button>
+        </Button> */}
       </div>
     </Box>
   );

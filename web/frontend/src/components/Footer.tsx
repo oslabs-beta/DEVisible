@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 import '../stylesheets/footer.css';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import theme from '../theme';
@@ -15,8 +16,8 @@ function Footer() {
   return (
     <div className="footerContainer">
       <Box className="footerBox">
-        <div
-          style={{
+        <Box
+          sx={{
             backgroundColor: theme.palette.primary.light,
             borderTopLeftRadius: '30px',
             borderTopRightRadius: '30px',
@@ -25,13 +26,13 @@ function Footer() {
             borderColor: theme.palette.primary.main,
             border: '1px solid',
             display: 'grid',
-            width: '100%',
-            height: '100%',
             gridTemplateRows: '1fr 1fr',
             gridTemplateColumns: '1fr 1fr',
             justifyContent: 'center',
             alignItems: 'center',
-            // opacity: 0.2,
+            [theme.breakpoints.down('sm')]: {
+              height: '45px',
+            },
           }}
         >
           <Link to="/" id="about">
@@ -49,24 +50,55 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GitHubIcon />
+              <GitHubIcon
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    width: '18px',
+                  },
+                }}
+              />
             </a>
             <a
               href="https://www.linkedin.com/company/devisible/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <LinkedInIcon />
+              <LinkedInIcon
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    width: '18px',
+                  },
+                }}
+              />
             </a>
             <a
               href="https://twitter.com/DEVisible_app"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <TwitterIcon />
+              <TwitterIcon
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    width: '18px',
+                  },
+                }}
+              />
+            </a>
+            <a
+              href="https://devisible-app.medium.com/devisible-making-micro-frontend-repository-management-and-devops-a-micro-hassle-39a159daa5f9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <NewspaperIcon
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    width: '18px',
+                  },
+                }}
+              />
             </a>
           </div>
-        </div>
+        </Box>
       </Box>
     </div>
   );
