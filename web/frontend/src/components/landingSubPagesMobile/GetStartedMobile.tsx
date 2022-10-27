@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  Button,
-  Divider,
-  Box,
-  Typography,
-  IconButton,
-  Paper,
-} from '@mui/material';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Link } from 'react-scroll';
-import theme from '../../theme';
-import RepoTile from '../../assets/RepoTile.png';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
 import '../../stylesheets/get-started-mobile.css';
 import TransparentOrange from '../../assets/Transparent_Orange.svg';
+
 function GetStartedMobile() {
   return (
     <Paper

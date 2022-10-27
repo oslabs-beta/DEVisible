@@ -1,18 +1,9 @@
 import React from 'react';
-import {
-  Button,
-  Divider,
-  Box,
-  Typography,
-  IconButton,
-  Paper,
-  PaperProps,
-  ListItem,
-} from '@mui/material';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Link } from 'react-scroll';
-import theme from '../../theme';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
+import theme from '../../theme';
 import '../../stylesheets/built-by-developers.css';
 import PlotsDev from '../../assets/PlotsDev.gif';
 import RedRepo from '../../assets/RedRepo.gif';
@@ -62,7 +53,7 @@ function Item({ name, image }: CarouselItemProps) {
   );
 }
 function BuiltByDevelopersMobile() {
-  var items = [
+  const items = [
     {
       name: 'Track build times and build size',
       image: PlotsDev,
@@ -116,7 +107,11 @@ function BuiltByDevelopersMobile() {
             }}
           >
             {items.map((item, i) => (
-              <Item key={i} name={item.name} image={item.image} />
+              <Item
+                key={item.name + i.toString()}
+                name={item.name}
+                image={item.image}
+              />
             ))}
           </Carousel>
         </Box>

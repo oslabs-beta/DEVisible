@@ -1,17 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import '../../stylesheets/installation.css';
-import {
-  Divider,
-  Typography,
-  Box,
-  StepContent,
-  StepLabel,
-  Step,
-  Stepper,
-  Button,
-  Paper,
-} from '@mui/material';
+import { Divider, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 // import * as Scroll from 'react-scroll';
 import Grid from '@mui/system/Unstable_Grid';
@@ -23,39 +13,7 @@ import {
 import theme from '../../theme';
 import RegisterGif from '../../assets/RegisterGif.gif';
 
-const steps = [
-  {
-    label: 'Make an account to receive an API key',
-    // description: `For each ad campaign that you create, you can control how much
-    //           you're willing to spend on clicks and conversions, which networks
-    //           and geographical locations you want your ads to show on, and more.`,
-  },
-  {
-    label: 'Navigate to your Account Page to view your API key',
-    // description:
-    //   'An ad group contains one or more ads which target a shared set of keywords.',
-  },
-  {
-    label: 'Install DEVisible',
-    description: `Run npm install devisible inside the root directory of your project(s)`,
-  },
-];
-
 function Installation() {
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   return (
     <Box
       className="installation"
@@ -63,54 +21,6 @@ function Installation() {
         backgroundColor: `${theme.palette.secondary.main}`,
       }}
     >
-      {/* <Box>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={step.label}>
-              <Button>Here</Button>
-              <StepLabel
-              // optional={
-              //   index === 2 ? (
-              //     <Typography variant="caption">Last step</Typography>
-              //   ) : null
-              // }
-              >
-                {step.label}
-              </StepLabel>
-              <StepContent>
-                <Typography>{step.description}</Typography>
-                <Box sx={{ mb: 2 }}>
-                  <div>
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                    </Button>
-                    <Button
-                      disabled={index === 0}
-                      onClick={handleBack}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      Back
-                    </Button>
-                  </div>
-                </Box>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} sx={{ p: 3 }}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              Reset
-            </Button>
-          </Paper>
-        )}
-      </Box> */}
-
       <div className="installContainer">
         <div className="titleContainer">
           <StyledHeader
@@ -256,31 +166,6 @@ function Installation() {
             </GridItem>
           </Grid>
         </StyledGrid>
-        {/* <Button
-          variant="contained"
-          id="nextSteps"
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            color: 'white',
-            marginTop: '2%',
-            width: '10%',
-            [theme.breakpoints.between('sm', 'lg')]: {
-              width: '12%',
-              marginTop: '5%',
-              fontSize: '1.5em',
-              padding: '1.5% 1%',
-            },
-            [theme.breakpoints.down('sm')]: {
-              width: '150px',
-              height: '40%',
-              marginTop: '1.5%',
-            },
-          }}
-        >
-          <Scroller to="howToUse" spy smooth offset={0} duration={500}>
-            Next Steps
-          </Scroller>
-        </Button> */}
       </div>
     </Box>
   );
