@@ -64,23 +64,23 @@ Alternatively, you may clone the DEVisible repository from our GitHub to run the
 
 ```jobs:
 on: push
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - name: Install dependencies
-          run: npm ci
-        - name: Install DEVisible package
-          run: npm i -g devisible
-        - name: Run DEVisible NPM package
-          env:
-            API_KEY: ${{ secrets.devisibleKey }}
-          run: |
-            npx devisible --apiKey "$API_KEY" --buildPath client/dist --command "npm run build"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Install DEVisible package
+        run: npm i -g devisible
+      - name: Run DEVisible NPM package
+        env:
+          API_KEY: ${{ secrets.devisibleKey }}
+        run: |
+          npx devisible --apiKey "$API_KEY" --buildPath client/dist --command "npm run build"
 ```
 
 5. Perform the action that will trigger the workflow that invokes DEVisible (e.g., push, merge)
