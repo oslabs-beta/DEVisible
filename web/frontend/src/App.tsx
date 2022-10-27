@@ -40,7 +40,7 @@ function App(): JSX.Element {
           setUser(null);
         }
       })
-      .catch((err) => console.error(err));
+      .catch(() => setUser(null));
   }, []);
 
   return (
