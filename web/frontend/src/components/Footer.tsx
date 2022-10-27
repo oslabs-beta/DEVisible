@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 import '../stylesheets/footer.css';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import theme from '../theme';
@@ -76,6 +77,19 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <TwitterIcon
+                sx={{
+                  [theme.breakpoints.down('sm')]: {
+                    width: '18px',
+                  },
+                }}
+              />
+            </a>
+            <a
+              href="https://devisible-app.medium.com/devisible-making-micro-frontend-repository-management-and-devops-a-micro-hassle-39a159daa5f9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <NewspaperIcon
                 sx={{
                   [theme.breakpoints.down('sm')]: {
                     width: '18px',
