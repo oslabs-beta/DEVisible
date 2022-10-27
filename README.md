@@ -6,14 +6,17 @@ DEVisible is a tool for monitoring metadata related to your Github repositories.
 
 ## Web Component
 
-#### To begin using DEVisible, you will need an API key. The following steps detail the registration process:
+#### In order to tap into the full potential of DEVisible you must register on the [Web App](https://devisible.app) in order to receive an API Key.
 
 1. Navigate to [www.devisible.app/signup](https://devisible.app/signup) using your device/browser of choice
 2. Enter the required information and click register
 3. You will be automatically be logged in and redirected to the dashboard -- click on the hamburger icon in the top right corner of your screen
 4. Click 'Account' on the drop-down menu that appears
-5. Click 'View API Key'
+5. Click 'Reveal API Token'
+![API Token Location](web/frontend/src/assets/ApiToken.png)
 6. This API key will be used in conjunction with the NPM package (next section)
+
+Alternatively, you may clone the DEVisible repository from our GitHub to run the app locally and customize it to your needs.
 
 #### Dashboard will be dynamically updated as new repos and builds are added using the NPM package
 
@@ -80,4 +83,6 @@ on: push
             npx devisible --apiKey "$API_KEY" --buildPath client/dist --command "npm run build"
 ```
 
-5. Navigate to the [Web App](www.devisible.app) and log in to view your updated repo information!
+5. Perform the action that will trigger the workflow that invokes DEVisible (e.g., push, merge)
+
+6. Navigate to the [Web App](www.devisible.app) and log in to view your updated repo information!
