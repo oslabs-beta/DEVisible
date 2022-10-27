@@ -219,19 +219,21 @@ function Installation() {
               >
                 npm install -g devisible
               </Box>
-              <span>
-                for more detailed information please visit our{' '}
-                <a
-                  href="https://www.npmjs.com/package/devisible"
-                  style={{
-                    color: theme.palette.secondary.main,
-                    stroke: 'black',
-                  }}
-                >
-                  npm
-                </a>{' '}
-                package page
-              </span>
+              <p>
+                <span>
+                  For more detailed information please visit our{' '}
+                  <a
+                    href="https://www.npmjs.com/package/devisible"
+                    style={{
+                      color: theme.palette.secondary.main,
+                      stroke: 'black',
+                    }}
+                  >
+                    npm
+                  </a>{' '}
+                  package page
+                </span>
+              </p>
             </GridItem>
           </Grid>
 
@@ -245,39 +247,11 @@ function Installation() {
                 style={{
                   fontFamily:
                     'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
-                  // fontSize: '1em',
-                }}
-              >
-                node <b>PATH_TO_DEVISIBLE</b> --apiKey <b>API_KEY</b>{' '}
-                --buildPath <b>RELATIVE_PATH_TO_BUILD_FOLDER</b> --command{' '}
-                <b>BUILD_COMMAND</b>
-              </Box>
-              <Box
-                className="codeBlock2"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-                style={{
-                  fontFamily:
-                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
-                  // fontSize: '1em',
-                }}
-              >
-                node <b>./node_modules/devisible</b> --apiKey <b>acbd_1234</b>{' '}
-                --buildPath <b>/dist</b> --command <b>"npm run build"</b>
-              </Box>
-              <p id="globalInstallDemo">For Global DEVisible Installation:</p>
-              <Box
-                className="codeBlock2"
-                bgcolor={theme.palette.primary.light}
-                color="black"
-                style={{
-                  fontFamily:
-                    'Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New',
                   fontSize: '1em',
                 }}
               >
-                npx <b>devisible</b> --apiKey <b>acbd_1234</b> --buildPath{' '}
-                <b>/dist</b> --command <b>"npm run build"</b>
+                npx devisible --apiKey <i>your-api-key</i> --buildPath{' '}
+                <i>/dist</i> --command <i>"npm run build"</i>
               </Box>
             </GridItem>
           </Grid>
