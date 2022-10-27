@@ -32,7 +32,7 @@ function Landing() {
   }, []);
   return (
     <Box>
-      {windowWidth < theme.breakpoints.values.md ? (
+      {windowWidth < 10000 ? (
         <Box>
           <GetStartedMobile />
           <BuiltByDevelopersMobile />

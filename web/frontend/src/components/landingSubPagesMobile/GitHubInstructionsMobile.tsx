@@ -2,12 +2,12 @@ import React from 'react';
 import { Button, Box, Typography, IconButton, Paper } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Link } from 'react-scroll';
-import theme from '../../theme';
+import '../../stylesheets/github-instructions-mobile.css';
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   GitHub as GitHubIcon,
 } from '@mui/icons-material';
-import '../../stylesheets/github-instructions-mobile.css';
+import theme from '../../theme';
 
 interface CarouselItemProps {
   name: string;
@@ -56,13 +56,13 @@ function Item({ name }: CarouselItemProps) {
         endIcon={<GitHubIcon />}
         onClick={openInNewTab}
       >
-        Examples
+        See Docs
       </Button>
     </Paper>
   );
 }
 function GitHubInstructionsMobile() {
-  var items = [
+  const items = [
     {
       name: 'Make an account',
     },
@@ -126,7 +126,7 @@ function GitHubInstructionsMobile() {
             }}
           >
             {items.map((item, i) => (
-              <Item key={i} name={item.name} />
+              <Item key={item.name + i.toString()} name={item.name} />
             ))}
           </Carousel>
         </Box>
