@@ -45,21 +45,36 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
     <Button
       onClick={() => navigate('/login')}
       color="inherit"
-      sx={{ justifySelf: 'end' }}
       className="loginButton"
+      sx={{ justifySelf: 'end' }}
     >
       Login
     </Button>
   ) : (
-    <Box sx={{ justifySelf: 'end' }}>
+    <Box style={{ justifySelf: 'end' }}>
       <DropMenu handleLogout={handleLogout} />
     </Box>
   );
 
   return (
     <Box>
-      <AppBar position="static" style={{ height: '7vh' }}>
-        <Toolbar sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
+      <AppBar
+        position="static"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          minHeight: '7vh',
+          maxHeight: '7vh',
+        }}
+      >
+        <Toolbar
+          sx={{
+            minHeight: '7vh',
+            maxHeight: '7vh',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+          }}
+        >
           <Box>
             {user && (
               <strong
@@ -72,18 +87,15 @@ function Navbar({ user, setUser }: NavProps): JSX.Element {
           </Box>
           <Box
             sx={{
-              display: 'grid',
-              justifySelf: 'center',
+              display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
-              height: '100%',
-              width: '100%',
-              marginBottom: '10px',
             }}
           >
             <img
               className="navbar-icon"
               style={{
-                justifySelf: 'center',
+                justifyContent: 'center',
                 cursor: user ? 'pointer' : 'default',
               }}
               src={TransparentOrange}

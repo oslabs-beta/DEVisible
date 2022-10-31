@@ -80,7 +80,11 @@ function RepoItemDetails({
         open={open}
         onClose={handleClose}
         PaperProps={{
-          sx: { borderRadius: '5px', width: '50%', height: '70vh' },
+          sx: {
+            borderRadius: '5px',
+            height: { xs: '80%', md: '75%', desktopfullhd: '60%' },
+            width: { xs: '95%', md: '75%', desktopfullhd: '50%' },
+          },
         }}
       >
         <DialogTitle>{repoName}</DialogTitle>

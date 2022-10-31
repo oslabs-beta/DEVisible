@@ -1,5 +1,19 @@
 import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
+import RobotoBold from './assets/fonts/Roboto-Bold.ttf';
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xs: true; // removes the `xs` breakpoint
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    desktopfullhd: true;
+    desktop2k: true;
+    desktop4k: true;
+  }
+}
 
 // A custom theme for this app
 const theme = createTheme({
@@ -22,6 +36,21 @@ const theme = createTheme({
     },
   },
   spacing: 4,
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+      desktopfullhd: 1920,
+      desktop2k: 2560,
+      desktop4k: 3840,
+    },
+  },
+  typography: {
+    // fontFamily: RobotoBold,
+  },
 });
 
 export default theme;

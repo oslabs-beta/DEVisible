@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Autocomplete, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { GetUserInfo } from '../types';
 
 const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   color: theme.palette.primary.main,
