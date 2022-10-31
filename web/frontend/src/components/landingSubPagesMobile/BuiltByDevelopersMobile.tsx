@@ -105,6 +105,7 @@ function BuiltByDevelopersMobile() {
               alignItems: 'center',
               margin: '2.5vw',
             }}
+            navButtonsAlwaysVisible
           >
             {items.map((item, i) => (
               <Item

@@ -1,4 +1,4 @@
-.getStartedMobileContainer{
+.getStartedMobileContainer {
   height: 93vh;
   display: flex;
   flex-direction: column;
@@ -6,11 +6,10 @@
   align-items: center;
   text-align: center;
 }
-.getStartedMobileImageContainer{
+.getStartedMobileImageContainer {
   margin-bottom: 20px;
-
 }
-.getStartedMobileTitle{
+.getStartedMobileTitle {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,3 +23,16 @@
   animation-iteration-count: 1;
 }
 
+.sectionText {
+  margin: 5% 20% 0% 20% !important;
+  font-size: 1.75em !important;
+}
+
+@media only screen and (min-width: 1000px) {
+  .getStartedMobileTitle {
+    width: 95vw !important;
+  }
+  #subTitle {
+    font-size: 2.5em;
+  }
+}
