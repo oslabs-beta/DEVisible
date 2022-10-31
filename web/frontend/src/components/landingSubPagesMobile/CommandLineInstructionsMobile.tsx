@@ -105,7 +105,8 @@ function CommandLineInstructionsMobile() {
             </Typography>
           </Box>
           <Carousel
-            autoPlay={false}
+            autoPlay
+            interval={2000}
             sx={{
               justifySelf: 'center',
               display: 'flex',
@@ -114,6 +115,7 @@ function CommandLineInstructionsMobile() {
               alignItems: 'center',
               margin: '2.5vw',
             }}
+            navButtonsAlwaysVisible
           >
             {items.map((item, i) => (
               <Item key={item.name + i.toString()} name={item.name} />

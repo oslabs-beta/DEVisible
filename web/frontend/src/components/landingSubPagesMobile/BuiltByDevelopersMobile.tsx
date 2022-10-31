@@ -45,6 +45,7 @@ function Item({ name, image }: CarouselItemProps) {
           width: 'auto',
           borderRadius: '15px',
           mb: '10%',
+          [theme.breakpoints.up('md')]: { paddingBottom: '3%' },
         }}
         alt={name}
         src={image}
