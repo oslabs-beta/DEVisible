@@ -34,7 +34,7 @@ function Landing() {
     <Box>
       {windowWidth < 10000 ? (
         <Box>
-          <GetStartedMobile />
+          <GetStartedMobile viewWidth={windowWidth} />
           <BuiltByDevelopersMobile />
           <GitHubInstructionsMobile />
           <CommandLineInstructionsMobile />

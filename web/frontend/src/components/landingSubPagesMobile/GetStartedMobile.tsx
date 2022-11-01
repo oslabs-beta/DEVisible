@@ -2,10 +2,16 @@ import React from 'react';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Link } from 'react-scroll';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
+import { StyledParagraph } from '../styledComponents/StyledComponents';
 import '../../stylesheets/get-started-mobile.css';
 import TransparentOrange from '../../assets/Transparent_Orange.svg';
+import theme from '../../theme';
 
-function GetStartedMobile() {
+interface GetStartedProps {
+  viewWidth: number;
+}
+
+function GetStartedMobile({ viewWidth }: GetStartedProps) {
   return (
     <Paper
       className="getStartedMobileContainer"
@@ -19,13 +25,29 @@ function GetStartedMobile() {
           alignItems: 'center',
         }}
       >
-        <Box className="getStartedMobileTitle" sx={{ bgcolor: 'primary.main' }}>
+        <Box
+          className="getStartedMobileTitle"
+          sx={{
+            bgcolor: 'primary.main',
+            [theme.breakpoints.up('md')]: { width: '100%' },
+          }}
+        >
           <Box className="getStartedMobileImageContainer">
             <img src={TransparentOrange} alt="DEVisible" />
           </Box>
-          <Typography color="white">
+          <Typography color="white" id="subTitle">
             Make tracking your micro-frontend architecture a micro-hassle
           </Typography>
+          {viewWidth > 1600 && (
+            <StyledParagraph className="sectionText">
+              As micro-frontend architectures rise to prominence so do the
+              problems with tracking such complex systems. <br /> Introducing
+              DEVisible, a monitoring tool that works alongside your testing,
+              build, and deployment process to produce powerful visualizations
+              on crucial metadata for your DevOps teams to make profitable
+              time-saving decisions.
+            </StyledParagraph>
+          )}
         </Box>
       </Box>
       <Box

@@ -45,6 +45,7 @@ function Item({ name, image }: CarouselItemProps) {
           width: 'auto',
           borderRadius: '15px',
           mb: '10%',
+          [theme.breakpoints.up('md')]: { paddingBottom: '3%' },
         }}
         alt={name}
         src={image}
@@ -105,6 +106,7 @@ function BuiltByDevelopersMobile() {
               alignItems: 'center',
               margin: '2.5vw',
             }}
+            navButtonsAlwaysVisible
           >
             {items.map((item, i) => (
               <Item

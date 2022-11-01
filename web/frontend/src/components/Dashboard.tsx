@@ -34,7 +34,7 @@ function Dashboard({ user }: Props): JSX.Element {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (user === undefined) return;
     (async () => {
       const response = await getUserInfoApi();
       const [preferredDeps, allDependencies] = await getUserDeps();

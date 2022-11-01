@@ -124,6 +124,7 @@ function GitHubInstructionsMobile() {
               alignItems: 'center',
               margin: '2.5vw',
             }}
+            navButtonsAlwaysVisible
           >
             {items.map((item, i) => (
               <Item key={item.name + i.toString()} name={item.name} />
