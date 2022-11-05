@@ -1,5 +1,6 @@
 .getStartedMobileContainer {
   height: 93vh;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +16,7 @@
   justify-content: center;
   align-items: center;
   width: 95%;
+  max-width: 70em;
   height: 85vh;
   padding: 7.5%;
   border-radius: 25px;
