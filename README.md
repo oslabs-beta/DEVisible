@@ -85,4 +85,4 @@ jobs:
 
 5. Perform the action that will trigger the workflow that invokes DEVisible (e.g., push, merge)
 
-6. Navigate to the [Web App](www.devisible.app) and log in to view your updated repo information!
+6. Navigate to the [Web App](https://devisible.app/) and log in to view your updated repo information!
